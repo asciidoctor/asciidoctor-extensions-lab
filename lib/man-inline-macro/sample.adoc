@@ -1,0 +1,3 @@
+= Man Inline Macro Extension
+
+See man:gittutorial[7] to get started.
