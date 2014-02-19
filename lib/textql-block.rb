@@ -3,8 +3,11 @@ require 'asciidoctor/extensions'
 
 include ::Asciidoctor
 
-# A block that queries the CSV content in the block and
-# generates an AsciiDoc table with the results.
+# A block that queries the CSV content in the block using textql
+# (https://github.com/dinedal/textql) and generates an AsciiDoc table with the
+# results.
+#
+# The textql command must be available on your PATH.
 #
 # Usage
 #
