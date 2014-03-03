@@ -1,6 +1,8 @@
 require 'asciidoctor'
 require 'asciidoctor/extensions'
 require_relative 'xml_entity_mapper'
+# or use htmlentities gem
+#require 'htmlentities'
 
 include ::Asciidoctor
 
@@ -20,5 +22,9 @@ class XmlEntityPostprocessor < Extensions::Postprocessor
 
   def process document, output
     output.gsub(NamedEntityRx) { XmlEntityMapper.named_to_decimal $& }
+
+    # or when using htmlentities gem
+    #transcoder = HTMLEntities.new :xhtml1
+    #output.gsub(NamedEntityRx) { transcoder.encode transcoder.decode($&), :basic, :decimal }
   end
 end
