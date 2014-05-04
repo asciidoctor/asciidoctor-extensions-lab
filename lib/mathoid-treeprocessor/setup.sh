@@ -21,4 +21,9 @@ fi
 # cd mathoid
 # phantomjs main.js
 #
-# Press Ctrl+C if you see no errors.
+# Then visit the following URL in your browser:
+#
+# http://localhost:16000/?q=x^2&type=asciimath
+#
+# You should see x to the power of 2 rendered.
+# Press Ctrl+C when you are done.
