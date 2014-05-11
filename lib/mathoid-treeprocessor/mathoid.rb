@@ -28,6 +28,7 @@ class Mathoid
 
   ViewBoxAttrRx = / viewBox="([^"]+)"/
   VacuumStyleAttrRx = /\A<svg (?:(.+) )?style="[^"]+"/
+  VacuumHrefAttrRx = / href="[^"]+"/
   TagBoundaryRx = /(?<!\A)(<(\w+)[^>]*><\/\2>|<\w+[^>]*>|<\/\w+>)/
   TransformMatrixRx = /<g (.+ )?transform="matrix\(((?:\S+ ){4})\S+ \S+\)"/
   ColorRx = /<g stroke="[^"]+" fill="[^"]+"/
@@ -71,6 +72,7 @@ class Mathoid
   def postprocess_svg_data data, opts = {}
     data = data.
         sub(VacuumStyleAttrRx, '<svg \1').
+        gsub(VacuumHrefAttrRx, '').
         gsub(TagBoundaryRx, %(\n\\1))
 
     viewBox = (data.match(ViewBoxAttrRx)[1].split ' ').map &:to_f
