@@ -14,7 +14,7 @@ fi
 if [ ! -d mathoid ]; then
   #git clone --recursive https://github.com/gwicke/mathoid
   #git clone -b integration --recursive https://github.com/mojavelinux/mathoid
-  git clone --recursive https://git.wikimedia.org/git/mediawiki/services/mathoid.git
+  git clone --branch debian/0.2.4 --recursive https://git.wikimedia.org/git/mediawiki/services/mathoid.git
 fi
 
 # Make sure you can run the following command:
