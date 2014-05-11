@@ -13,7 +13,8 @@ fi
 
 if [ ! -d mathoid ]; then
   #git clone --recursive https://github.com/gwicke/mathoid
-  git clone -b integration --recursive https://github.com/mojavelinux/mathoid
+  #git clone -b integration --recursive https://github.com/mojavelinux/mathoid
+  git clone --recursive https://git.wikimedia.org/git/mediawiki/services/mathoid.git
 fi
 
 # Make sure you can run the following command:
@@ -27,3 +28,11 @@ fi
 #
 # You should see x to the power of 2 rendered.
 # Press Ctrl+C when you are done.
+#
+# If you want to use the STIX-Web fonts to render the math,
+# add the following property to the MathJax configuration in mathoid/index.html:
+#
+#   SVG: {
+#     font: 'STIX-Web'
+#   }
+#
