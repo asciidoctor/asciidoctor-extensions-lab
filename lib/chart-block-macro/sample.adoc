@@ -1,0 +1,3 @@
+= Chart Block Macro Extension
+
+chart::line[data-uri="sample.csv"]
