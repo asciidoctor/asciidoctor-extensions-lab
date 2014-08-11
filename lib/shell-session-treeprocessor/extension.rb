@@ -12,7 +12,7 @@ include ::Asciidoctor
 #   $ gem install asciidoctor
 #
 class ShellSessionTreeprocessor < Extensions::Treeprocessor
-  def process document, phase
+  def process document
     return unless document.blocks?
     process_blocks document
     nil
