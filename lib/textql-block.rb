@@ -33,8 +33,8 @@ Extensions.register :textql {
       cmd = %(echo "#{reader.source}" | /home/dallen/opt/gocode/bin/textql#{input_header ? ' -header' : nil} -sql "#{attrs.delete 'query'}")
       result_lines = %x(#{cmd}).chomp.split "\n"
       result_lines.unshift *[output_header, ''] if output_header
-      result_lines.unshift ",==="
-      result_lines << ",==="
+      result_lines.unshift ',==='
+      result_lines << ',==='
       
       through_attrs = ['id', 'role', 'title'].inject({}) {|collector, key|
         collector[key] = attrs[key] if attrs.has_key? key 
