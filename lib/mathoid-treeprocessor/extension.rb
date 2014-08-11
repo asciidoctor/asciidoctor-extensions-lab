@@ -62,6 +62,7 @@ class MathoidTreeprocessor < Asciidoctor::Extensions::Treeprocessor
       end
       mathoid.stop
     end
+    document
   end
 end
 end

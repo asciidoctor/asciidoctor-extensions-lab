@@ -79,6 +79,7 @@ class Mathoid
     horizontal_shift = 0
     vertical_shift = 0
 
+    # FIXME negative viewbox correction no longer necessary as of prawn-svg 0.16.0
     if viewBox[0] < 0
       horizontal_shift = viewBox[0].abs
       viewBox[0] = 0
