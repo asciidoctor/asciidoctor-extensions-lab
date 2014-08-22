@@ -14,6 +14,7 @@ class TreeBlockMacro < Asciidoctor::Extensions::BlockMacroProcessor
   include_dsl
   named :tree
   def process parent, target, attrs
+    target = parent.sub_attributes target
     maxdepth = (attrs.has_key? 'maxdepth') ? attrs['maxdepth'].to_i : nil
     if maxdepth && maxdepth < 1
       warn 'asciidoctor: maxdepth for tree must be greater than 0'

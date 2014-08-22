@@ -4,4 +4,4 @@
 Here's what's in the lib:
 
 .Contents of lib folder in Asciidoctor gem
-tree::/usr/share/gems/gems/asciidoctor-0.1.4/lib[opts=size]
+tree::{user-home}/projects/asciidoctor/asciidoctor/lib[opts=size]
