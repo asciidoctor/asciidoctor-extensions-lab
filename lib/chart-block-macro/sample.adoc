@@ -1,3 +1,9 @@
 = Chart Block Macro Extension
 
 chart::line[data-uri="sample.csv"]
+
+chart::bar[data-uri="sample.csv"]
+
+chart::step[data-uri="sample.csv"]
+
+chart::spline[data-uri="sample.csv"]

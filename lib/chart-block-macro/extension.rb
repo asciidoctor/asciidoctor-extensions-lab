@@ -1,6 +1,7 @@
 require 'asciidoctor'
 require 'asciidoctor/extensions'
 require 'csv'
+require 'securerandom'
 
 include ::Asciidoctor
 
@@ -15,55 +16,171 @@ class ChartBlockMacro < Extensions::BlockMacroProcessor
 
   named :chart
 
+  # TODO http or https ? asset_uri_scheme ?
+  C3JS_STYLESHEET = '<link href="http://cdnjs.cloudflare.com/ajax/libs/c3/0.3.0/c3.min.css" rel="stylesheet" type="text/css">'
+  D3JS_SCRIPT = '<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js" charset="utf-8"></script>'
+  C3JS_SCRIPT = '<script src="http://cdnjs.cloudflare.com/ajax/libs/c3/0.3.0/c3.min.js"></script>'
+
   def process(parent, target, attrs)
-    c3js_line parent, target, attrs
+    case target
+      when 'bar' then c3js_bar parent, attrs
+      when 'line' then  c3js_line parent, attrs
+      when 'step' then c3js_step parent, attrs
+      when 'spline' then c3js_spline parent, attrs
+      else
+        # By default chart line
+        c3js_line parent, attrs
+    end
   end
 
-  def c3js_line(parent, target, attrs)
+  # c3.js
+
+  def c3js_bar(parent, attrs)
+    data, labels = c3js_prepare_data(attrs, parent)
+    chart_id = get_chart_id
+    chart_div = c3js_create_chart_div(chart_id)
+    chart_generate_script = c3js_chart_bar_script(chart_id, data, labels)
+    html = c3js_html(chart_div, chart_generate_script)
+
+    create_pass_block parent, html, attrs, subs: nil
+  end
+
+  def c3js_line(parent, attrs)
+    data, labels = c3js_prepare_data(attrs, parent)
+    chart_id = get_chart_id
+    chart_div = c3js_create_chart_div(chart_id)
+    chart_generate_script = c3js_chart_line_script(chart_id, data, labels)
+    html = c3js_html(chart_div, chart_generate_script)
+
+    create_pass_block parent, html, attrs, subs: nil
+  end
+
+  def c3js_step(parent, attrs)
+    data, labels = c3js_prepare_data(attrs, parent)
+    chart_id = get_chart_id
+    chart_div = c3js_create_chart_div(chart_id)
+    chart_generate_script = c3js_chart_step_script(chart_id, data, labels)
+    html = c3js_html(chart_div, chart_generate_script)
+
+    create_pass_block parent, html, attrs, subs: nil
+  end
+
+  def c3js_spline(parent, attrs)
+    data, labels = c3js_prepare_data(attrs, parent)
+    chart_id = get_chart_id
+    chart_div = c3js_create_chart_div(chart_id)
+    chart_generate_script = c3js_chart_spline_script(chart_id, data, labels)
+    html = c3js_html(chart_div, chart_generate_script)
+
+    create_pass_block parent, html, attrs, subs: nil
+  end
+
+  def c3js_create_chart_div(chart_id)
+    %(<div id="#{chart_id}"></div>)
+  end
+
+  def get_chart_id
+    # TODO Read from attributes ?
+    'chart' + SecureRandom.uuid
+  end
+
+  def c3js_prepare_data(attrs, parent)
     data = CSV.read(File.join parent.document.base_dir, attrs['data-uri'])
     labels = data[0]
     data.shift
     data.map.with_index do |row, index|
       row.unshift "#{index}"
     end
-    # TODO http or https ? asset_uri_scheme ?
-    c3js_stylesheet = '<link href="http://cdnjs.cloudflare.com/ajax/libs/c3/0.3.0/c3.min.css" rel="stylesheet" type="text/css">'
-    d3js_script = '<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js" charset="utf-8"></script>'
-    c3js_script = '<script src="http://cdnjs.cloudflare.com/ajax/libs/c3/0.3.0/c3.min.js"></script>'
-    # TODO Generate unique id (or read from attributes)
-    chart_id = 'chart1'
-    chart_div = %(<div id="#{chart_id}"></div>)
-    # #{data.to_s}
-    chart_generate_script = %(
-<script type="text/javascript">
-console.log("1");
-window.onload = function() {
-  console.log("2");
-  c3.generate({
-    bindto: '##{chart_id}',
-    data: {
-      columns: #{data.to_s}
-    },
-    axis: {
-      x: {
-        type: 'category',
-        categories: #{labels}
-      }
-    }
-  });
-  console.log("3");
-}
-</script>)
-    html = %(
-    #{c3js_stylesheet}
-    #{d3js_script}
-    #{c3js_script}
-    #{chart_div}
-    #{chart_generate_script}
-    )
-
-    create_pass_block parent, html, attrs, subs: nil
+    return data, labels
   end
+
+  def c3js_chart_bar_script(chart_id, data, labels)
+    %(
+<script type="text/javascript">
+c3.generate({
+  bindto: '##{chart_id}',
+  size: { height: 200 },
+  data: {
+    columns: #{data.to_s},
+    type: 'bar'
+  },
+  axis: {
+    x: {
+      type: 'category',
+      categories: #{labels}
+    }
+  }
+});
+</script>)
+  end
+
+  def c3js_chart_line_script(chart_id, data, labels)
+    %(
+<script type="text/javascript">
+c3.generate({
+  bindto: '##{chart_id}',
+  data: {
+    columns: #{data.to_s}
+  },
+  axis: {
+    x: {
+      type: 'category',
+      categories: #{labels}
+    }
+  }
+});
+</script>)
+  end
+
+  def c3js_chart_step_script(chart_id, data, labels)
+    %(
+<script type="text/javascript">
+c3.generate({
+  bindto: '##{chart_id}',
+  data: {
+    columns: #{data.to_s},
+    type: 'step'
+  },
+  axis: {
+    x: {
+      type: 'category',
+      categories: #{labels}
+    }
+  }
+});
+</script>)
+  end
+
+  def c3js_chart_spline_script(chart_id, data, labels)
+    %(
+<script type="text/javascript">
+c3.generate({
+  bindto: '##{chart_id}',
+  data: {
+    columns: #{data.to_s},
+    type: 'spline'
+  },
+  axis: {
+    x: {
+      type: 'category',
+      categories: #{labels}
+    }
+  }
+});
+</script>)
+  end
+
+  def c3js_html(chart_div, chart_script)
+    %(
+    #{C3JS_STYLESHEET}
+    #{D3JS_SCRIPT}
+    #{C3JS_SCRIPT}
+    #{chart_div}
+    #{chart_script}
+    )
+  end
+
+  # Chart.js
 
   def chartjs_line(parent, target, attrs)
     data = CSV.read(File.join parent.document.base_dir, attrs['data-uri'])
@@ -88,7 +205,7 @@ window.onload = function() {
     # TODO Replace with CDN when the 1.0 version will be available
     chartjs_script = %(<script src="#{File.join File.dirname(__FILE__), 'Chart.js'}"></script>)
     # TODO Generate unique id (or read from attributes)
-    chart_id = 'chart1'
+    chart_id = 'chart' + SecureRandom.uuid
     # TODO Read with percent from attributes
     chart_width_percent = 50
     chart_canvas = %(<div style="width:#{chart_width_percent}%"><canvas id="#{chart_id}"></canvas></div>)
