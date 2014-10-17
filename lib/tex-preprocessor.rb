@@ -1,5 +1,10 @@
 require File.join File.dirname(__FILE__), File.basename(__FILE__, '.rb'), 'extension'
 
 Extensions.register do
-  preprocessor TeXPreprocessor
+  opts = @document.instance_variable_get :@options
+  unless opts[:parse_header_only]
+    doc_file = @document.attributes['docfile']
+    meta_doc = Asciidoctor.load_file doc_file, opts.merge(parse_header_only: true)
+    preprocessor TeXPreprocessor if (meta_doc.attr 'extensions', '').split(' ').include?('latex')
+  end
 end
