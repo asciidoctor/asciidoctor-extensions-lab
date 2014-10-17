@@ -20,7 +20,7 @@ include ::Asciidoctor
 #   Meghan,49
 #   ....
 #
-Extensions.register :textql {
+Extensions.register(:textql) {
   block {
     named :textql
     on_context :literal
