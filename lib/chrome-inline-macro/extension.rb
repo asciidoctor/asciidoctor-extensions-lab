@@ -1,6 +1,3 @@
-require 'asciidoctor'
-require 'asciidoctor/extensions'
-
 include ::Asciidoctor
 
 # An inline macro that turns URIs with the chrome:// URI scheme into links.
