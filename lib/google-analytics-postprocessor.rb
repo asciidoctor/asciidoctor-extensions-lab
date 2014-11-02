@@ -1,6 +1,3 @@
-require 'asciidoctor'
-require 'asciidoctor/extensions'
-
 include ::Asciidoctor
 
 # A postprocessor that appends the Google Analytics code to the bottom of the HTML.

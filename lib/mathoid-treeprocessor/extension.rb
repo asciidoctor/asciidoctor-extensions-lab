@@ -1,5 +1,3 @@
-require 'asciidoctor'
-require 'asciidoctor/extensions'
 require_relative 'mathoid'
 
 include ::Asciidoctor

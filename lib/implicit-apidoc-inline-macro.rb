@@ -1,6 +1,3 @@
-require 'asciidoctor'
-require 'asciidoctor/extensions'
- 
 # An inline macro that turns Java types the begin with java. or javax. into links.
 #
 # Usage
