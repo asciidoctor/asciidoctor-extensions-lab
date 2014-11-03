@@ -1,3 +1,5 @@
+require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
+
 # An extension that automatically hides blocks marked with the style
 # "result" and adds a link to the previous element that has the style
 # "title" that allows displaying the "result".

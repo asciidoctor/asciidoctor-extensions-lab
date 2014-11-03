@@ -1,3 +1,5 @@
+require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
+
 include ::Asciidoctor
 
 # An inline macro that turns URIs with the chrome:// URI scheme into links.

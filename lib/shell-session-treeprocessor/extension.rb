@@ -1,3 +1,5 @@
+require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
+
 include ::Asciidoctor
 
 # A treeprocessor extension that identifies literal blocks that appear to be

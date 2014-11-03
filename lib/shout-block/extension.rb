@@ -1,3 +1,5 @@
+require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
+
 include ::Asciidoctor
 
 # An extension that transforms the contents of a paragraph
