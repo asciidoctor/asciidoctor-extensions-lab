@@ -1,4 +1,4 @@
-require File.join File.dirname(__FILE__), File.basename(__FILE__, '.rb'), 'extension'
+require File.join File.dirname(__FILE__), 'mathoid-treeprocessor/extension'
 
 Extensions.register :stem do
   treeprocessor MathoidTreeprocessor

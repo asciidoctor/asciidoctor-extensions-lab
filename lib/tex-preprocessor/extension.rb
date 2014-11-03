@@ -1,7 +1,4 @@
-require 'asciidoctor'
-require 'asciidoctor/extensions'
-
-include Asciidoctor
+include ::Asciidoctor
 
 class TeXPreprocessor < Extensions::Preprocessor
 

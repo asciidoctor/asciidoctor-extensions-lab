@@ -1,4 +1,4 @@
-require File.join File.dirname(__FILE__), File.basename(__FILE__, '.rb'), 'extension'
+require File.join File.dirname(__FILE__), 'chart-block-macro/extension'
 
 Extensions.register do
   if document.basebackend? 'html'

@@ -1,6 +1,3 @@
-require 'asciidoctor'
-require 'asciidoctor/extensions'
-
 include ::Asciidoctor
 
 # An extension that transforms the contents of a paragraph

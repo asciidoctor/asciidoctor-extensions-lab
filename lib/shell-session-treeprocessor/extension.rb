@@ -1,6 +1,3 @@
-require 'asciidoctor'
-require 'asciidoctor/extensions'
-
 include ::Asciidoctor
 
 # A treeprocessor extension that identifies literal blocks that appear to be

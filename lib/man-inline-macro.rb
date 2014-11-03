@@ -1,4 +1,4 @@
-require File.join File.dirname(__FILE__), File.basename(__FILE__, '.rb'), 'extension'
+require File.join File.dirname(__FILE__), 'man-inline-macro/extension'
 
 Extensions.register :uri_schemes do
   inline_macro ManMacro

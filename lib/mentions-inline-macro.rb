@@ -1,6 +1,3 @@
-require 'asciidoctor'
-require 'asciidoctor/extensions'
-
 include ::Asciidoctor
 
 Extensions.register do

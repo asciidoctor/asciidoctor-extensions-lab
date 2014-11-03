@@ -1,5 +1,3 @@
-require 'asciidoctor'
-require 'asciidoctor/extensions'
 require_relative 'xml_entity_mapper'
 # or use htmlentities gem
 #require 'htmlentities'

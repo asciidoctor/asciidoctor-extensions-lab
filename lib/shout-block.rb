@@ -1,4 +1,4 @@
-require File.join File.dirname(__FILE__), File.basename(__FILE__, '.rb'), 'extension'
+require File.join File.dirname(__FILE__), 'shout-block/extension'
 
 Extensions.register do
   # defined as a qualified class name

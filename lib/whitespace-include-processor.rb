@@ -1,6 +1,3 @@
-require 'asciidoctor'
-require 'asciidoctor/extensions'
-
 include ::Asciidoctor
 
 # An include processor that substitutes tabs with spaces in included source code.
