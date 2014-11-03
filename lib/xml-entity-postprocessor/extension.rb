@@ -1,3 +1,4 @@
+require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 require_relative 'xml_entity_mapper'
 # or use htmlentities gem
 #require 'htmlentities'

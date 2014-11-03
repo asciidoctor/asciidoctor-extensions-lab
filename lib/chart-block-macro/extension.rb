@@ -1,3 +1,4 @@
+require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 require 'csv'
 require 'securerandom'
 
