@@ -22,7 +22,7 @@ class TreeBlockMacro < Asciidoctor::Extensions::BlockMacroProcessor
     dirarg = (attrs.has_key? 'dir-option') ? '-d' : nil
     # TODO use https://github.com/tokiro/tree.rb instead
     # TODO could also output using plantuml
-    cmd = %(tree --noreport --dirsfirst -F #{levelarg} #{sizearg} #{dirarg} #{target}).split(/ +/) * ' '
+    cmd = %(tree --charset unicode --noreport --dirsfirst -F #{levelarg} #{sizearg} #{dirarg} #{target}).split(/ +/) * ' '
     tree = %x(#{cmd}).lines.entries[1..-1].join
     subs = if sizearg
       tree = tree.gsub(/\[(.*?)\]  (?=\S)/, '[.gray]#[\1]# ')
