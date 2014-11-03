@@ -1,13 +1,11 @@
 require 'asciidoctor'
-require 'asciidoctor/extensions'
+require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 require 'open-uri/cached'
 require "base64"
 
 
 class EmojifyBlockMacro < Asciidoctor::Extensions::InlineMacroProcessor
   def process parent, target, attributes
-
-    puts parent.document.attributes
 
     size = (attributes.has_key? 'size') ? attributes['size'] : '24'
     cdn = (attributes.has_key? 'cdn') ? attributes['cdn'] : 'http://www.tortue.me/emoji/'
@@ -24,11 +22,5 @@ class EmojifyBlockMacro < Asciidoctor::Extensions::InlineMacroProcessor
         <img height="#{size}" src="#{cdn}#{target}.png" width="#{size}" />
       )
     end
-  end
-end
-
-Asciidoctor::Extensions.register do
-  if @document.basebackend? 'html'
-    inline_macro EmojifyBlockMacro, :emoji
   end
 end
