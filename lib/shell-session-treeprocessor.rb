@@ -1,4 +1,4 @@
-require File.join File.dirname(__FILE__), 'shell-session-treeprocessor/extension'
+require_relative 'shell-session-treeprocessor/extension'
 
 Extensions.register do
   treeprocessor TerminalCommandTreeprocessor

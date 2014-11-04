@@ -1,4 +1,4 @@
-require File.join File.dirname(__FILE__), 'tree-block-macro/extension'
+require_relative 'tree-block-macro/extension'
 
 Asciidoctor::Extensions.register do
   block_macro TreeBlockMacro

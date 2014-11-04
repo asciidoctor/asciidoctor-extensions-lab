@@ -1,4 +1,4 @@
-require File.join File.dirname(__FILE__), 'slim-block/extension'
+require_relative 'slim-block/extension'
 
 Extensions.register :markup do
   block SlimBlock

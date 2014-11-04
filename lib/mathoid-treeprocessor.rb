@@ -1,4 +1,4 @@
-require File.join File.dirname(__FILE__), 'mathoid-treeprocessor/extension'
+require_relative 'mathoid-treeprocessor/extension'
 
 Extensions.register :stem do
   treeprocessor MathoidTreeprocessor

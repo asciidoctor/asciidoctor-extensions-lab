@@ -1,4 +1,4 @@
-require File.join File.dirname(__FILE__), 'shout-block/extension'
+require_relative 'shout-block/extension'
 
 Extensions.register do
   # defined as a qualified class name
