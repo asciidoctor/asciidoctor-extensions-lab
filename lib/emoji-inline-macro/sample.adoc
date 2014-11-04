@@ -1,0 +1,6 @@
+// must pass -a allow-uri-read to enable data-uri behavior
+= Emoji Inline Macro Extension
+:data-uri:
+:cache-uri:
+
+Faster than a emoji:turtle[]!

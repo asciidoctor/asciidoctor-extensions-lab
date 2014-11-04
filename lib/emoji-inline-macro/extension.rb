@@ -1,26 +1,17 @@
-require 'asciidoctor'
 require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
-require 'open-uri/cached'
-require "base64"
 
+include ::Asciidoctor
 
-class EmojifyBlockMacro < Asciidoctor::Extensions::InlineMacroProcessor
+class EmojifyBlockMacro < Extensions::InlineMacroProcessor
+  use_dsl
+  named :emoji
+
   def process parent, target, attributes
-
-    size = (attributes.has_key? 'size') ? attributes['size'] : '24'
-    cdn = (attributes.has_key? 'cdn') ? attributes['cdn'] : 'http://www.tortue.me/emoji/'
-
-    if(parent.document.attributes.has_key? 'data-uri')
-      content = open("#{cdn}#{target}.png") { |io| io.read }
-      base64Image = Base64.encode64(content)
-
-      source = %(
-        <img height="#{size}" src="data:image/png;base64,#{base64Image}" width="#{size}" />
-      )
-    else
-      source = %(
-        <img height="#{size}" src="#{cdn}#{target}.png" width="#{size}" />
-      )
-    end
+    doc = parent.document
+    slash = (doc.attr? 'htmlsyntax', 'xml') ? '/' : nil
+    size = (attributes.key? 'size') ? attributes['size'] : '24'
+    cdn = (attributes.key? 'cdn') ? attributes['cdn'] : 'http://www.tortue.me/emoji/'
+    qtarget = %(#{cdn}#{target}.png)
+    %(<img src="#{parent.image_uri qtarget, nil}" height="#{size}" width="#{size}"#{slash}>)
   end
 end

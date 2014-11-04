@@ -1,4 +1,0 @@
-= My example
-:data-uri:
-
-This is my example of emoji:turtle[]
