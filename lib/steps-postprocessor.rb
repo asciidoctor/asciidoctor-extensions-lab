@@ -1,4 +1,4 @@
-require File.join File.dirname(__FILE__), 'steps-postprocessor/extension'
+require_relative 'steps-postprocessor/extension'
 
 Asciidoctor::Extensions.register do
   if (@document.basebackend? 'html')
