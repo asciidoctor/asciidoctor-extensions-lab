@@ -1,11 +1,10 @@
-require 'asciidoctor'
 require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 
-class StepsPostprocessor < Asciidoctor::Extensions::Postprocessor
-  def process document, output
-    if document.basebackend? 'html'
+include ::Asciidoctor
 
-      replacement = %(<style>
+class StepsPostprocessor < Extensions::Postprocessor
+  def process document, output
+    replacement = %(<style>
 ol.arabic {
 list-style-type: none;
 }
@@ -59,9 +58,7 @@ line-height: 0;
 height: 0;
 }
 </style>
-</head>)
-      output = output.sub(/<\/head>/m, replacement)
-    end
-    output
+)
+    output.sub /(?=<\/head>)/, replacement
   end
 end
