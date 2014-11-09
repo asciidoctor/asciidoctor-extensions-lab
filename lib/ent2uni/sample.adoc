@@ -1,0 +1,10 @@
+
+== Test: map HTML entities to unicode equivalents.
+
+Well -- he said -- this not my policy, it is the Boss's.
+
+What's that?
+
+If you are > 60 you pay half-price. _If you have your birth certicate._
+
+
