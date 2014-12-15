@@ -1,4 +1,4 @@
-require_relative 'shout-block/extension'
+RUBY_ENGINE == 'opal' ? (require 'shout-block/extension') : (require_relative 'shout-block/extension')
 
 Extensions.register do
   # defined as a qualified class name
