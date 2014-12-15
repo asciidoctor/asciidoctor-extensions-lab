@@ -1,3 +1,0 @@
-= Twemoji Example
-
-This is an example of how you can twemoji:heart[] Asciidoctor and Twitter Emoji.

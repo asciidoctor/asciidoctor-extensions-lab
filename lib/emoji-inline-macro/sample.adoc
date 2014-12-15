@@ -2,5 +2,8 @@
 = Emoji Inline Macro Extension
 :data-uri:
 :cache-uri:
+//:emoji: tortue
 
 Faster than a emoji:turtle[]!
+
+This is an example of how you can emoji:heart[] Asciidoctor and Twitter Emoji.
