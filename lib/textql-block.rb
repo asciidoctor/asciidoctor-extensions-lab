@@ -1,3 +1,5 @@
+require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
+
 include ::Asciidoctor
 
 # A block that queries the CSV content in the block using textql
@@ -27,11 +29,13 @@ Extensions.register(:textql) {
       # TODO assume header if second line is blank
       input_header = (attrs.has_key? 'header-option') ? reader.lines.first : nil
       output_header = (attrs.has_key? 'header') ? (attrs.delete 'header') : input_header
+      output_header = nil if output_header == 'None'
       cmd = %(echo "#{reader.source}" | /home/dallen/opt/gocode/bin/textql#{input_header ? ' -header' : nil} -sql "#{attrs.delete 'query'}")
       result_lines = %x(#{cmd}).chomp.split "\n"
+      table_delimiter = ',==='
       result_lines.unshift *[output_header, ''] if output_header
-      result_lines.unshift ',==='
-      result_lines << ',==='
+      result_lines.unshift table_delimiter
+      result_lines << table_delimiter
       
       through_attrs = ['id', 'role', 'title'].inject({}) {|collector, key|
         collector[key] = attrs[key] if attrs.has_key? key 
