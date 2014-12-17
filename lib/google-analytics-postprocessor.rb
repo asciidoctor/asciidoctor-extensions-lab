@@ -1,3 +1,5 @@
+require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
+
 include ::Asciidoctor
 
 # A postprocessor that appends the Google Analytics code to the bottom of the HTML.
@@ -8,6 +10,13 @@ include ::Asciidoctor
 #
 Extensions.register do
   if @document.basebackend? 'html'
+    # As of Asciidoctor 1.5.2, you can use a docinfo_processor to accomplish the same
+    #docinfo_processor do
+    #  at_location :footer
+    #  process do |doc|
+    #    # content here
+    #  end
+    #end
     postprocessor do
       process do |doc, output|
         next output unless doc.attr? 'google-analytics-account'
