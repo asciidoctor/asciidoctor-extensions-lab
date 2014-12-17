@@ -1,4 +1,4 @@
-require_relative 'mathoid-treeprocessor/extension'
+RUBY_ENGINE == 'opal' ? (require 'mathoid-treeprocessor/extension') : (require_relative 'mathoid-treeprocessor/extension')
 
 Extensions.register :stem do
   treeprocessor MathoidTreeprocessor
