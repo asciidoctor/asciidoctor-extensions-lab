@@ -8,7 +8,7 @@ include ::Asciidoctor
 #
 #   man:gittutorial[7]
 #
-class ManMacro < Extensions::InlineMacroProcessor
+class ManInlineMacro < Extensions::InlineMacroProcessor
   use_dsl
 
   named :man
