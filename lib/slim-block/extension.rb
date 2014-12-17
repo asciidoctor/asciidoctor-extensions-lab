@@ -35,7 +35,8 @@ class SlimBlock < Extensions::BlockProcessor
     tmpl = Slim::Template.new(format: html_syntax, pretty: pretty) { lines * EOL }
     html = tmpl.render document, (attributes_to_locals document.attributes)
 
-    # QUESTION should we allow attribute references in the slim source?
+    # QUESTION should we allow attribute references in slim source or allow subs to be specified?
+    #create_pass_block parent, html, attrs
     create_pass_block parent, html, attrs, subs: nil
   end
 
