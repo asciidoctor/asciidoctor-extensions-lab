@@ -12,88 +12,101 @@ include ::Asciidoctor
 #
 class ChartBlockMacro < Extensions::BlockMacroProcessor
   use_dsl
-
   named :chart
+
+  def process(parent, target, attrs)
+    raw_data = CSV.read(File.join parent.document.base_dir, attrs['data-uri'])
+    data, labels = C3jsChartBuilder.prepare_data(raw_data)
+    html = (case target
+      when 'bar' then C3jsChartBuilder.bar data, labels
+      when 'line' then C3jsChartBuilder.line data, labels
+      when 'step' then C3jsChartBuilder.step data, labels
+      when 'spline' then C3jsChartBuilder.spline data, labels
+      else
+        # By default chart line
+        C3jsChartBuilder.line data, labels
+    end)
+    create_pass_block parent, html, attrs, subs: nil
+  end
+end
+
+class ChartBlockProcessor < Extensions::BlockProcessor
+  use_dsl
+  named :chart
+  on_context :literal
+  name_positional_attributes 'type'
+  parse_content_as :raw
+
+  def process(parent, reader, attrs)
+    raw_data = CSV.parse(reader.source)
+    data, labels = C3jsChartBuilder.prepare_data(raw_data)
+    html = (case attrs['type']
+      when 'bar' then C3jsChartBuilder.bar data, labels
+      when 'line' then C3jsChartBuilder.line data, labels
+      when 'step' then C3jsChartBuilder.step data, labels
+      when 'spline' then C3jsChartBuilder.spline data, labels
+      else
+        # By default chart line
+        C3jsChartBuilder.line data, labels
+    end)
+    create_pass_block parent, html, attrs, subs: nil
+  end
+end
+
+class C3jsChartBuilder
 
   # TODO http or https ? asset_uri_scheme ?
   C3JS_STYLESHEET = '<link href="http://cdnjs.cloudflare.com/ajax/libs/c3/0.3.0/c3.min.css" rel="stylesheet" type="text/css">'
   D3JS_SCRIPT = '<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js" charset="utf-8"></script>'
   C3JS_SCRIPT = '<script src="http://cdnjs.cloudflare.com/ajax/libs/c3/0.3.0/c3.min.js"></script>'
 
-  def process(parent, target, attrs)
-    case target
-      when 'bar' then c3js_bar parent, attrs
-      when 'line' then  c3js_line parent, attrs
-      when 'step' then c3js_step parent, attrs
-      when 'spline' then c3js_spline parent, attrs
-      else
-        # By default chart line
-        c3js_line parent, attrs
-    end
-  end
-
-  # c3.js
-
-  def c3js_bar(parent, attrs)
-    data, labels = c3js_prepare_data(attrs, parent)
+  def self.bar(data, labels)
     chart_id = get_chart_id
     chart_div = c3js_create_chart_div(chart_id)
     chart_generate_script = c3js_chart_bar_script(chart_id, data, labels)
-    html = c3js_html(chart_div, chart_generate_script)
-
-    create_pass_block parent, html, attrs, subs: nil
+    c3js_html(chart_div, chart_generate_script)
   end
 
-  def c3js_line(parent, attrs)
-    data, labels = c3js_prepare_data(attrs, parent)
+  def self.line(data, labels)
     chart_id = get_chart_id
     chart_div = c3js_create_chart_div(chart_id)
     chart_generate_script = c3js_chart_line_script(chart_id, data, labels)
-    html = c3js_html(chart_div, chart_generate_script)
-
-    create_pass_block parent, html, attrs, subs: nil
+    c3js_html(chart_div, chart_generate_script)
   end
 
-  def c3js_step(parent, attrs)
-    data, labels = c3js_prepare_data(attrs, parent)
+  def self.step(data, labels)
     chart_id = get_chart_id
     chart_div = c3js_create_chart_div(chart_id)
     chart_generate_script = c3js_chart_step_script(chart_id, data, labels)
-    html = c3js_html(chart_div, chart_generate_script)
-
-    create_pass_block parent, html, attrs, subs: nil
+    c3js_html(chart_div, chart_generate_script)
   end
 
-  def c3js_spline(parent, attrs)
-    data, labels = c3js_prepare_data(attrs, parent)
+  def self.spline(data, labels)
     chart_id = get_chart_id
     chart_div = c3js_create_chart_div(chart_id)
     chart_generate_script = c3js_chart_spline_script(chart_id, data, labels)
-    html = c3js_html(chart_div, chart_generate_script)
-
-    create_pass_block parent, html, attrs, subs: nil
+    c3js_html(chart_div, chart_generate_script)
   end
 
-  def c3js_create_chart_div(chart_id)
+  def self.c3js_create_chart_div(chart_id)
     %(<div id="#{chart_id}"></div>)
   end
 
-  def get_chart_id
+  def self.get_chart_id
     # TODO Read from attributes ?
     'chart' + SecureRandom.uuid
   end
 
-  def c3js_prepare_data(attrs, parent)
-    data = CSV.read(File.join parent.document.base_dir, attrs['data-uri'])
-    labels = data[0]
-    data.shift
-    data.map.with_index do |row, index|
+  def self.prepare_data(raw_data)
+    labels = raw_data[0]
+    raw_data.shift
+    raw_data.map.with_index do |row, index|
       row.unshift "#{index}"
     end
-    return data, labels
+    return raw_data, labels
   end
 
-  def c3js_chart_bar_script(chart_id, data, labels)
+  def self.c3js_chart_bar_script(chart_id, data, labels)
     %(
 <script type="text/javascript">
 c3.generate({
@@ -113,7 +126,7 @@ c3.generate({
 </script>)
   end
 
-  def c3js_chart_line_script(chart_id, data, labels)
+  def self.c3js_chart_line_script(chart_id, data, labels)
     %(
 <script type="text/javascript">
 c3.generate({
@@ -131,7 +144,7 @@ c3.generate({
 </script>)
   end
 
-  def c3js_chart_step_script(chart_id, data, labels)
+  def self.c3js_chart_step_script(chart_id, data, labels)
     %(
 <script type="text/javascript">
 c3.generate({
@@ -150,7 +163,7 @@ c3.generate({
 </script>)
   end
 
-  def c3js_chart_spline_script(chart_id, data, labels)
+  def self.c3js_chart_spline_script(chart_id, data, labels)
     %(
 <script type="text/javascript">
 c3.generate({
@@ -169,7 +182,7 @@ c3.generate({
 </script>)
   end
 
-  def c3js_html(chart_div, chart_script)
+  def self.c3js_html(chart_div, chart_script)
     %(
     #{C3JS_STYLESHEET}
     #{D3JS_SCRIPT}
@@ -178,10 +191,11 @@ c3.generate({
     #{chart_script}
     )
   end
+end
 
-  # Chart.js
+class ChartjsChartBuilder
 
-  def chartjs_line(parent, target, attrs)
+  def self.line(parent, target, attrs)
     data = CSV.read(File.join parent.document.base_dir, attrs['data-uri'])
     labels = data[0]
     data.shift
@@ -216,7 +230,7 @@ c3.generate({
   ]
 };)
     chart_init_script = 'var chart = new Chart(ctx).Line(data, {responsive : true});'
-    html = %(
+    %(
     #{chartjs_script}
     #{chart_canvas}<script type="text/javascript">window.onload = function() {
     #{chart_init_ctx_script}
@@ -224,7 +238,5 @@ c3.generate({
     #{chart_init_script}
 }
 </script>)
-
-    create_pass_block parent, html, attrs, subs: nil
   end
 end
