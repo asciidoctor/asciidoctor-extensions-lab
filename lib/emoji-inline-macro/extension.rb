@@ -35,10 +35,33 @@ class TwemojiCssDocinfoProcessor < Extensions::DocinfoProcessor
   use_dsl
   at_location :header
 
-  def process document
-    unless document.attributes['emoji'] == 'tortue'
-      # Handle data-uri
-      %(<link rel="stylesheet" href="#{File.join File.dirname(__FILE__), 'twemoji-awesome.css'}">")
+  def process doc
+    unless doc.attributes['emoji'] == 'tortue'
+      currentdir = File.join File.dirname(__FILE__)
+      stylesheet_name = "twemoji-awesome.css"
+      if doc.attr('data-uri')
+        content = doc.read_asset "#{currentdir}/#{stylesheet_name}"
+        %(<style>#{content}</style>)
+      else
+        stylesheet_href = handle_stylesheet doc, currentdir, stylesheet_name
+        %(<link rel="stylesheet" href="#{stylesheet_href}">)
+      end
+    end
+  end
+
+  def handle_stylesheet doc, currentdir, stylesheet_name
+    outdir = doc.attr? 'outdir' ? doc.attr('outdir') : doc.attr('docdir')
+    stylesdir = doc.attr('stylesdir')
+    stylesoutdir = doc.normalize_system_path(stylesdir, outdir, doc.safe >= SafeMode::SAFE ? outdir : nil)
+    if doc.safe < SafeMode::SECURE && doc.attr? 'copycss' && stylesoutdir != currentdir
+      destination = doc.normalize_system_path stylesheet_name, stylesdir, (doc.safe >= SafeMode::SAFE ? outdir : nil)
+      content = doc.read_asset "#{currentdir}/#{stylesheet_name}"
+      ::File.open(destination, 'w') {|f|
+        f.write content
+      }
+      destination
+    else
+      "./#{stylesheet_name}"
     end
   end
 end
