@@ -14,17 +14,9 @@ class ChartBlockMacro < Extensions::BlockMacroProcessor
   named :chart
 
   def process(parent, target, attrs)
+    backend = (attrs.key? 'backend') ? attrs['backend'].downcase : 'c3js'
     raw_data = PlainRubyCSV.read(File.join parent.document.base_dir, attrs['data-uri'])
-    data, labels = C3jsChartBuilder.prepare_data(raw_data)
-    html = (case target
-      when 'bar' then C3jsChartBuilder.bar data, labels
-      when 'line' then C3jsChartBuilder.line data, labels
-      when 'step' then C3jsChartBuilder.step data, labels
-      when 'spline' then C3jsChartBuilder.spline data, labels
-      else
-        # By default chart line
-        C3jsChartBuilder.line data, labels
-    end)
+    html = ChartBackend.process backend, target, raw_data
     create_pass_block parent, html, attrs, subs: nil
   end
 end
@@ -37,20 +29,50 @@ class ChartBlockProcessor < Extensions::BlockProcessor
   parse_content_as :raw
 
   def process(parent, reader, attrs)
+    backend = (attrs.key? 'backend') ? attrs['backend'].downcase : 'c3js'
     raw_data = PlainRubyCSV.parse(reader.source)
-    data, labels = C3jsChartBuilder.prepare_data(raw_data)
-    html = (case attrs['type']
-      when 'bar' then C3jsChartBuilder.bar data, labels
-      when 'line' then C3jsChartBuilder.line data, labels
-      when 'step' then C3jsChartBuilder.step data, labels
-      when 'spline' then C3jsChartBuilder.spline data, labels
-      else
-        # By default chart line
-        C3jsChartBuilder.line data, labels
-    end)
+    html = ChartBackend.process backend, attrs['type'], raw_data
     create_pass_block parent, html, attrs, subs: nil
   end
 end
+
+class ChartBackend
+
+  def self.process backend, type, raw_data
+    # TODO Check that the backend can process the required type (bar, line, step...)
+    case backend
+      when 'c3js'
+        data, labels = C3jsChartBuilder.prepare_data(raw_data)
+        (case type
+          when 'bar' then C3jsChartBuilder.bar data, labels
+          when 'line' then C3jsChartBuilder.line data, labels
+          when 'step' then C3jsChartBuilder.step data, labels
+          when 'spline' then C3jsChartBuilder.spline data, labels
+          else
+            # By default chart line
+            C3jsChartBuilder.line data, labels
+        end)
+      when 'chartist'
+        data, labels = ChartistChartBuilder.prepare_data(raw_data)
+        (case type
+          when 'bar' then ChartistChartBuilder.bar data, labels
+          when 'line' then ChartistChartBuilder.line data, labels
+          else
+            # By default chart line
+            ChartistChartBuilder.line data, labels
+        end)
+      when 'chartjs'  
+        data, labels = ChartjsChartBuilder.prepare_data(raw_data)
+        (case type
+          when 'line' then ChartjsChartBuilder.line data, labels
+          else
+            # By default chart line
+            ChartjsChartBuilder.line data, labels
+        end)
+    end
+  end
+end
+
 
 class C3jsChartBuilder
 
@@ -61,33 +83,33 @@ class C3jsChartBuilder
 
   def self.bar(data, labels)
     chart_id = get_chart_id
-    chart_div = c3js_create_chart_div(chart_id)
-    chart_generate_script = c3js_chart_bar_script(chart_id, data, labels)
-    c3js_html(chart_div, chart_generate_script)
+    chart_div = create_chart_div(chart_id)
+    chart_generate_script = chart_bar_script(chart_id, data, labels)
+    to_html(chart_div, chart_generate_script)
   end
 
   def self.line(data, labels)
     chart_id = get_chart_id
-    chart_div = c3js_create_chart_div(chart_id)
-    chart_generate_script = c3js_chart_line_script(chart_id, data, labels)
-    c3js_html(chart_div, chart_generate_script)
+    chart_div = create_chart_div(chart_id)
+    chart_generate_script = chart_line_script(chart_id, data, labels)
+    to_html(chart_div, chart_generate_script)
   end
 
   def self.step(data, labels)
     chart_id = get_chart_id
-    chart_div = c3js_create_chart_div(chart_id)
-    chart_generate_script = c3js_chart_step_script(chart_id, data, labels)
-    c3js_html(chart_div, chart_generate_script)
+    chart_div = create_chart_div(chart_id)
+    chart_generate_script = chart_step_script(chart_id, data, labels)
+    to_html(chart_div, chart_generate_script)
   end
 
   def self.spline(data, labels)
     chart_id = get_chart_id
-    chart_div = c3js_create_chart_div(chart_id)
-    chart_generate_script = c3js_chart_spline_script(chart_id, data, labels)
-    c3js_html(chart_div, chart_generate_script)
+    chart_div = create_chart_div(chart_id)
+    chart_generate_script = chart_spline_script(chart_id, data, labels)
+    to_html(chart_div, chart_generate_script)
   end
 
-  def self.c3js_create_chart_div(chart_id)
+  def self.create_chart_div(chart_id)
     %(<div id="#{chart_id}"></div>)
   end
 
@@ -105,7 +127,7 @@ class C3jsChartBuilder
     return raw_data, labels
   end
 
-  def self.c3js_chart_bar_script(chart_id, data, labels)
+  def self.chart_bar_script(chart_id, data, labels)
     %(
 <script type="text/javascript">
 c3.generate({
@@ -125,7 +147,7 @@ c3.generate({
 </script>)
   end
 
-  def self.c3js_chart_line_script(chart_id, data, labels)
+  def self.chart_line_script(chart_id, data, labels)
     %(
 <script type="text/javascript">
 c3.generate({
@@ -143,7 +165,7 @@ c3.generate({
 </script>)
   end
 
-  def self.c3js_chart_step_script(chart_id, data, labels)
+  def self.chart_step_script(chart_id, data, labels)
     %(
 <script type="text/javascript">
 c3.generate({
@@ -162,7 +184,7 @@ c3.generate({
 </script>)
   end
 
-  def self.c3js_chart_spline_script(chart_id, data, labels)
+  def self.chart_spline_script(chart_id, data, labels)
     %(
 <script type="text/javascript">
 c3.generate({
@@ -181,7 +203,7 @@ c3.generate({
 </script>)
   end
 
-  def self.c3js_html(chart_div, chart_script)
+  def self.to_html(chart_div, chart_script)
     %(
     #{C3JS_STYLESHEET}
     #{D3JS_SCRIPT}
@@ -194,10 +216,7 @@ end
 
 class ChartjsChartBuilder
 
-  def self.line(parent, target, attrs)
-    data = CSV.read(File.join parent.document.base_dir, attrs['data-uri'])
-    labels = data[0]
-    data.shift
+  def self.line(data, labels)
     default_colors = [{r:220,g:220,b:220}, {r:151,g:187,b:205}]
     datasets = data.map do |set|
       color = default_colors[data.index(set) % 2]
@@ -238,6 +257,80 @@ class ChartjsChartBuilder
 }
 </script>)
   end
+
+  def self.prepare_data(raw_data)
+    labels = raw_data[0]
+    raw_data.shift
+    return raw_data, labels
+  end
+
+end
+
+class ChartistChartBuilder
+
+  CHARTIST_STYLESHEET = '<link rel="stylesheet" href="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">'
+  CHARTIST_SCRIPT = '<script src="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>'
+
+  def self.bar(data, labels)
+    chart_id = get_chart_id
+    chart_div = create_chart_div(chart_id)
+    chart_generate_script = chart_bar_script(chart_id, data, labels)
+    to_html(chart_div, chart_generate_script)
+  end
+
+  def self.line(data, labels)
+    chart_id = get_chart_id
+    chart_div = create_chart_div(chart_id)
+    chart_generate_script = chart_line_script(chart_id, data, labels)
+    to_html(chart_div, chart_generate_script)
+  end
+
+  def self.create_chart_div(chart_id)
+    %(<div id="#{chart_id}"class="ct-chart"></div>)
+  end
+
+  def self.get_chart_id
+    # TODO Read from attributes ?
+    'chart' + SecureRandom.uuid
+  end
+
+  def self.prepare_data(raw_data)
+    labels = raw_data[0]
+    raw_data.shift
+    return raw_data, labels
+  end
+
+  def self.chart_bar_script(chart_id, data, labels)
+    %(
+<script type="text/javascript">
+var data = {
+  labels: #{labels},
+  series: #{data}
+};
+new Chartist.Bar('##{chart_id}', data);
+</script>)
+  end
+
+  def self.chart_line_script(chart_id, data, labels)
+    %(
+<script type="text/javascript">
+var data = {
+  labels: #{labels},
+  series: #{data}
+};
+new Chartist.Line('##{chart_id}', data);
+</script>)
+  end
+
+  def self.to_html(chart_div, chart_script)
+    %(
+    #{CHARTIST_STYLESHEET}
+    #{CHARTIST_SCRIPT}
+    #{chart_div}
+    #{chart_script}
+    )
+  end
+
 end
 
 class PlainRubyCSV
