@@ -1,6 +1,5 @@
 = URI Include Processor
-
-:source-highlighter: coderay
+//:source-highlighter: coderay
 
 .Gemfile
 [source,ruby]
