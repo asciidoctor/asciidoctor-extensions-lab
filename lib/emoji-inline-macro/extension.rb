@@ -4,7 +4,9 @@ include ::Asciidoctor
 
 class EmojiBlockMacro < Extensions::InlineMacroProcessor
   use_dsl
+
   named :emoji
+  name_positional_attributes 'size'
 
   SIZE_MAP = {'1x' => 17, 'lg' => 24, '2x' => 34, '3x' => 50, '4x' => 68, '5x' => 85}
   SIZE_MAP.default = 24
@@ -14,54 +16,48 @@ class EmojiBlockMacro < Extensions::InlineMacroProcessor
     if doc.attributes['emoji'] == 'tortue'
       slash = (doc.attr? 'htmlsyntax', 'xml') ? '/' : nil
       size = SIZE_MAP[attributes['size']]
-      cdn = (attributes.key? 'cdn') ? attributes['cdn'] : 'http://www.tortue.me/emoji/'
+      cdn = (attributes.key? 'cdn') ? attributes['cdn'] : (doc.attr 'emoji-cdn', 'http://www.tortue.me/emoji/')
       qtarget = %(#{cdn}#{target}.png)
-      %(<img src="#{parent.image_uri qtarget, nil}" height="#{size}px" width="#{size}px"#{slash}>)
+      %(<img src="#{parent.image_uri qtarget, nil}" height="#{size}" width="#{size}"#{slash}>)
+    # Use twemoji by default
     else
-      # By default twemoji
-      slash = (doc.attr? 'htmlsyntax', 'xml') ? '/' : nil
-      size = (attributes.key? 'size') ? attributes['size'] : nil
-      emojiTag = target.tr('_', '-')
-      if size == nil
-        %(<i class="twa twa-#{emojiTag}"></i>)
-      else
-        %(<i class="twa twa-#{size} twa-#{emojiTag}"></i>)
-      end
+      size_class = (size = attributes['size']) ? %( twa-#{size}) : nil
+      emoji_name = target.tr '_', '-'
+      %(<i class="twa#{size_class} twa-#{emoji_name}"></i>)
     end
   end
 end
 
-class TwemojiCssDocinfoProcessor < Extensions::DocinfoProcessor
+class EmojiAssetsDocinfoProcessor < Extensions::DocinfoProcessor
   use_dsl
   at_location :header
 
   def process doc
     unless doc.attributes['emoji'] == 'tortue'
-      currentdir = File.join File.dirname(__FILE__)
-      stylesheet_name = "twemoji-awesome.css"
-      if doc.attr('data-uri')
-        content = doc.read_asset "#{currentdir}/#{stylesheet_name}"
-        %(<style>#{content}</style>)
-      else
-        stylesheet_href = handle_stylesheet doc, currentdir, stylesheet_name
+      extdir = ::File.join(::File.dirname __FILE__)
+      stylesheet_name = 'twemoji-awesome.css'
+      if doc.attr? 'linkcss'
+        stylesheet_href = handle_stylesheet doc, extdir, stylesheet_name
         %(<link rel="stylesheet" href="#{stylesheet_href}">)
+      else
+        content = doc.read_asset %(#{extdir}/#{stylesheet_name})
+        ['<style>', content.chomp, '</style>'] * "\n"
       end
     end
   end
 
-  def handle_stylesheet doc, currentdir, stylesheet_name
-    outdir = doc.attr? 'outdir' ? doc.attr('outdir') : doc.attr('docdir')
-    stylesdir = doc.attr('stylesdir')
-    stylesoutdir = doc.normalize_system_path(stylesdir, outdir, doc.safe >= SafeMode::SAFE ? outdir : nil)
-    if doc.safe < SafeMode::SECURE && doc.attr? 'copycss' && stylesoutdir != currentdir
-      destination = doc.normalize_system_path stylesheet_name, stylesdir, (doc.safe >= SafeMode::SAFE ? outdir : nil)
-      content = doc.read_asset "#{currentdir}/#{stylesheet_name}"
+  def handle_stylesheet doc, extdir, stylesheet_name
+    outdir = (doc.attr? 'outdir') ? (doc.attr 'outdir') : (doc.attr 'docdir')
+    stylesoutdir = doc.normalize_system_path((doc.attr 'stylesdir'), outdir, (doc.safe >= SafeMode::SAFE ? outdir : nil))
+    if stylesoutdir != extdir && doc.safe < SafeMode::SECURE && (doc.attr? 'copycss')
+      destination = doc.normalize_system_path stylesheet_name, stylesoutdir, (doc.safe >= SafeMode::SAFE ? outdir : nil)
+      content = doc.read_asset %(#{extdir}/#{stylesheet_name})
       ::File.open(destination, 'w') {|f|
         f.write content
       }
       destination
     else
-      "./#{stylesheet_name}"
+      %(./#{stylesheet_name})
     end
   end
 end
