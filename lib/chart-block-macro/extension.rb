@@ -1,5 +1,4 @@
 require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
-require 'csv'
 require 'securerandom'
 
 include ::Asciidoctor
@@ -15,7 +14,7 @@ class ChartBlockMacro < Extensions::BlockMacroProcessor
   named :chart
 
   def process(parent, target, attrs)
-    raw_data = CSV.read(File.join parent.document.base_dir, attrs['data-uri'])
+    raw_data = PlainRubyCSV.read(File.join parent.document.base_dir, attrs['data-uri'])
     data, labels = C3jsChartBuilder.prepare_data(raw_data)
     html = (case target
       when 'bar' then C3jsChartBuilder.bar data, labels
@@ -38,7 +37,7 @@ class ChartBlockProcessor < Extensions::BlockProcessor
   parse_content_as :raw
 
   def process(parent, reader, attrs)
-    raw_data = CSV.parse(reader.source)
+    raw_data = PlainRubyCSV.parse(reader.source)
     data, labels = C3jsChartBuilder.prepare_data(raw_data)
     html = (case attrs['type']
       when 'bar' then C3jsChartBuilder.bar data, labels
@@ -238,5 +237,26 @@ class ChartjsChartBuilder
     #{chart_init_script}
 }
 </script>)
+  end
+end
+
+class PlainRubyCSV
+
+  def self.parse(data)
+    result = []
+    data.each_line do |line|
+      line_chomp = line.chomp
+      result.push(line_chomp.split(','))
+    end
+    result
+  end
+
+  def self.read(filename)
+    result = []
+    File.open(filename).each do |line|
+      line_chomp = line.chomp
+      result.push(line_chomp.split(','))
+    end
+    result
   end
 end
