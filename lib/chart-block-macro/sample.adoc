@@ -1,8 +1,8 @@
 = Chart Block Macro Extension
 
-chart::line[data-uri="sample.csv", backend="chartjs"]
+chart::line[data-uri="sample.csv", engine="chartjs"]
 
-chart::bar[data-uri="sample.csv", backend="chartist"]
+chart::bar[data-uri="sample.csv", engine="chartist"]
 
 chart::step[data-uri="sample.csv"]
 
