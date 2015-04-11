@@ -24,7 +24,7 @@ class ChartBlockProcessor < Extensions::BlockProcessor
   use_dsl
   named :chart
   on_context :literal
-  name_positional_attributes 'type'
+  name_positional_attributes 'type', 'engine'
   parse_content_as :raw
 
   def process(parent, reader, attrs)
@@ -32,6 +32,32 @@ class ChartBlockProcessor < Extensions::BlockProcessor
     raw_data = PlainRubyCSV.parse(reader.source)
     html = ChartBackend.process engine, attrs['type'], raw_data
     create_pass_block parent, html, attrs, subs: nil
+  end
+end
+
+class ChartAssetsDocinfoProcessor < Extensions::DocinfoProcessor
+  use_dsl
+  at_location :header
+
+  C3JS_STYLESHEET = '<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/c3/0.3.0/c3.min.css">'
+  D3JS_SCRIPT = '<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js" charset="utf-8"></script>'
+  C3JS_SCRIPT = '<script src="http://cdnjs.cloudflare.com/ajax/libs/c3/0.3.0/c3.min.js"></script>'
+
+  CHARTIST_STYLESHEET = '<link rel="stylesheet" href="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">'
+  CHARTIST_SCRIPT = '<script src="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>'
+
+  CHARTJS_SCRIPT = '<script src="http://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>'
+
+  def process doc
+    # TODO Import only the required engines
+    # TODO Honor linkcss and copycss
+    %(
+#{C3JS_STYLESHEET}
+#{D3JS_SCRIPT}
+#{C3JS_SCRIPT}
+#{CHARTIST_STYLESHEET}
+#{CHARTIST_SCRIPT}
+#{CHARTJS_SCRIPT})
   end
 end
 
@@ -74,11 +100,6 @@ end
 
 
 class C3jsChartBuilder
-
-  # TODO http or https ? asset_uri_scheme ?
-  C3JS_STYLESHEET = '<link href="http://cdnjs.cloudflare.com/ajax/libs/c3/0.3.0/c3.min.css" rel="stylesheet" type="text/css">'
-  D3JS_SCRIPT = '<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js" charset="utf-8"></script>'
-  C3JS_SCRIPT = '<script src="http://cdnjs.cloudflare.com/ajax/libs/c3/0.3.0/c3.min.js"></script>'
 
   def self.bar(data, labels)
     chart_id = get_chart_id
@@ -139,7 +160,7 @@ c3.generate({
   axis: {
     x: {
       type: 'category',
-      categories: #{labels}
+      categories: #{labels.to_s}
     }
   }
 });
@@ -157,7 +178,7 @@ c3.generate({
   axis: {
     x: {
       type: 'category',
-      categories: #{labels}
+      categories: #{labels.to_s}
     }
   }
 });
@@ -176,7 +197,7 @@ c3.generate({
   axis: {
     x: {
       type: 'category',
-      categories: #{labels}
+      categories: #{labels.to_s}
     }
   }
 });
@@ -195,7 +216,7 @@ c3.generate({
   axis: {
     x: {
       type: 'category',
-      categories: #{labels}
+      categories: #{labels.to_s}
     }
   }
 });
@@ -204,9 +225,6 @@ c3.generate({
 
   def self.to_html(chart_div, chart_script)
     %(
-    #{C3JS_STYLESHEET}
-    #{D3JS_SCRIPT}
-    #{C3JS_SCRIPT}
     #{chart_div}
     #{chart_script}
     )
@@ -232,8 +250,6 @@ class ChartjsChartBuilder
 }
       )
     end.join(',')
-    # TODO Replace with CDN when the 1.0 version will be available
-    chartjs_script = %(<script src="#{File.join File.dirname(__FILE__), 'Chart.js'}"></script>)
     # TODO Generate unique id (or read from attributes)
     chart_id = 'chart' + PlainRubyRandom.uuid
     # TODO Read with percent from attributes
@@ -248,7 +264,6 @@ class ChartjsChartBuilder
 };)
     chart_init_script = 'var chart = new Chart(ctx).Line(data, {responsive : true});'
     %(
-    #{chartjs_script}
     #{chart_canvas}<script type="text/javascript">window.onload = function() {
     #{chart_init_ctx_script}
     #{chart_init_data_script}
@@ -266,10 +281,6 @@ class ChartjsChartBuilder
 end
 
 class ChartistChartBuilder
-
-  CHARTIST_STYLESHEET = '<link rel="stylesheet" href="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">'
-  CHARTIST_SCRIPT = '<script src="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>'
-
   def self.bar(data, labels)
     chart_id = get_chart_id
     chart_div = create_chart_div(chart_id)
@@ -300,34 +311,48 @@ class ChartistChartBuilder
   end
 
   def self.chart_bar_script(chart_id, data, labels)
+    chart_height = get_chart_height
     %(
 <script type="text/javascript">
-var data = {
-  labels: #{labels},
-  series: #{data}
+var options = {
+  height: '#{chart_height}',
+  colors:["#72B3CC", "#8EB33B"]
 };
-new Chartist.Bar('##{chart_id}', data);
+var data = {
+  labels: #{labels.to_s},
+  series: #{data.to_s}
+};
+new Chartist.Bar('##{chart_id}', data, options);
 </script>)
   end
 
   def self.chart_line_script(chart_id, data, labels)
+    chart_height = get_chart_height
     %(
 <script type="text/javascript">
-var data = {
-  labels: #{labels},
-  series: #{data}
+var options = {
+  height: '#{chart_height}',
+  colors:["#72B3CC", "#8EB33B"]
 };
-new Chartist.Line('##{chart_id}', data);
+var data = {
+  labels: #{labels.to_s},
+  series: #{data.to_s}
+};
+new Chartist.Line('##{chart_id}', data, options);
 </script>)
   end
 
   def self.to_html(chart_div, chart_script)
     %(
-    #{CHARTIST_STYLESHEET}
-    #{CHARTIST_SCRIPT}
     #{chart_div}
     #{chart_script}
     )
+  end
+
+  def self.get_chart_height
+    # TODO Allow to modify the height of the chart.
+    # By default 300px
+    '300px'
   end
 
 end
