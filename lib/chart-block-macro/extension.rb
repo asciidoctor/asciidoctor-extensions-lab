@@ -14,9 +14,9 @@ class ChartBlockMacro < Extensions::BlockMacroProcessor
   named :chart
 
   def process(parent, target, attrs)
-    backend = (attrs.key? 'backend') ? attrs['backend'].downcase : 'c3js'
+    engine = (attrs.key? 'engine') ? attrs['engine'].downcase : 'c3js'
     raw_data = PlainRubyCSV.read(File.join parent.document.base_dir, attrs['data-uri'])
-    html = ChartBackend.process backend, target, raw_data
+    html = ChartBackend.process engine, target, raw_data
     create_pass_block parent, html, attrs, subs: nil
   end
 end
@@ -29,18 +29,18 @@ class ChartBlockProcessor < Extensions::BlockProcessor
   parse_content_as :raw
 
   def process(parent, reader, attrs)
-    backend = (attrs.key? 'backend') ? attrs['backend'].downcase : 'c3js'
+    engine = (attrs.key? 'engine') ? attrs['engine'].downcase : 'c3js'
     raw_data = PlainRubyCSV.parse(reader.source)
-    html = ChartBackend.process backend, attrs['type'], raw_data
+    html = ChartBackend.process engine, attrs['type'], raw_data
     create_pass_block parent, html, attrs, subs: nil
   end
 end
 
 class ChartBackend
 
-  def self.process backend, type, raw_data
-    # TODO Check that the backend can process the required type (bar, line, step...)
-    case backend
+  def self.process engine, type, raw_data
+    # TODO Check that the engine can process the required type (bar, line, step...)
+    case engine
       when 'c3js'
         data, labels = C3jsChartBuilder.prepare_data(raw_data)
         (case type
