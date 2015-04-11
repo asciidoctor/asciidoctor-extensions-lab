@@ -1,5 +1,4 @@
 require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
-require 'securerandom'
 
 include ::Asciidoctor
 
@@ -61,7 +60,7 @@ class ChartBackend
             # By default chart line
             ChartistChartBuilder.line data, labels
         end)
-      when 'chartjs'  
+      when 'chartjs'
         data, labels = ChartjsChartBuilder.prepare_data(raw_data)
         (case type
           when 'line' then ChartjsChartBuilder.line data, labels
@@ -115,7 +114,7 @@ class C3jsChartBuilder
 
   def self.get_chart_id
     # TODO Read from attributes ?
-    'chart' + SecureRandom.uuid
+    'chart' + PlainRubyRandom.uuid
   end
 
   def self.prepare_data(raw_data)
@@ -236,7 +235,7 @@ class ChartjsChartBuilder
     # TODO Replace with CDN when the 1.0 version will be available
     chartjs_script = %(<script src="#{File.join File.dirname(__FILE__), 'Chart.js'}"></script>)
     # TODO Generate unique id (or read from attributes)
-    chart_id = 'chart' + SecureRandom.uuid
+    chart_id = 'chart' + PlainRubyRandom.uuid
     # TODO Read with percent from attributes
     chart_width_percent = 50
     chart_canvas = %(<div style="width:#{chart_width_percent}%"><canvas id="#{chart_id}"></canvas></div>)
@@ -291,7 +290,7 @@ class ChartistChartBuilder
 
   def self.get_chart_id
     # TODO Read from attributes ?
-    'chart' + SecureRandom.uuid
+    'chart' + PlainRubyRandom.uuid
   end
 
   def self.prepare_data(raw_data)
@@ -351,5 +350,13 @@ class PlainRubyCSV
       result.push(line_chomp.split(','))
     end
     result
+  end
+end
+
+
+class PlainRubyRandom
+
+  def self.uuid
+    (0...8).map { (65 + rand(26)).chr }.join
   end
 end
