@@ -6,17 +6,22 @@ include ::Asciidoctor
 #
 # Usage
 #
-#   chart::line[data-uri=sample.csv]
+#   chart::sample.csv[line,800,500,engine=chartist]
 #
 class ChartBlockMacro < Extensions::BlockMacroProcessor
   use_dsl
   named :chart
+  name_positional_attributes 'type', 'width', 'height'
 
   def process(parent, target, attrs)
-    engine = (attrs.key? 'engine') ? attrs['engine'].downcase : 'c3js'
-    raw_data = PlainRubyCSV.read(File.join parent.document.base_dir, attrs['data-uri'])
-    html = ChartBackend.process engine, target, raw_data
-    create_pass_block parent, html, attrs, subs: nil
+    data_path = parent.normalize_asset_path(target, 'target')
+    read_data = parent.read_asset(data_path, warn_on_failure: true, normalize: true)
+    unless read_data.nil? || read_data.empty?
+      engine = ChartBackend.resolve_engine attrs, parent.document
+      raw_data = PlainRubyCSV.parse(read_data)
+      html = ChartBackend.process engine, attrs, raw_data
+      create_pass_block parent, html, attrs, subs: nil
+    end
   end
 end
 
@@ -24,13 +29,13 @@ class ChartBlockProcessor < Extensions::BlockProcessor
   use_dsl
   named :chart
   on_context :literal
-  name_positional_attributes 'type', 'engine'
+  name_positional_attributes 'type', 'width', 'height'
   parse_content_as :raw
 
   def process(parent, reader, attrs)
-    engine = (attrs.key? 'engine') ? attrs['engine'].downcase : 'c3js'
+    engine = ChartBackend.resolve_engine attrs, parent.document
     raw_data = PlainRubyCSV.parse(reader.source)
-    html = ChartBackend.process engine, attrs['type'], raw_data
+    html = ChartBackend.process engine, attrs, raw_data
     create_pass_block parent, html, attrs, subs: nil
   end
 end
@@ -63,36 +68,47 @@ end
 
 class ChartBackend
 
-  def self.process engine, type, raw_data
+  def self.resolve_engine attrs, document
+    if attrs.key? 'engine'
+      attrs['engine'].downcase
+    elsif document.attributes.key? 'chart-engine'
+      document.attributes['chart-engine'].downcase
+    else
+      'c3js'
+    end
+  end
+
+  def self.process engine, attrs, raw_data
     # TODO Check that the engine can process the required type (bar, line, step...)
+    type = attrs['type']
     case engine
       when 'c3js'
         data, labels = C3jsChartBuilder.prepare_data(raw_data)
         (case type
-          when 'bar' then C3jsChartBuilder.bar data, labels
-          when 'line' then C3jsChartBuilder.line data, labels
-          when 'step' then C3jsChartBuilder.step data, labels
-          when 'spline' then C3jsChartBuilder.spline data, labels
+          when 'bar' then C3jsChartBuilder.bar data, labels, attrs
+          when 'line' then C3jsChartBuilder.line data, labels, attrs
+          when 'step' then C3jsChartBuilder.step data, labels, attrs
+          when 'spline' then C3jsChartBuilder.spline data, labels, attrs
           else
             # By default chart line
-            C3jsChartBuilder.line data, labels
+            C3jsChartBuilder.line data, labels, attrs
         end)
       when 'chartist'
         data, labels = ChartistChartBuilder.prepare_data(raw_data)
         (case type
-          when 'bar' then ChartistChartBuilder.bar data, labels
-          when 'line' then ChartistChartBuilder.line data, labels
+          when 'bar' then ChartistChartBuilder.bar data, labels, attrs
+          when 'line' then ChartistChartBuilder.line data, labels, attrs
           else
             # By default chart line
-            ChartistChartBuilder.line data, labels
+            ChartistChartBuilder.line data, labels, attrs
         end)
       when 'chartjs'
         data, labels = ChartjsChartBuilder.prepare_data(raw_data)
         (case type
-          when 'line' then ChartjsChartBuilder.line data, labels
+          when 'line' then ChartjsChartBuilder.line data, labels, attrs
           else
             # By default chart line
-            ChartjsChartBuilder.line data, labels
+            ChartjsChartBuilder.line data, labels, attrs
         end)
     end
   end
@@ -101,31 +117,31 @@ end
 
 class C3jsChartBuilder
 
-  def self.bar(data, labels)
+  def self.bar(data, labels, attrs)
     chart_id = get_chart_id
     chart_div = create_chart_div(chart_id)
-    chart_generate_script = chart_bar_script(chart_id, data, labels)
+    chart_generate_script = chart_bar_script(chart_id, data, labels, attrs)
     to_html(chart_div, chart_generate_script)
   end
 
-  def self.line(data, labels)
+  def self.line(data, labels, attrs)
     chart_id = get_chart_id
     chart_div = create_chart_div(chart_id)
-    chart_generate_script = chart_line_script(chart_id, data, labels)
+    chart_generate_script = chart_line_script(chart_id, data, labels, attrs)
     to_html(chart_div, chart_generate_script)
   end
 
-  def self.step(data, labels)
+  def self.step(data, labels, attrs)
     chart_id = get_chart_id
     chart_div = create_chart_div(chart_id)
-    chart_generate_script = chart_step_script(chart_id, data, labels)
+    chart_generate_script = chart_step_script(chart_id, data, labels, attrs)
     to_html(chart_div, chart_generate_script)
   end
 
-  def self.spline(data, labels)
+  def self.spline(data, labels, attrs)
     chart_id = get_chart_id
     chart_div = create_chart_div(chart_id)
-    chart_generate_script = chart_spline_script(chart_id, data, labels)
+    chart_generate_script = chart_spline_script(chart_id, data, labels, attrs)
     to_html(chart_div, chart_generate_script)
   end
 
@@ -147,12 +163,14 @@ class C3jsChartBuilder
     return raw_data, labels
   end
 
-  def self.chart_bar_script(chart_id, data, labels)
+  def self.chart_bar_script(chart_id, data, labels, attrs)
+    chart_height = get_chart_height attrs
+    chart_width = get_chart_width attrs
     %(
 <script type="text/javascript">
 c3.generate({
   bindto: '##{chart_id}',
-  size: { height: 200 },
+  size: { height: #{chart_height}, width: #{chart_width} },
   data: {
     columns: #{data.to_s},
     type: 'bar'
@@ -167,11 +185,14 @@ c3.generate({
 </script>)
   end
 
-  def self.chart_line_script(chart_id, data, labels)
+  def self.chart_line_script(chart_id, data, labels, attrs)
+    chart_height = get_chart_height attrs
+    chart_width = get_chart_width attrs
     %(
 <script type="text/javascript">
 c3.generate({
   bindto: '##{chart_id}',
+  size: { height: #{chart_height}, width: #{chart_width} },
   data: {
     columns: #{data.to_s}
   },
@@ -185,11 +206,14 @@ c3.generate({
 </script>)
   end
 
-  def self.chart_step_script(chart_id, data, labels)
+  def self.chart_step_script(chart_id, data, labels, attrs)
+    chart_height = get_chart_height attrs
+    chart_width = get_chart_width attrs
     %(
 <script type="text/javascript">
 c3.generate({
   bindto: '##{chart_id}',
+  size: { height: #{chart_height}, width: #{chart_width} },
   data: {
     columns: #{data.to_s},
     type: 'step'
@@ -204,11 +228,14 @@ c3.generate({
 </script>)
   end
 
-  def self.chart_spline_script(chart_id, data, labels)
+  def self.chart_spline_script(chart_id, data, labels, attrs)
+    chart_height = get_chart_height attrs
+    chart_width = get_chart_width attrs
     %(
 <script type="text/javascript">
 c3.generate({
   bindto: '##{chart_id}',
+  size: { height: #{chart_height}, width: #{chart_width} },
   data: {
     columns: #{data.to_s},
     type: 'spline'
@@ -229,11 +256,20 @@ c3.generate({
     #{chart_script}
     )
   end
+
+  def self.get_chart_height attrs
+    (attrs.key? 'height') ? attrs['height'] : '400'
+  end
+
+  def self.get_chart_width attrs
+    (attrs.key? 'width') ? attrs['width'] : '600'
+  end
+
 end
 
 class ChartjsChartBuilder
 
-  def self.line(data, labels)
+  def self.line(data, labels, attrs)
     default_colors = [{r:220,g:220,b:220}, {r:151,g:187,b:205}]
     datasets = data.map do |set|
       color = default_colors[data.index(set) % 2]
@@ -252,9 +288,9 @@ class ChartjsChartBuilder
     end.join(',')
     # TODO Generate unique id (or read from attributes)
     chart_id = 'chart' + PlainRubyRandom.uuid
-    # TODO Read with percent from attributes
-    chart_width_percent = 50
-    chart_canvas = %(<div style="width:#{chart_width_percent}%"><canvas id="#{chart_id}"></canvas></div>)
+    chart_height = get_chart_height attrs
+    chart_width = get_chart_width attrs
+    chart_canvas = %(<div style="width:#{chart_width}px; height:#{chart_height}px"><canvas id="#{chart_id}"></canvas></div>)
     chart_init_ctx_script = %(var ctx = document.getElementById("#{chart_id}").getContext("2d");)
     chart_init_data_script = %(var data = {
   labels: #{labels.to_s},
@@ -278,20 +314,29 @@ class ChartjsChartBuilder
     return raw_data, labels
   end
 
+  def self.get_chart_height attrs
+    (attrs.key? 'height') ? attrs['height'] : '400'
+  end
+
+  def self.get_chart_width attrs
+    (attrs.key? 'width') ? attrs['width'] : '600'
+  end
+
 end
 
 class ChartistChartBuilder
-  def self.bar(data, labels)
+
+  def self.bar(data, labels, attrs)
     chart_id = get_chart_id
     chart_div = create_chart_div(chart_id)
-    chart_generate_script = chart_bar_script(chart_id, data, labels)
+    chart_generate_script = chart_bar_script(chart_id, data, labels, attrs)
     to_html(chart_div, chart_generate_script)
   end
 
-  def self.line(data, labels)
+  def self.line(data, labels, attrs)
     chart_id = get_chart_id
     chart_div = create_chart_div(chart_id)
-    chart_generate_script = chart_line_script(chart_id, data, labels)
+    chart_generate_script = chart_line_script(chart_id, data, labels, attrs)
     to_html(chart_div, chart_generate_script)
   end
 
@@ -310,8 +355,9 @@ class ChartistChartBuilder
     return raw_data, labels
   end
 
-  def self.chart_bar_script(chart_id, data, labels)
-    chart_height = get_chart_height
+  def self.chart_bar_script(chart_id, data, labels, attrs)
+    chart_height = get_chart_height attrs
+    chart_width = get_chart_width attrs
     %(
 <script type="text/javascript">
 var options = {
@@ -326,12 +372,14 @@ new Chartist.Bar('##{chart_id}', data, options);
 </script>)
   end
 
-  def self.chart_line_script(chart_id, data, labels)
-    chart_height = get_chart_height
+  def self.chart_line_script(chart_id, data, labels, attrs)
+    chart_height = get_chart_height attrs
+    chart_width = get_chart_width attrs
     %(
 <script type="text/javascript">
 var options = {
   height: '#{chart_height}',
+  width: '#{chart_width}',
   colors:["#72B3CC", "#8EB33B"]
 };
 var data = {
@@ -349,10 +397,12 @@ new Chartist.Line('##{chart_id}', data, options);
     )
   end
 
-  def self.get_chart_height
-    # TODO Allow to modify the height of the chart.
-    # By default 300px
-    '300px'
+  def self.get_chart_height attrs
+    (attrs.key? 'height') ? attrs['height'] : '400'
+  end
+
+  def self.get_chart_width attrs
+    (attrs.key? 'width') ? attrs['width'] : '600'
   end
 
 end
