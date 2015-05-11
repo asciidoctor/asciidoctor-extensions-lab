@@ -6,6 +6,7 @@ include ::Asciidoctor
 # Usage
 #
 #   pick:[target-web=Web,target-desktop=Desktop]
+#   pick:[target-web.target-mobile=Web,target-desktop=Desktop]
 #
 Extensions.register do
   inline_macro do
@@ -17,7 +18,14 @@ Extensions.register do
     process do |parent, target|
       doc = parent.document
       attrs = (AttributeList.new target).parse
-      valid_key = attrs.keys.find {|key| doc.attr? key }
+      valid_key = attrs.keys.find {|key|
+        next false unless String === key
+        if key.include? '.'
+          key.split('.').find {|key_alt| doc.attr? key_alt }
+        else
+          doc.attr? key
+        end
+      }
       valid_key ? attrs[valid_key] : ''
     end
   end
