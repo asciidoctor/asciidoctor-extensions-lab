@@ -3,8 +3,6 @@
 
 The control's data source property is `pick:[target-wpf.target-silverlight=DataContext,target-web=dataSource]` and accepts a collection of view model objects.
 
-////
-Another idea for this macro.
+//Another idea for this macro.
 
-ifdef:api@wpf[DataContext,dataSource]
-////
+`pick2:target-wpf,target-silverlight@target-web[DataContext,dataSource]`

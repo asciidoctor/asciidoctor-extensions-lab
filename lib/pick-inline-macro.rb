@@ -6,7 +6,9 @@ include ::Asciidoctor
 # Usage
 #
 #   pick:[target-web=Web,target-desktop=Desktop]
-#   pick:[target-web.target-mobile=Web,target-desktop=Desktop]
+#   pick:[target-web.target-mobile="Web or mobile",target-desktop=Desktop]
+#
+#   pick2:target-web,target-mobile@target-desktop[Web or mobile,Desktop]
 #
 Extensions.register do
   inline_macro do
@@ -27,6 +29,24 @@ Extensions.register do
         end
       }
       valid_key ? attrs[valid_key] : ''
+    end
+  end
+
+  inline_macro :pick2 do
+    # FIXME can't set named inside block (regexp doesn't get setup right)
+    #named :ifdef
+    # FIXME allow parse_content_as :attributes
+    # parse_content_as :attributes
+    process do |parent, target, attributes|
+      doc = parent.document
+      valid_key = target.split('@').find_index {|key|
+        if key.include? ','
+          key.split(',').find {|key_alt| doc.attr? key_alt }
+        else
+          doc.attr? key
+        end
+      }
+      valid_key ? attributes[valid_key + 1] : ''
     end
   end
 end
