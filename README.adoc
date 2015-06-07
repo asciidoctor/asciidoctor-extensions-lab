@@ -87,6 +87,12 @@ This is an example of how you can emoji:heart[lg] Asciidoctor and Twitter Emoji.
 
 https://github.com/asciidoctor/asciidoctor-extensions-lab/issues/44[TODO].
 
+== Mature extensions
+
+- https://github.com/asciidoctor/asciidoctor-diagram[asciidoctor-diagram]
+
 == How to transpile these extensions for use with Asciidoctor.js
 
 https://github.com/asciidoctor/asciidoctor-extensions-lab/issues/44[TODO].
+
+
