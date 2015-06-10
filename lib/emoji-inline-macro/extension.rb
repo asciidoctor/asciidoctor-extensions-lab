@@ -2,7 +2,7 @@ require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 
 include ::Asciidoctor
 
-class EmojiBlockMacro < Extensions::InlineMacroProcessor
+class EmojiInlineMacro < Extensions::InlineMacroProcessor
   use_dsl
 
   named :emoji
