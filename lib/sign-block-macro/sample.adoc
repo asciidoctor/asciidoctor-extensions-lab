@@ -1,0 +1,5 @@
+= Sign Block Macro Extension
+:sign-repository: http://sign-languages.github.io/libras/v0
+
+.Learn the sign of Casa
+sign::c/casa[]
