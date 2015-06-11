@@ -1,0 +1,56 @@
+// must pass -a allow-uri-read to enable data-uri behavior
+= Sign Inline Macro Extension
+:linkattrs:
+:sign-repository: http://sign-languages.github.io/libras/v0
+
+// video::xjxjTMBoNjE[youtube]
+
+== Configuration
+
+You should set the `sign-repository` attribute and `linkattrs`:
+
+----
+:linkattrs:
+:sign-repository: http://sign-languages.github.io/libras/v0
+----
+
+== How to use
+
+You can learn the sign of sign:c/casa[], if you follow the link.
+
+You can learn sign:c/casa[the sign of Home], on LIBRAS, if you follow the link.
+
+
+== Explanation
+
+- We have HTML repositories where users will navegate that and search for sings.
+
+- Let's suppose you have navigated to http://sign-languages.github.io/libras/v0/c/casa and you want to use the sign described at that page. You can copy the URL you are at, and use it with the inline macro `sign:[]`:
+
+----
+Look the sign sign:http://sign-languages.github.io/libras/v0/c/casa[].
+----
+
+:!sign-repository:
+
+Look the sign sign:http://sign-languages.github.io/libras/v0/c/casa[].
+
+If you set `sign-repository` attribute, it will be used as a base of all urls:
+
+----
+:sign-repository: http://sign-languages.github.io/libras/v0
+Look the sign sign:c/casa[].
+----
+
+:sign-repository: http://sign-languages.github.io/libras/v0
+
+Look the sign sign:c/casa[].
+
+== Repositories
+
+- The *key* of each sign is its URL. The macro will look for a json file describing the sign at the URL plus `.json`: http://sign-languages.github.io/libras/v0/c/casa.json
+
+- It will use the data from this json.
+
+*TODO*: Load local json files (`sign/*.json`) and use it instead as cache of
+online repositories (http://sign-languages.github.io/libras/v0/language.json).
