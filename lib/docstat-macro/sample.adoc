@@ -1,0 +1,10 @@
+= Doc stats
+
+Phasellus bibendum lorem vitae enim sollicitudin eleifend.
+Vestibulum lectus est, aliquet eget volutpat eu, facilisis quis justo.
+Morbi eu odio nibh.
+
+== Statistics
+
+ * Estimated reading time: docstat::[reading-time] minute(s)
+ * Word count: docstat::[word-count] word(s)
