@@ -1,0 +1,6 @@
+= _Precompiled_ Math!
+
+[stem#equation1]
+++++
+\left\langle {a + a \over x - a} | \epsilon_\Xi(a) \right\rangle = \left\{ \frac{1}{N} \sum_{i=0}^N \frac{x^i}{i!} + \Xi \int_0^x \epsilon_0(at) \, dt \right\}
+++++
