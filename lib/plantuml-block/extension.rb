@@ -23,13 +23,13 @@ class PlantumlBlock < Extensions::BlockProcessor
   parse_content_as :raw
 
   def process(parent, reader, attrs)
-    content = reader.lines.join('\n')
+    content = reader.lines.join("\n")
     id = SecureRandom.uuid
 
     html = "
-    <img id='#{id}' src='' />
+    <img id='#{id}' src='"+content+"' />
     <script>
-      var escaped =  unescape(encodeURIComponent('" + content + "'));
+      var escaped =  unescape(encodeURIComponent($('##{id}').attr('src')));
       var encodedAndDeflated = encode64(deflate(escaped, 9));
       $('##{id}').attr('src', 'http://www.plantuml.com/plantuml/img/' + encodedAndDeflated);
     </script>"

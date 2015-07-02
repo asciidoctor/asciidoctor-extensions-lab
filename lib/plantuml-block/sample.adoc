@@ -1,5 +1,7 @@
 = Plantuml Block Extension
 
+First diagram
+
 ["plantuml"]
 ----
 
@@ -11,15 +13,17 @@ Alice <-- Bob: another authentication Response
 
 ----
 
+Other diagram
+
 ["plantuml"]
 ----
 participant Alice
 participant Bob
 note left of Alice #aqua
-	This is displayed 
-	left of Alice. 
+	This is displayed
+	left of Alice.
 end note
- 
+
 note right of Alice: This is displayed right of Alice.
 
 note over Alice: This is displayed over Alice.
