@@ -1,6 +1,7 @@
 = _Precompiled_ Math!
+:imagesoutdir: generated-images
 
-[stem#equation1]
+[latexmath]
 ++++
-\left\langle {a + a \over x - a} | \epsilon_\Xi(a) \right\rangle = \left\{ \frac{1}{N} \sum_{i=0}^N \frac{x^i}{i!} + \Xi \int_0^x \epsilon_0(at) \, dt \right\}
+k_{n+1} = n^2 + k_n^2 - k_{n-1}
 ++++
