@@ -27,13 +27,12 @@ class PlantumlBlock < Extensions::BlockProcessor
     id = SecureRandom.uuid
 
     html = "
-    <img id='#{id}' src='"+content+"' />
-    <script>
-      var escaped =  unescape(encodeURIComponent($('##{id}').attr('src')));
-      var encodedAndDeflated = encode64(deflate(escaped, 9));
-      $('##{id}').attr('src', 'http://www.plantuml.com/plantuml/img/' + encodedAndDeflated);
-    </script>"
-
+      <img id='#{id}' src='' alt='#{content}' title='#{content}' />
+      <script>
+        var escaped =  unescape(encodeURIComponent($('##{id}').attr('alt')));
+        var encodedAndDeflated = encode64(deflate(escaped, 9));
+        $('##{id}').attr('src', 'http://www.plantuml.com/plantuml/png/' + encodedAndDeflated);
+      </script>"
 
     create_pass_block parent, html, attrs, subs: nil
   end
