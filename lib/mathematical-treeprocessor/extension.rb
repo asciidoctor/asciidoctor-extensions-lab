@@ -37,7 +37,12 @@ class MathematicalTreeprocessor < Extensions::Treeprocessor
 
         attrs = { 'target' => image_target, 'alt' => alt_text, 'align' => 'center' }
         parent = stem.parent
-        parent.blocks[parent.blocks.index stem] = create_image_block parent, attrs
+        stem_image = create_image_block parent, attrs
+        stem_image.id = stem.id if stem.id
+        if (title = stem.attributes['title'])
+          stem_image.title = title
+        end
+        parent.blocks[parent.blocks.index stem] = stem_image
       end
     end
     nil
