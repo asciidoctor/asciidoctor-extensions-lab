@@ -1,3 +1,98 @@
 = Asciidoctor Extensions Lab
 
 A repository of sample and incubating Ruby-based extensions for Asciidoctor.
+
+First of all, you have to understand the extensions mechanism, it you haven't
+done it, read it http://asciidoctor.org/docs/user-manual/#extensions[at the user manual].
+
+== What extensions are available here
+
+We have these types of extensions:
+
+- Preprocessor
+- Treeprocessor
+- Postprocessor
+- BlockProcessor
+- BlockMacroProcessor
+- InlineMacroProcessor
+- IncludeProcessor
+
+To look for examples of each type you can use `git grep`, for example, to look for `BlockMacroProcessor` type:
+
+  $ git grep BlockMacroProcessor lib/
+
+You will get a result like this:
+
+  lib/chart-block-macro/extension.rb:class ChartBlockMacro < Extensions::BlockMacroProcessor
+  lib/gist-block-macro/extension.rb:class GistBlockMacro < Extensions::BlockMacroProcessor
+  lib/pass-block-macro/extension.rb:class PassBlockMacro < Extensions::BlockMacroProcessor
+  lib/tree-block-macro/extension.rb:class TreeBlockMacro < Asciidoctor::Extensions::BlockMacroProcessor
+
+
+== Files of an extension
+
+Each extensions have, at least, three files:
+
+- one for the *extensions* itself
+- one for the asciidoc *source* (an adoc file)
+- one for the *registration*
+
+For example, the *emoji* plugin have four files:
+
+- https://github.com/asciidoctor/asciidoctor-extensions-lab/blob/master/lib/emoji-inline-macro/extension.rb[lib/emoji-inline-macro/extension.rb] (the extension)
+- https://github.com/asciidoctor/asciidoctor-extensions-lab/blob/master/lib/emoji-inline-macro/sample.adoc[lib/emoji-inline-macro/sample.adoc] (the source)
+- https://github.com/asciidoctor/asciidoctor-extensions-lab/blob/master/lib/emoji-inline-macro.rb[lib/emoji-inline-macro.rb] (the registration)
+- https://github.com/asciidoctor/asciidoctor-extensions-lab/blob/master/lib/emoji-inline-macro/twemoji-awesome.css[lib/emoji-inline-macro/twemoji-awesome.css]  (extra file)
+
+CAUTION: The _registration file_ will be at `lib`, and the `extension.rb` file
+will be inside a _new directory_ in `lib`.
+
+== How to run an extension from the extension lab
+
+Before create your own extensions, it would be wise to run one yourself. You must run it from the root directory of the project:
+
+  asciidoctor-extensions-lab$ asciidoctor -r lib/emoji-inline-macro.rb lib/emoji-inline-macro/sample.adoc
+  asciidoctor: FAILED: 'lib/emoji-inline-macro.rb' could not be loaded
+  Use --trace for backtrace
+
+Oops! I forgot to include `./` with `-r`, let's try again:
+
+  $ asciidoctor -r ./lib/emoji-inline-macro.rb lib/emoji-inline-macro/sample.adoc
+
+All right, it ran! The `sample.html` was created at the same directory of `sample.adoc`:
+
+*lib/emoji-inline-macro/sample.adoc*:
+
+```asciidoc
+(...)
+Faster than a emoji:turtle[1x]!
+
+This is an example of how you can emoji:heart[lg] Asciidoctor and Twitter Emoji.
+```
+
+*lib/emoji-inline-macro/sample.html*:
+
+```html
+(...)
+<div class="paragraph">
+<p>Faster than a <i class="twa twa-1x twa-turtle"></i>!</p>
+</div>
+<div class="paragraph">
+<p>This is an example of how you can <i class="twa twa-lg twa-heart"></i> Asciidoctor and Twitter Emoji.</p>
+</div>
+(...)
+```
+
+== Create your own extension at the lab
+
+https://github.com/asciidoctor/asciidoctor-extensions-lab/issues/44[TODO].
+
+== Mature extensions
+
+- https://github.com/asciidoctor/asciidoctor-diagram[asciidoctor-diagram]
+
+== How to transpile these extensions for use with Asciidoctor.js
+
+https://github.com/asciidoctor/asciidoctor-extensions-lab/issues/44[TODO].
+
+
