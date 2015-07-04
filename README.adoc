@@ -11,15 +11,15 @@ To create your own extension, we recommend that you first read the http://asciid
 
 We have these types of extensions in the lab:
 
-- Preprocessor
-- Treeprocessor
-- Postprocessor
-- BlockProcessor
-- BlockMacroProcessor
-- InlineMacroProcessor
-- IncludeProcessor
+- Preprocessor - processes the AsciiDoc source before it is parsed
+- IncludeProcessor - intercepts the AsciiDoc include directive
+- Treeprocessor - processes the parsed AsciiDoc document (AST)
+- Postprocessor - processes the converted output before it is written to the output stream (or disk)
+- BlockProcessor - adds a custom delimited block
+- BlockMacroProcessor - adds a custom block macro
+- InlineMacroProcessor - adds a custom inline macro
 
-The type of extension is always used in the name of the extension load file and directory to make it easy to distinguish.
+The type of extension (e.g, `-block-macro`) is always used in the name of the extension load file and directory to make it easy to distinguish.
 You can also look for examples using `git grep`.
 For example, to look for a `BlockMacroProcessor`, run the following command:
 
