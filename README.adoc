@@ -52,6 +52,105 @@ For example, the emoji-inline-macro extension has four files:
 
 NOTE: The registration file (e.g., emoji-inline-macro.rb) goes in the [path]_lib_ directory whereas the remaining files go inside a directory whose base name matches the name of the registration file (e.g., emoji-inline-macro).
 
+== Extension catalog
+
+The following extensions are available in the lab.
+
+ChartBlockMacro, link:lib/chart-block-macro.rb[]::
+Adds a chart block and block macro to AsciiDoc powered by c3js, chartist or chartjs.
+
+ChromeInlineMacro, link:lib/chrome-inline-macro.rb[]::
+Adds an inline macro for linking to a `chrome://` URI.
+
+CopyrightFooterPostprocessor, link:lib/copyright-footer-postprocessor.rb[]::
+Adds a copyright to the document footer based on the value of the `copywrite` attribute.
+
+EmojiInlineMacro, link:lib/emoji-inline-macro.rb[]::
+Adds an emoji inline macro for inserting emoji by name.
+
+FrontMatterPreprocessor, link:lib/front-matter-preprocessor.rb[]::
+Emulates the built-in behavior of Asciidoctor to sweep away YAML front matter into the `front-matter` attribute.
+
+GistBlockMacro, link:lib/gist-block-macro.rb[]::
+Adds a block macro to embed a gist into an AsciiDoc document.
+
+GoogleAnalyticsPostprocessor, link:lib/google-analytics-postprocessor.rb[]::
+Adds the Google Analytics code for the account identified by the `google-analytics-account` attribute to the end of the HTML document.
+
+HardbreaksPreprocessor, link:lib/hardbreaks-preprocessor.rb[]::
+Adds hardbreaks to the end of all non-empty lines that aren't section titles.
+
+ImplicitApidocInlineMacro, link:lib/implicit-apidoc-inline-macro.rb[]::
+Adds an inline macro for linking to the Javadoc of a class in the Java EE API.
+
+LicenseUrlDocinfoprocessor, link:lib/license-url-docinfoprocessor.rb[]::
+Adds a link to the license specified by the `license` attribute to the document header.
+
+ManInlineMacro, link:lib/man-inline-macro.rb[]::
+Adds an inline macro for linking to another man page (used in the Git documentation).
+
+MathematicalTreeprocessor, link:lib/mathematical-treeprocessor.rb[]::
+Converts all latexmath blocks to SVG using the Mathematical library.
+
+MathoidTreeprocessor, link:lib/mathoid-treeprocessor.rb[]::
+Converts all stem blocks to SVG using MathJax via the Mathoid library.
+
+MentionsInlineMacro, link:lib/mentions-inline-macro.rb[]::
+Detects Twitter-style username mentions and converts them to links.
+
+PassBlockMacro, link:lib/pass-block-macro.rb[]::
+Adds a pass block macro to AsciiDoc.
+
+PickInlineMacro, link:lib/pick-inline-macro.rb[]::
+Adds an inline macro for selecting between two values based on the value of another attribute.
+
+PullquoteInlineMacro, link:lib/pullquote-inline-macro.rb[]::
+Adds an inline macro to pull a quote out of the flow and display it in a sidebar.
+
+SectnumoffsetTreeprocessor, link:lib/sectnumoffset-treeprocessor.rb[]::
+Increments all level-1 section numbers (and subsequently all subsections) by the value of the `sectnumoffset` attribute.
+
+ShellSessionTreeprocessor, link:lib/shell-session-treeprocessor.rb[]::
+Detects a shell command and trailing output and styles it for display in HTML.
+
+ShoutBlock, link:lib/shout-block.rb[]::
+Converts all text inside a delimited block named `shout` to uppercase and adds trailing exclamation marks.
+
+ShowCommentsPreprocessor, link:lib/showcomments-preprocessor.rb[]::
+Converts line comments to visual elements (normally dropped).
+
+SlimBlock, link:lib/slim-block.rb[]::
+Passes the content in blocks named `slim` to the Slim template engine for processing.
+
+StepsPostprocessor, link:lib/steps-postprocessor.rb[]::
+Styles an ordered list as a procedure list.
+
+TexPreprocessor, link:lib/tex-preprocessor.rb[]::
+Interprets tex markup embedded inside of AsciiDoc.
+
+TextqlBlock, link:lib/textql-block.rb[]::
+Adds a block for using textql to process data in an AsciiDoc document.
+
+TreeBlockMacro, link:lib/tree-block-macro.rb[]::
+Adds a block macro to show the output of the `tree` command.
+
+UndoReplacementsPostprocessor, link:lib/undo-replacements-postprocessor.rb[]::
+Reverses the text replacements that are performed by Asciidoctor.
+
+UriIncludeProcessor, link:lib/uri-include-processor.rb[]::
+Emulates the built-in behavior of Asciidoctor to include content from a URI.
+
+ViewResultPostprocessor, link:lib/view-result-postprocessor.rb[]::
+Adds an interactive toggle to block content marked as a view result.
+
+WhitespaceIncludeProcessor, link:lib/whitespace-include-processor.rb[]::
+An include processor that substitutes tabs with spaces (naively) in included source code.
+
+XmlEntityPostprocessor, link:lib/xml-entity-postprocessor.rb[]::
+Converts named entities to character entities so they can be resolved without the use of external entity declarations.
+
+//^
+
 == Using an extension
 
 Before create your own extensions, it would be wise to run one yourself.
