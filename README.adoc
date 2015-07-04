@@ -84,7 +84,7 @@ Adds hardbreaks to the end of all non-empty lines that aren't section titles.
 ImplicitApidocInlineMacro, link:lib/implicit-apidoc-inline-macro.rb[]::
 Adds an inline macro for linking to the Javadoc of a class in the Java EE API.
 
-LicenseUrlDocinfoprocessor, link:lib/license-url-docinfoprocessor.rb[]::
+LicenseUrlDocinfoProcessor, link:lib/license-url-docinfoprocessor.rb[]::
 Adds a link to the license specified by the `license` attribute to the document header.
 
 ManInlineMacro, link:lib/man-inline-macro.rb[]::
