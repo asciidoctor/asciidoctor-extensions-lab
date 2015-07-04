@@ -1,6 +1,7 @@
 = Asciidoctor Extensions Lab
 :idprefix:
 :idseparator: -
+:toc: preamble
 
 A repository of sample and incubating Ruby-based extensions for Asciidoctor.
 
@@ -63,7 +64,7 @@ ChromeInlineMacro, link:lib/chrome-inline-macro.rb[]::
 Adds an inline macro for linking to a `chrome://` URI.
 
 CopyrightFooterPostprocessor, link:lib/copyright-footer-postprocessor.rb[]::
-Adds a copyright to the document footer based on the value of the `copywrite` attribute.
+Adds a copyright to the document footer based on the value of the `copyright` attribute.
 
 EmojiInlineMacro, link:lib/emoji-inline-macro.rb[]::
 Adds an emoji inline macro for inserting emoji by name.
@@ -197,7 +198,63 @@ Please consult the registration file for the extension for details about what is
 
 == Adding an extension
 
-https://github.com/asciidoctor/asciidoctor-extensions-lab/issues/44[TODO].
+You can find examples of various ways to define an extension in the link:lib/shout-block.rb[] extension.
+
+=== Shorthand (DSL)
+
+If you're creating a trivial extension, you can define the extension using the extension DSL directly in the registration file.
+Create a new file in the [path]_lib_ directory.
+Include the extension type in the name of the file so others are clear what type of extension it is.
+
+._lib/sample-block.rb_
+```ruby
+require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
+
+include Asciidoctor
+
+Extensions.register do
+  block do
+    named :sample
+    on_context :open
+
+    process do |parent, reader, attrs|
+      create_paragraph parent, reader.lines, attrs
+    end
+  end
+end
+```
+
+TIP: The `include Asciidoctor` line allows you to use classes from Asciidoctor without the `Asciidoctor::` prefix.
+
+=== Formal
+
+If you are creating a more complex extension or want to enable reuse, you are encouraged to move the extension code to the [path]_extension.rb_ inside a directory with the same base name as the registration file.
+In the case of a block, block macro or inline macro extension, this enables you to register it multiple times.
+
+._lib/sample-block.rb_
+```ruby
+RUBY_ENGINE == 'opal' ? (require 'sample-block/extension') : (require_relative 'sample-block/extension')
+
+Extensions.register do
+  block SampleBlock
+end
+```
+
+._lib/sample-block/extensions.rb_
+```ruby
+class SampleBlock < Extensions::BlockProcessor
+  use_dsl
+  named :sample
+  on_context :open
+
+  def process parent, reader, attrs
+    create_paragraph parent, reader.lines, attrs
+  end
+end
+```
+
+It's customary to provide a sample AsciiDoc file named [path]_sample.adoc_ inside the extension subdirectory that others can use to test the extension.
+You should also add your extension to the <<extension-catalog>> section along with a short description of what it does.
 
 == Other extensions
 
