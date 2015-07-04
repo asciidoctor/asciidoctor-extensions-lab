@@ -76,14 +76,14 @@ The output file, [path]_sample.html_, was created in the same directory as the s
 
 The relevant bits of the input and output are show below.
 
-.lib/emoji-inline-macro/sample.adoc
+._lib/emoji-inline-macro/sample.adoc_
 ```asciidoc
 Faster than a emoji:turtle[1x]!
 
 This is an example of how you can emoji:heart[lg] Asciidoctor and Twitter Emoji.
 ```
 
-.lib/emoji-inline-macro/sample.html
+._lib/emoji-inline-macro/sample.html_
 ```html
 <div class="paragraph">
 <p>Faster than a <i class="twa twa-1x twa-turtle"></i>!</p>
