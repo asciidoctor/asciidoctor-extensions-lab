@@ -13,10 +13,21 @@ Alice <-- Bob: another authentication Response
 
 ----
 
+Diagram with unescaped
+
+["plantuml"]
+----
+
+Alice -> Bob: Testing characters ' and "
+Bob --> Alice: Testing xml elements <a href="abc" title="add">a</a> </script>
+
+----
+
 Other diagram
 
 ["plantuml"]
 ----
+@startuml
 participant Alice
 participant Bob
 note left of Alice #aqua
@@ -35,4 +46,23 @@ note over Bob, Alice
 	example of
 	a long note.
 end note
+@enduml
+----
+
+
+["plantuml"]
+----
+@startuml
+salt
+{
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@enduml
 ----

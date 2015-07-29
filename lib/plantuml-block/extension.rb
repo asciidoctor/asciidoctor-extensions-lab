@@ -23,7 +23,7 @@ class PlantumlBlock < Extensions::BlockProcessor
   parse_content_as :raw
 
   def process(parent, reader, attrs)
-    content = reader.lines.map { |e| e.gsub('\"', '&quot;').gsub('\'', '&apos;') } .join("\n")
+    content = reader.lines.map { |e| e.gsub('\"', '&quot;').gsub('\'', '&apos;').gsub('>', '&gt;').gsub('<', '&lt;') } .join("\n")
     id = SecureRandom.uuid
 
     html = "
