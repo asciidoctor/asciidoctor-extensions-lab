@@ -2,6 +2,6 @@ RUBY_ENGINE == 'opal' ? (require 'man-inline-macro/extension') : (require_relati
 
 Extensions.register :uri_schemes do
   inline_macro ManInlineMacro
-  # Use the following instead for the git man pages
-  #inline_macro ManInlineMacro, :linkgit
+  # The following alias allows this macro to be used with the git man pages
+  inline_macro ManInlineMacro, :linkgit
 end
