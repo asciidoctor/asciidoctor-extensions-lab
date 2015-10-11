@@ -6,7 +6,7 @@ include ::Asciidoctor
 
 class MathematicalTreeprocessor < Extensions::Treeprocessor
   def process document
-    if (stem_blocks = document.find_by context: :stem)
+    unless (stem_blocks = document.find_by context: :stem).nil_or_empty?
       # The no-args constructor defaults to SVG and standard delimiters ($..$ for inline, $$..$$ for block)
       mathematical = ::Mathematical.new
       image_output_dir = resolve_image_output_dir document
