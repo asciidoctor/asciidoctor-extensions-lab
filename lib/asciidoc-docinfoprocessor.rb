@@ -11,7 +11,7 @@ Extensions.register do
     process do |doc|
       ext = ::File.extname doc.attributes['docfile']
       path = doc.normalize_system_path %(docinfo-footer#{ext}), doc.attributes['docinfodir']
-      ::Asciidoctor.convert doc.read_asset(path), safe: doc.safe, parent: doc
+      ::Asciidoctor.convert doc.read_asset(path), parent: doc
     end
   end
 end
