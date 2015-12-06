@@ -11,10 +11,11 @@ include ::Asciidoctor
 #   pick2:target-web,target-mobile@target-desktop[Web or mobile,Desktop]
 #
 Extensions.register do
-  inline_macro do
-    named :pick
-    # FIXME `using_format :short` not working, ordering issue
-    match resolve_regexp @name, :short
+  inline_macro :pick do
+    #named :pick
+    # FIXME `using_format :short` not working in 1.5.2 because of an ordering issue
+    #using_format :short
+    match resolve_regexp(@name, :short)
     # FIXME allow parse_content_as :attributes
     # parse_content_as :attributes
     process do |parent, target|
@@ -40,6 +41,7 @@ Extensions.register do
     process do |parent, target, attributes|
       doc = parent.document
       valid_key = target.split('@').find_index {|key|
+        # TODO implement + to require all keys in list to be set
         if key.include? ','
           key.split(',').find {|key_alt| doc.attr? key_alt }
         else
