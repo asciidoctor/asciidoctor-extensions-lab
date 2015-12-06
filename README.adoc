@@ -66,6 +66,9 @@ Adds an inline macro for linking to a `chrome://` URI.
 CopyrightFooterPostprocessor, link:lib/copyright-footer-postprocessor.rb[]::
 Adds a copyright to the document footer based on the value of the `copyright` attribute.
 
+CustomAdmonitionBlock, link:lib/custom-admonition-block.rb[]::
+Introduces a new admonition block type, complete with a custom icon.
+
 EmojiInlineMacro, link:lib/emoji-inline-macro.rb[]::
 Adds an emoji inline macro for inserting emoji by name.
 
