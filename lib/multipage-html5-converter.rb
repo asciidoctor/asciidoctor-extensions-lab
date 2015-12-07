@@ -47,7 +47,7 @@ class MultipageHtml5Converter
     attributes = doc.attributes.clone
     attributes['noheader'] = ''
     attributes['doctitle'] = node.title
-        page = Asciidoctor::Document.new [], :header_footer => true, :doctype => doc.doctype, :safe => doc.safe, :parse => true, :attributes => attributes
+    page = Asciidoctor::Document.new [], :header_footer => true, :doctype => doc.doctype, :safe => doc.safe, :parse => true, :attributes => attributes
     page.set_attr 'docname', node.id
     # TODO recurse
     #node.parent = page
