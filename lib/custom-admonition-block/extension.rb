@@ -9,20 +9,23 @@ include Asciidoctor
 #
 #   [QUESTION]
 #   ====
-#   How do you know when your code is secure?
+#   What's the main tool for selecting colors?
 #   ====
+#
+# or
+#
+#   [QUESTION]
+#   What's the main tool for selecting colors?
 #
 class CustomAdmonitionBlock < Extensions::BlockProcessor
   use_dsl
   named :QUESTION
-  on_context :example
+  on_contexts :example, :paragraph
 
   def process parent, reader, attrs
     attrs['name'] = 'question'
     attrs['caption'] = 'Question'
-    admon = create_block parent, :admonition, nil, attrs, content_model: :compound
-    parse_content admon, reader
-    admon
+    create_block parent, :admonition, reader.lines, attrs, content_model: :compound
   end
 end
 
@@ -31,7 +34,7 @@ class CustomAdmonitionBlockDocinfo < Extensions::DocinfoProcessor
 
   def process doc
     '<style>
-.admonitionblock td.icon .icon-question:before {content: "\f128";color: #000;}
+.admonitionblock td.icon .icon-question:before {content:"\f128";color:#871452;}
 </style>'
   end
 end
