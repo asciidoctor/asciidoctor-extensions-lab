@@ -47,6 +47,7 @@ class MultipageHtml5Converter
     attributes = doc.attributes.clone
     attributes['noheader'] = ''
     attributes['doctitle'] = node.title
+    attributes['backend'] = 'html'
     page = Asciidoctor::Document.new [], :header_footer => true, :doctype => doc.doctype, :safe => doc.safe, :parse => true, :attributes => attributes
     page.set_attr 'docname', node.id
     # TODO recurse
@@ -83,10 +84,8 @@ class MultipageHtml5Converter
 
   def write output, target
     outdir = ::File.dirname target
-    bn = ::File.basename target, '.*'
     @documents.each do |doc|
-      sep = ((doc.attr 'docname')[0] == '_' ? '' : '_')
-      outfile = ::File.join outdir, %(#{bn}#{sep}#{doc.attr 'docname'}.html)
+      outfile = ::File.join outdir, %(#{doc.attr 'docname'}.html)
       ::File.open(outfile, 'w') do |f|
         f.write doc.convert
       end
