@@ -57,6 +57,9 @@ NOTE: The registration file (e.g., emoji-inline-macro.rb) goes in the [path]_lib
 
 The following extensions are available in the lab.
 
+AutoXrefTreeprocessor, link:lib/autoxref-treeprocessor.rb[]::
+Refers images, tables, listings, sections by their numbers.
+
 ChartBlockMacro, link:lib/chart-block-macro.rb[]::
 Adds a chart block and block macro to AsciiDoc powered by c3js, chartist or chartjs.
 
