@@ -93,6 +93,9 @@ Adds an inline macro for linking to the Javadoc of a class in the Java EE API.
 LicenseUrlDocinfoProcessor, link:lib/license-url-docinfoprocessor.rb[]::
 Adds a link to the license specified by the `license` attribute to the document header.
 
+LoremBlockMacro, link:lib/lorem-block-macro.rb[]::
+Generates lorem ipsum text using the Middleman lorem extension. (Requires middleman >= 4.0.0).
+
 ManInlineMacro, link:lib/man-inline-macro.rb[]::
 Adds an inline macro for linking to another man page (used in the Git documentation).
 
