@@ -30,7 +30,7 @@ end
 
 class EmojiAssetsDocinfoProcessor < Extensions::DocinfoProcessor
   use_dsl
-  at_location :header
+  #at_location :head
 
   def process doc
     unless doc.attributes['emoji'] == 'tortue'

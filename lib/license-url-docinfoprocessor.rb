@@ -11,7 +11,7 @@ include ::Asciidoctor
 #
 Extensions.register do
   docinfo_processor do
-    at_location :header
+    #at_location :head
     process do |doc|
       next unless doc.attr? 'license'
       backend = doc.backend
