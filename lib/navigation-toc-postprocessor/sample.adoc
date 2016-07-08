@@ -1,0 +1,11 @@
+= Sample document
+:toc: left
+:icons: font
+:nav-home: http://asciidoctor.org/
+:nav-up: ../index.html
+:nav-down: http://asciidoctor.org/
+:nav-next: http://asciidoctor.org/docs/user-manual/
+:nav-prev: http://asciidoctor.org/
+
+== Header 1
+And some sample-text
