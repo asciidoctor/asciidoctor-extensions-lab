@@ -24,8 +24,9 @@ class NavigationTocPostprocessor < Asciidoctor::Extensions::Postprocessor
 /*navigation-toc-postprocessor asciidoctor extension*/
 div .toc2 #toc-nav{
   font-size: 1.6em;
-   display: flex;
-   justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 10px;
 }
 </style>
 </head>)
