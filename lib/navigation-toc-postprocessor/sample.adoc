@@ -1,11 +1,20 @@
 = Sample document
+:navicons-toc:
 :toc: left
 :icons: font
-:nav-home: http://asciidoctor.org/
+:nav-home: <<index.adoc#,test1>>
 :nav-up: ../index.html
-:nav-down: http://asciidoctor.org/
+:nav-down: link:http://asciidoctor.org/[test2]
 :nav-next: http://asciidoctor.org/docs/user-manual/
 :nav-prev: http://asciidoctor.org/
 
 == Header 1
 And some sample-text
+
+---
+bla
+
+---
+[NAVICONS]
+
+NAVICONS:[]
