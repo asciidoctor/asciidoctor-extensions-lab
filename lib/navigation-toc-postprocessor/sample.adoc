@@ -1,20 +1,52 @@
 = Sample document
-:navicons-toc:
+:navicons:
 :toc: left
 :icons: font
-:nav-home: <<index.adoc#,test1>>
+:nav-home: <<index.adoc#,back to home>>
 :nav-up: ../index.html
-:nav-down: link:http://asciidoctor.org/[test2]
+:nav-down: link:http://asciidoctor.org/[all about asciidoctor]
 :nav-next: http://asciidoctor.org/docs/user-manual/
 :nav-prev: http://asciidoctor.org/
 
-== Header 1
-And some sample-text
+== About this plugin
 
----
-bla
 
----
-[NAVICONS]
+.Icon definitions
+[source, asciidoc]
+----
+:nav-home: <<index.adoc#,back to home>>
+:nav-up: ../index.html
+:nav-down: link:http://asciidoctor.org/[all about asciidoctor]
+:nav-next: http://asciidoctor.org/docs/user-manual/
+:nav-prev: http://asciidoctor.org/
+----
 
-NAVICONS:[]
+.Displaying navigation in the table of contents
+[source, asciidoc]
+----
+= Title
+:navicons: toc
+----
+
+.Only displaying navigation by macro
+[source, asciidoc]
+----
+= Title
+:navicons: macro
+
+nav::[]
+----
+
+And some sample-text, before triggering a manual placement.
+
+nav::[]
+
+And we can do so again.
+
+nav::[]
+
+If we set `:toc: macro` and enable navigation icons in the table of contents using `:navicons:` or `:navicons: toc` this manual placement will include the navigation icons.
+
+_the table of contents will appear here_
+
+toc::[]

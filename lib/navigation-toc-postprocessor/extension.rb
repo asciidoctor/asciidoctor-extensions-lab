@@ -3,11 +3,17 @@ require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 class NavigationTocPostprocessor < Asciidoctor::Extensions::Postprocessor
 
   def process document, output
-    if document.attr 'navicons-toc'
-      html = NavIconsBackend.gen_nav_icons(document)
-      output = NavIconsBackend.insert_at(document, output, 'toc', html)
-    end
+    if document.attributes.key? 'navicons'
+      case document.attributes['navicons'].downcase
+      when "", 'toc' # default or axplicit toc placement
+        # TODO handle various placementoptions here
+        html = NavIconsBackend.gen_nav_icons(document)
+        output = NavIconsBackend.insert_at(document, output, 'toc', html)
+      when 'macro'
+        # do nothing on this level,block macro is handled in a different stage
+      end
     output
+    end
   end
 end
 
@@ -28,8 +34,7 @@ display: flex;
 justify-content: space-around;
 padding-bottom: 10px;
 }
-</style>
-</head>)
+</style>)
 
   def process doc
     %(
@@ -41,21 +46,23 @@ end
 
 class NavIconsBackend
 
-  def self.gen_icon(link="", fa_name='fa-home')
+  def self.gen_icon(link=nil, fa_name='fa-home', render_inactive=false)
+    # generates an icon and link HTML syntax, only if the URL could be extracted
     # filter link
     # TODO check if this is consistent with asciidoctor.rb internal handling
-    url_parse = /link\:(.*?)\[(.*?)\]/.match(link)
-    ref_parse = /<<(([^#]*?)(\.\w+?)?(#(\w*?))?)(?:,(.*?))?>>/.match(link)
-    if url_parse
+
+    if url_parse = /link\:(.*?)\[(.*?)\]/.match(link)
+      # link: [ ] inline macro
       url = url_parse[1] || ""
       desc = url_parse[2] || nil
-    elsif ref_parse
+    elsif ref_parse = /&lt;&lt;(([^#]*?)(\.\w+?)?(#(\w*?))?)(?:,(.*?))?&gt;&gt;/.match(link)
+      # << # , >> cross reference
       url = (ref_parse[2] + '.html') || ""
       if ref_parse[4] # add attribute link
         url << ref_parse[4]
       end
       desc = ref_parse[6] || nil
-    else
+    else # fallback to direct link mode
       url = link
       desc = nil
     end
@@ -63,29 +70,29 @@ class NavIconsBackend
     # render HTML
     content = "<div id=\"toc-nav-item\">"
     icon = "<i class=\"fa #{fa_name}\" aria-hidden=\"true\"></i>"
-    if url
-      content << "<a href=\"#{url}\""
-      if desc
-        content << " title=\"#{desc}\""
-      end
-      content << ">" + icon + "</a>"
-    else
-      content << icon
-    end
-    content << "</div>"
 
+    if url # URL detected
+      content << %(<a href="#{url}" #{desc ? "title=\"#{desc}\"" : nil}>#{icon}</a></div>)
+    elsif render_inactive # No URL but render icon anyway
+      content << "#{icon}</div>"
+    else # Render nothing
+      content = ""
+    end
     content
   end
 
   def self.gen_nav_icons(document)
-    content = ""
+    # TODO reduce scope by accepting attributes rather than document
+    render_inactive = false # default setting
+    content = "" # initilize output
 
-    content << self.gen_icon((document.attr 'nav-home'), 'fa-home')
-    content << self.gen_icon((document.attr 'nav-prev'), 'fa-arrow-left')
-    content << self.gen_icon((document.attr 'nav-up'),   'fa-arrow-up')
-    content << self.gen_icon((document.attr 'nav-down'), 'fa-arrow-down')
-    content << self.gen_icon((document.attr 'nav-next'), 'fa-arrow-right')
+    content << self.gen_icon((document.attr 'nav-home'), 'fa-home',        render_inactive)
+    content << self.gen_icon((document.attr 'nav-prev'), 'fa-arrow-left',  render_inactive)
+    content << self.gen_icon((document.attr 'nav-up'),   'fa-arrow-up',    render_inactive)
+    content << self.gen_icon((document.attr 'nav-down'), 'fa-arrow-down',  render_inactive)
+    content << self.gen_icon((document.attr 'nav-next'), 'fa-arrow-right', render_inactive)
 
+    # return complete HTML
     "<div id =\"toc-nav\">" + content + "</div>"
   end
 
@@ -105,30 +112,19 @@ class NavIconsBackend
   end
 end
 
+class NavBlockMacroProcessor < Asciidoctor::Extensions::BlockMacroProcessor
+  # TODO this is an experiment to get to a custom inline nav definition, similar
+  #       to the way in which manual TOC placement is handled.
+  #  nav::[]
+  # maybe this will expand to custom definitions
+  #  nav::[home="link:http://asciidoctor.org[]", next="", prev="", up="", down=""]
+  #  nav::["link:http://asciidoctor.org[]", "<<post2.adoc#>>", "<<post0.adoc#>>"]
 
-######
-# TODO WIP
-
-class NavBlockProcessor < Asciidoctor::Extensions::BlockProcessor
-  # TODO this is an experiment to get to a custom inline NavIcons defition like:
-  # [NAVICONS]
-  # ----
-  # nav-home link:http://asciidoctor.org[]
-  # nav-next <<post2.adoc#>>
-  # nav-prev <<post0.adoc#>>
-  # ----
   use_dsl
-  named :NAVICONS
-  # on_context :literal
-  # name_positional_attributes 'type', 'width', 'height'
-  # parse_content_as :raw
-
-  HTML_TEST_FIXED = %(<div id="toc-nav"><div id="toc-nav-item"><a href="<<index.adoc#,test1>>"><i class="fa fa-home" aria-hidden="true"></i></a></div><div id="toc-nav-item"><a href="http://asciidoctor.org/"><i class="fa fa-arrow-left" aria-hidden="true"></i></a></div><div id="toc-nav-item"><a href="../index.html"><i class="fa fa-arrow-up" aria-hidden="true"></i></a></div><div id="toc-nav-item"><a href="http://asciidoctor.org/" title="test2"><i class="fa fa-arrow-down" aria-hidden="true"></i></a></div><div id="toc-nav-item"><a href="http://asciidoctor.org/docs/user-manual/"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></div></div>)
+  named :nav
 
   def process(parent, reader, attrs)
-    # engine = ChartBackend.resolve_engine attrs, parent.document
-    # raw_data = PlainRubyCSV.parse(reader.source)
-    # html = ChartBackend.process engine, attrs, raw_data
-    create_pass_block parent, HTML_TEST_FIXED, attrs, subs: nil
+    nav_html = NavIconsBackend.gen_nav_icons parent.document
+    create_pass_block parent, nav_html, attrs, subs: nil
   end
 end

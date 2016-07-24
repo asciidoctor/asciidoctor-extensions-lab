@@ -2,7 +2,7 @@ RUBY_ENGINE == 'opal' ? (require 'navigation-toc-postprocessor/extension') : (re
 
 Asciidoctor::Extensions.register do
   if document.basebackend? 'html' # currently only html support
-    block NavBlockProcessor
+    block_macro NavBlockMacroProcessor
     postprocessor NavigationTocPostprocessor
     docinfo_processor NavIconsDocinfoProcessor
   end
