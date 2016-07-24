@@ -12,8 +12,9 @@ class NavigationTocPostprocessor < Asciidoctor::Extensions::Postprocessor
       when 'macro'
         # do nothing on this level,block macro is handled in a different stage
       end
-    output
+    output #fallback
     end
+    output #always passthrough
   end
 end
 
