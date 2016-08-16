@@ -1,5 +1,6 @@
-require 'open3'
 require 'net/http'
+require 'open3'
+require 'shellwords'
 
 # A simple processor manager and invoker for Mathoid.
 #
@@ -47,7 +48,7 @@ require 'net/http'
 #
 class Mathoid
   MathoidHome = ENV['MATHOID_HOME'] || ::File.expand_path('node_modules/mathoid', ::File.dirname(__FILE__))
-  MathoidServerCmd = %(#{MathoidHome}/server.js)
+  MathoidServerCmd = ::Shellwords.escape %(#{MathoidHome}/server.js)
   MathoidConfig = 'mathoid-config.yaml'
 
   SvgStartTagRx = /\A<svg\b.*?>/m
