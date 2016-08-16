@@ -7,16 +7,24 @@ require 'net/http'
 # AsciiMath, LaTeX and MathML to SVG (and other formats).
 #
 # In order to use this library, you need Node.js. The code has been tested with
-# Node.js 4.4.7. You also need the librsvg2 development package (available as
-# librsvg2-dev on Debian and librsvg2-devel on Fedora).
+# Node.js 4.4.7.
 #
-#  apt-get install librsvg2-dev
+#  $ nvm install 4
 #
-# or
+# You also need the librsvg development package:
 #
-#  dnf install librsvg2-devel
+#  # Debian
+#  $ [sudo] apt-get install librsvg2-dev
 #
-# Next, you must install the mathoid module:
+#  # Fedora
+#  $ [sudo] dnf install librsvg2-devel
+#
+#  # OS X
+#  $ brew install librsvg
+#    export PKG_CONFIG_PATH=/opt/X11/lib/pkgconfig
+#
+# Next, you must install the mathoid module from the 
+# mathoid-treeprocessor directory:
 #
 #  npm install mathoid
 #
