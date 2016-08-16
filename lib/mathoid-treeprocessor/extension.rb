@@ -25,11 +25,8 @@ class MathoidTreeprocessor < Extensions::Treeprocessor
         image_file = math.normalize_system_path image_target, (math.document.attr 'imagesdir')
         mathoid.convert_to_file image_file, equation_data, equation_type
         attrs = { 'target' => image_target, 'alt' => alt_text }
-        if math.attr? 'align'
-          attrs['align'] = math.attr 'align'
-        end
-        if math.attr? 'pdfwidth'
-          attrs['pdfwidth'] = math.attr 'pdfwidth'
+        ['align', 'width', 'pdfwidth'].each do |attr_name|
+          attrs[attr_name] = math.attr attr_name if math.attr? attr_name
         end
         parent = math.parent
         image = Block.new parent, :image, attributes: attrs
