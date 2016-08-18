@@ -49,7 +49,7 @@ require 'shellwords'
 class Mathoid
   MathoidHome = ENV['MATHOID_HOME'] || (::File.expand_path 'node_modules/mathoid', (::File.dirname __FILE__))
   MathoidServerCmd = ::Shellwords.escape %(#{MathoidHome}/server.js)
-  MathoidConfig = 'mathoid-config.yaml'
+  MathoidConfig = ::File.expand_path 'mathoid-config.yaml', (::File.dirname __FILE__)
 
   SvgStartTagRx = /\A<svg\b.*?>/m
   ViewBoxAttrRx = /\sviewBox=(["'])(.*?)\1/

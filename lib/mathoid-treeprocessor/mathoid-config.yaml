@@ -4,7 +4,7 @@ logging:
   level: warn
 services:
   - name: mathoid
-    module: ./node_modules/mathoid/app.js
+    #module: ./app.js
     conf:
       port: 10044
       interface: localhost
