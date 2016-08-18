@@ -47,7 +47,7 @@ require 'shellwords'
 #  mathoid.stop
 #
 class Mathoid
-  MathoidHome = ENV['MATHOID_HOME'] || ::File.expand_path('node_modules/mathoid', ::File.dirname(__FILE__))
+  MathoidHome = ENV['MATHOID_HOME'] || (::File.expand_path 'node_modules/mathoid', (::File.dirname __FILE__))
   MathoidServerCmd = ::Shellwords.escape %(#{MathoidHome}/server.js)
   MathoidConfig = 'mathoid-config.yaml'
 
@@ -77,8 +77,8 @@ class Mathoid
       warn 'Mathoid server is not running.'
       return
     end
-    syntax = :tex if syntax.to_s.start_with? 'latex'
-    params = { q: equation, type: %(#{syntax}) }
+    syntax = :tex if (str_syntax = syntax.to_s).start_with? 'latex'
+    params = { q: equation, type: str_syntax }
 
     # FIXME this hangs if an exception is thrown on the server
     # QUESTION still true?
@@ -96,9 +96,9 @@ class Mathoid
   end
 
   def postprocess_svg_data data, opts = {}
-    start_tag = SvgStartTagRx.match(data)[0]
+    start_tag = (SvgStartTagRx.match data)[0]
 
-    viewBox = (start_tag.match(ViewBoxAttrRx)[2].split ' ').map &:to_f
+    viewBox = ((start_tag.match ViewBoxAttrRx)[2].split ' ').map &:to_f
     horizontal_shift = 0
     vertical_shift = 0
 
