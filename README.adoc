@@ -154,7 +154,7 @@ Reverses the text replacements that are performed by Asciidoctor.
 UriIncludeProcessor, link:lib/uri-include-processor.rb[]::
 Emulates the built-in behavior of Asciidoctor to include content from a URI.
 
-ViewResultPostprocessor, link:lib/view-result-postprocessor.rb[]::
+ViewResultDocinfoProcessor, link:lib/view-result-docinfoprocessor.rb[]::
 Adds an interactive toggle to block content marked as a view result.
 
 WhitespaceIncludeProcessor, link:lib/whitespace-include-processor.rb[]::
@@ -164,6 +164,13 @@ XmlEntityPostprocessor, link:lib/xml-entity-postprocessor.rb[]::
 Converts named entities to character entities so they can be resolved without the use of external entity declarations.
 
 //^
+
+////
+See also:
+
+JIRAInlineMacro, https://github.com/jbosstools/jbosstools-website/blob/master/_ext/asciidoctor_extensions.rb::
+Generates a link to the JIRA issue by issue number.
+////
 
 == Using an extension
 
