@@ -22,10 +22,9 @@ require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 #
 #
 class ViewResultPostprocessor < Asciidoctor::Extensions::Postprocessor
-  def process output
-    if @document.basebackend? 'html'
-      # Eventually we want an API (similar to docinfo hook) for adding content to the header
-      replacement = %(<style>
+  def process document, output
+    # Eventually we want an API (similar to docinfo hook) for adding content to the header
+    replacement = %(<style>
 .listingblock a.view-result {
 float: right;
 font-weight: normal;
@@ -59,8 +58,6 @@ function insert_result_links() {
 $(insert_result_links);
 </script>
 </head>)
-      output = output.sub(/<\/head>/m, replacement)
-    end
-    output
+    output.sub %r/<\/head>/m, replacement
   end
 end
