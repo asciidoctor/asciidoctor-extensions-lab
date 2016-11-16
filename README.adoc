@@ -139,6 +139,9 @@ Passes the content in blocks named `slim` to the Slim template engine for proces
 StepsPostprocessor, link:lib/steps-postprocessor.rb[]::
 Styles an ordered list as a procedure list.
 
+TelInlineMacro, link:lib/tel-inline-macro.rb[]::
+Adds an inline macro for linking to a `tel:` URI.
+
 TexPreprocessor, link:lib/tex-preprocessor.rb[]::
 Interprets tex markup embedded inside of AsciiDoc.
 
