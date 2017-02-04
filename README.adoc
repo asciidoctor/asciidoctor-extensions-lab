@@ -99,8 +99,9 @@ Generates lorem ipsum text using the Middleman lorem extension. (Requires middle
 ManInlineMacro, link:lib/man-inline-macro.rb[]::
 Adds an inline macro for linking to another man page (used in the Git documentation).
 
-MathematicalTreeprocessor, link:lib/mathematical-treeprocessor.rb[]::
+pass:m[<del>MathematicalTreeprocessor, link:lib/mathematical-treeprocessor.rb[\]</del>]::
 Converts all latexmath blocks to SVG using the Mathematical library.
+_Replaced by https://github.com/asciidoctor/asciidoctor-mathematical/[Asciidoctor Mathematical]._
 
 MathoidTreeprocessor, link:lib/mathoid-treeprocessor.rb[]::
 Converts all stem blocks to SVG using MathJax via the Mathoid library.
