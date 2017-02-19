@@ -1,6 +1,9 @@
 RUBY_ENGINE == 'opal' ? (require 'wordpress-postprocessor/extension') : (require_relative 'wordpress-postprocessor/extension')
 
-# Will generate HTML that is ready to be pasted in the Source view of a wordpress post
+# Generates HTML that is ready to be pasted in the Source view of a Wordpress post
+# Does two things:
+# - Renders an embedded document (same as using -s or --no-header-footer)
+# - Remove all <div> tags. Wordpress doesn't use them and they are not strictly required.
 
 Asciidoctor::Extensions.register do
   # Preprocessor marks processed document as embedded
