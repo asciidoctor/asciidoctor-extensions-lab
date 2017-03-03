@@ -83,16 +83,20 @@ class ChartBackend
     type = attrs['type']
     case engine
       when 'c3js'
-        data, labels = C3jsChartBuilder.prepare_data(raw_data)
-        (case type
-          when 'bar' then C3jsChartBuilder.bar data, labels, attrs
-          when 'line' then C3jsChartBuilder.line data, labels, attrs
-          when 'step' then C3jsChartBuilder.step data, labels, attrs
-          when 'spline' then C3jsChartBuilder.spline data, labels, attrs
-          else
-            # By default chart line
-            C3jsChartBuilder.line data, labels, attrs
-        end)
+        if type == 'pie'
+          C3jsChartBuilder.pie raw_data, attrs
+        else
+          data, labels = C3jsChartBuilder.prepare_data(raw_data)
+          (case type
+             when 'bar' then C3jsChartBuilder.bar data, labels, attrs
+             when 'line' then C3jsChartBuilder.line data, labels, attrs
+             when 'step' then C3jsChartBuilder.step data, labels, attrs
+             when 'spline' then C3jsChartBuilder.spline data, labels, attrs
+             else
+               # By default chart line
+               C3jsChartBuilder.line data, labels, attrs
+           end)
+        end
       when 'chartist'
         data, labels = ChartistChartBuilder.prepare_data(raw_data)
         (case type
@@ -142,6 +146,13 @@ class C3jsChartBuilder
     chart_id = get_chart_id
     chart_div = create_chart_div(chart_id)
     chart_generate_script = chart_spline_script(chart_id, data, labels, attrs)
+    to_html(chart_div, chart_generate_script)
+  end
+
+  def self.pie(raw_data, attrs)
+    chart_id = get_chart_id
+    chart_div = create_chart_div(chart_id)
+    chart_generate_script = chart_pie_script(chart_id, raw_data, attrs)
     to_html(chart_div, chart_generate_script)
   end
 
@@ -245,6 +256,22 @@ c3.generate({
       type: 'category',
       categories: #{labels.to_s}
     }
+  }
+});
+</script>)
+  end
+
+  def self.chart_pie_script(chart_id, raw_data, attrs)
+    chart_height = get_chart_height attrs
+    chart_width = get_chart_width attrs
+    %(
+<script type="text/javascript">
+c3.generate({
+  bindto: '##{chart_id}',
+  size: { height: #{chart_height}, width: #{chart_width} },
+  data: {
+    columns: #{raw_data.to_s},
+    type: 'pie'
   }
 });
 </script>)
