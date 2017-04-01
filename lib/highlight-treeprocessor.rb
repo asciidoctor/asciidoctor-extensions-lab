@@ -53,9 +53,11 @@ Extensions.register do
         style = document.attr 'highlight-style', 'edit-eclipse'
         highlight = document.attr 'highlight', 'highlight'
         css = %x(#{highlight} -c stdout --print-style -s #{style}).rstrip
-        %(<style>
-#{css}
-</style>)
+        if /^pre\.hl\s+{(?:\s*color:(.+?);)?(?:\s+background-color:(.+?);).*}$/ =~ css
+          fg, bg = $1, $2
+          css.sub! /^pre\.hl\s+{.*?}/, %(.listingblock pre.highlight { background-color:#{bg}; }\npre.highlight>code { color: #{fg}; })
+        end
+        ['<style>', css, '</style>'] * "\n"
       end
     end
   end
