@@ -6,7 +6,7 @@ include ::Asciidoctor
 #
 # Usage
 #
-#   tel:1-800-555-5555[]
+#   tel:1-800-555-1212[]
 #
 Extensions.register do
   inline_macro do
