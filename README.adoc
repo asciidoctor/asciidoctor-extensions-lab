@@ -81,8 +81,8 @@ Emulates the built-in behavior of Asciidoctor to sweep away YAML front matter in
 GistBlockMacro, link:lib/gist-block-macro.rb[]::
 Adds a block macro to embed a gist into an AsciiDoc document.
 
-GoogleAnalyticsPostprocessor, link:lib/google-analytics-postprocessor.rb[]::
-Adds the Google Analytics code for the account identified by the `google-analytics-account` attribute to the end of the HTML document.
+GoogleAnalyticsDocinfoProcessor, link:lib/google-analytics-docinfoprocessor.rb[]::
+Adds the Google Analytics code for the account identified by the `google-analytics-account` attribute to the bottom of the HTML document.
 
 HardbreaksPreprocessor, link:lib/hardbreaks-preprocessor.rb[]::
 Adds hardbreaks to the end of all non-empty lines that aren't section titles.
