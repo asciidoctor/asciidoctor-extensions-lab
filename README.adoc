@@ -14,8 +14,9 @@ We have the following types of extensions in the lab:
 
 - *Preprocessor* - processes the AsciiDoc source before it is parsed
 - *IncludeProcessor* - intercepts the AsciiDoc include directive
-- *Treeprocessor* - processes the parsed AsciiDoc document (AST)
+- *TreeProcessor* - processes the AsciiDoc document (AST) after block-level parsing is complete
 - *Postprocessor* - processes the converted output before it is written to the output stream (or disk)
+- *DocinfoProcessor* - contributes additional content to the header or footer of the output document
 - *BlockProcessor* - adds a custom delimited block
 - *BlockMacroProcessor* - adds a custom block macro
 - *InlineMacroProcessor* - adds a custom inline macro
