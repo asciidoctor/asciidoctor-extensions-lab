@@ -13,14 +13,13 @@ include ::Asciidoctor
 Extensions.register do
   inline_macro :pick do
     #named :pick
-    # FIXME `using_format :short` not working in 1.5.2 because of an ordering issue
-    #using_format :short
-    match resolve_regexp(@name, :short)
+    # FIXME `using_format :short` not working in <= 1.5.2 because of an ordering issue
+    using_format :short
     # FIXME allow parse_content_as :attributes
     # parse_content_as :attributes
-    process do |parent, target|
+    process do |parent, target, attrs|
       doc = parent.document
-      attrs = (AttributeList.new target).parse
+      attrs = (AttributeList.new target).parse if attrs.empty?
       valid_key = attrs.keys.find {|key|
         next false unless String === key
         if key.include? '.'
