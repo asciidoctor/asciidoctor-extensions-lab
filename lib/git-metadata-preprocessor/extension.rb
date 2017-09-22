@@ -6,7 +6,24 @@ require 'git'
 class GitMetadataPreprocessor < Asciidoctor::Extensions::Preprocessor
   def process document, reader
     #g = Git.open(document.attributes['git-directory']) # :log => Logger.new(STDOUT)
-    g = Git.open('.')
+    output=`git rev-parse --is-inside-work-tree`
+    result=$?.success?
+    puts(output.strip().class)
+    puts(result.class)
+    if result == true and output.strip() == 'true'
+      mypath = `git rev-parse --show-toplevel`
+      mypath = mypath.gsub('/','\\') #.gsub(/^\//,'//')
+      puts(mypath)
+      g = Git.open(mypath)
+    else
+      abort("She cannot take any more of this, Captain!")
+
+      exit
+    end
+    # git
+    # true then
+    # git rev-parse --show-toplevel
+
     document.sourcemap = true
     $stderr.puts(document.attributes) # outputs environment, not document attributes
     # how do I get the document attributes?
