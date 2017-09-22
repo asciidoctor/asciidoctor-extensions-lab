@@ -1,0 +1,18 @@
+= Test Document
+:test_attribute: ASDFASDJKASDJKASDJKASJDKSJ
+:git_directory: .
+
+Testing this extension...
+
+The relative directory from where Asciidoctor was called in which we can find the root of the git repository is: `{git-directory}`. It would be nice to abstract this away, but the ruby module doesn't seem to work from any point in the git repository, maybe we just need to keep searching a layer higher? Or perhaps I am clueless.
+
+* Our latest commit is: `{git-metadata-sha}`
+* Our short commit is `{git-metadata-sha-short}`
+* The latest author is `{git-metadata-author-name}`
+* The latest author email is `{git-metadata-author-email}`
+* The latest date in `dmy` format is:  `{git-metadata-date-dmy}`
+* The latest date in `mdy` format is:  `{git-metadata-date-mdy}`
+* The latest commit message is: `{git-metadata-commit-message}`
+* The current branch is `{git-metadata-branch}`
+
+Probably improvements are required.
