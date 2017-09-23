@@ -15,13 +15,18 @@ class GitMetadataPreprocessor < Asciidoctor::Extensions::Preprocessor
     head = repo.head
 
     document.attributes['git-metadata-sha'] = head.target_id
-    document.attributes['git-metadata-sha-short'] = head.target_id[0,7]
+    document.attributes['git-metadata-sha-short'] = head.target_id[0,8]
     document.attributes['git-metadata-author-name'] = head.target.author[:name]
     document.attributes['git-metadata-author-email'] = head.target.author[:email]
     document.attributes['git-metadata-date-mdy'] = head.target.time.strftime("%m-%d-%y")
     document.attributes['git-metadata-date-dmy'] = head.target.time.strftime("%d-%m-%y")
     document.attributes['git-metadata-commit-message'] = head.target.message
-    document.attributes['git-metadata-branch'] = repo.branches[head.name].name
+
+    begin
+      document.attributes['git-metadata-branch'] = repo.branches[head.name].name
+    rescue
+      document.attributes['git-metadata-branch'] = repo.branches[head.name]
+    end
 
     tags = []
     a = Rugged::TagCollection.new(repo)
