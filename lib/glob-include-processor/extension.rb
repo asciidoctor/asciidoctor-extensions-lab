@@ -2,7 +2,7 @@ class GlobIncludeProcessor < Asciidoctor::Extensions::IncludeProcessor
   def process doc, reader, target_glob, attributes
     Dir[File.join reader.dir, target_glob].sort.reverse_each do |target|
       content = IO.readlines target
-      content.unshift '' if attributes['discrete-option']
+      content.unshift '' unless attributes['adjoin-option']
       reader.push_include content, target, target, 1, attributes
     end
     reader

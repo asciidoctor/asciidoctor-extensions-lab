@@ -1,1 +1,1 @@
-include::include-*.adoc[opts=separate]
+include::include-*.adoc[opts=adjoin]
