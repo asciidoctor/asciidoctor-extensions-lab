@@ -9,7 +9,7 @@ class GitMetadataPreprocessor < Asciidoctor::Extensions::Preprocessor
       repo = Rugged::Repository.discover(".")
     rescue
       $stderr.puts('Failed to find repository, git-metadata extension terminating')
-      exit
+      return
     end
 
     head = repo.head
@@ -18,8 +18,7 @@ class GitMetadataPreprocessor < Asciidoctor::Extensions::Preprocessor
     document.attributes['git-metadata-sha-short'] = head.target_id[0,8]
     document.attributes['git-metadata-author-name'] = head.target.author[:name]
     document.attributes['git-metadata-author-email'] = head.target.author[:email]
-    document.attributes['git-metadata-date-mdy'] = head.target.time.strftime("%m-%d-%y")
-    document.attributes['git-metadata-date-dmy'] = head.target.time.strftime("%d-%m-%y")
+    document.attributes['git-metadata-date'] = head.target.time.strftime("%Y-%m-%d")
     document.attributes['git-metadata-commit-message'] = head.target.message
 
     begin
