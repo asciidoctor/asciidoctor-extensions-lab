@@ -40,7 +40,8 @@ class GitMetadataPreprocessor < Asciidoctor::Extensions::Preprocessor
     tags = []
     t = Rugged::TagCollection.new(repo)
     t.each do |tag|
-      if tag.target_id == head.target_id
+      if (tag.target_id == head.target_id) or \
+         (tag.annotated? and (tag.annotation.target_id == head.target_id))
         tags << tag.name
       end
     end

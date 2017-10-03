@@ -60,7 +60,9 @@
 |the current tags(s)
 |{git-metadata-tag}
 |git-metadata-tag
-|only defined if there are tags. If there are  multiple tags they are combined with a ``, ``
+|only defined if there are tags. 
+If there are  multiple tags they are combined with a ``, ``.
+Does both annotated and lightweight tags.
 
 |the path to this repository
 |{git-metadata-repo-path}
