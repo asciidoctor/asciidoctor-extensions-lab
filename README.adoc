@@ -79,6 +79,9 @@ Adds an emoji inline macro for inserting emoji by name.
 FrontMatterPreprocessor, link:lib/front-matter-preprocessor.rb[]::
 Emulates the built-in behavior of Asciidoctor to sweep away YAML front matter into the `front-matter` attribute.
 
+GitMetadataPreProcessor, link:lib/git-metadata-preprocessor.rb[]::
+Provide information on the local git repository, e.g. the branch or tag name or the commit id.
+
 GistBlockMacro, link:lib/gist-block-macro.rb[]::
 Adds a block macro to embed a gist into an AsciiDoc document.
 
