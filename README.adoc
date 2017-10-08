@@ -97,6 +97,11 @@ Adds hardbreaks to the end of all non-empty lines that aren't section titles.
 HighlightTreeprocessor, link:lib/highlight-treeprocessor.rb[]::
 Highlights source blocks using the highlight command.
 
+ImageSizingTreeprocessor, link:lib/image-sizing-treeprocessor.rb[]::
+Embeds the dimensions of images and allows _either_ width or height scaling. 
+Solves the problem of the default stylesheet preventing height scaling (see related https://github.com/asciidoctor/asciidoctor/issues/1116[issue]).
+Assists with the existing problem that linking to an anchor inside a single html causes the undesirable behaviour where the page scrolls away from the anchor while the page is still rendering (see https://github.com/asciidoctor/asciidoctor/issues/820[issue]).
+
 ImplicitApidocInlineMacro, link:lib/implicit-apidoc-inline-macro.rb[]::
 Adds an inline macro for linking to the Javadoc of a class in the Java EE API.
 
