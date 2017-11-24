@@ -1,0 +1,14 @@
+= My document title
+:show_private: 0
+
+[private]
+this text is hidden because show_private is 0
+
+The default visibility of private paragraph 
+depends on the :show_private: document attribute
+
+[private,1]
+this text is forced to be shown, because its attribute is 1
+
+[private,0]
+this text is forced to be hidden, because its attribute is 0
