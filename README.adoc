@@ -274,7 +274,7 @@ Extensions.register do
 end
 ```
 
-._lib/sample-block/extensions.rb_
+._lib/sample-block/extension.rb_
 ```ruby
 class SampleBlock < Extensions::BlockProcessor
   use_dsl
