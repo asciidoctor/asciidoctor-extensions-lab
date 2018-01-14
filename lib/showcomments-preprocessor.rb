@@ -1,4 +1,6 @@
-include ::Asciidoctor
+require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
+
+include Asciidoctor
 
 # A preprocessor that adds hardbreaks to the end of all lines.
 Extensions.register {
