@@ -1,7 +1,7 @@
-require 'asciidoctor/extensions'
+require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 require 'open3'
 
-include ::Asciidoctor
+include Asciidoctor
 
 # A treeprocessor (and companion docinfo processor) that highlights source
 # blocks using the highlight command.

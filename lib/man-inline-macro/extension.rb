@@ -1,6 +1,6 @@
 require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 
-include ::Asciidoctor
+include Asciidoctor
 
 # An inline macro that generates links to related man pages.
 #

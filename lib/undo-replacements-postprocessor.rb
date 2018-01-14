@@ -1,4 +1,6 @@
-include ::Asciidoctor
+require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
+
+include Asciidoctor
 
 class UndoReplacementsPostprocessor < Extensions::Postprocessor
   Replacements = [/&#8594;/, /&#8658;/]

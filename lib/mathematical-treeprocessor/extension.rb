@@ -2,7 +2,7 @@ require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 require 'mathematical'
 autoload :Digest, 'digest'
 
-include ::Asciidoctor
+include Asciidoctor
 
 class MathematicalTreeprocessor < Extensions::Treeprocessor
   def process document

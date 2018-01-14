@@ -3,7 +3,7 @@ require_relative 'xml_entity_mapper'
 # or use htmlentities gem
 #require 'htmlentities'
 
-include ::Asciidoctor
+include Asciidoctor
 
 # Converts named entities to character entities so they can be resolved without
 # the use of external entity declarations. Primarily used for HTML documents.

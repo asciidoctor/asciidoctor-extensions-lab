@@ -1,6 +1,6 @@
 require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 
-include ::Asciidoctor
+include Asciidoctor
 
 class EmojiInlineMacro < Extensions::InlineMacroProcessor
   use_dsl

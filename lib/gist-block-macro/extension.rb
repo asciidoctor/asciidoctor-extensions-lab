@@ -1,6 +1,6 @@
 require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 
-include ::Asciidoctor
+include Asciidoctor
 
 # A block macro that embeds a Gist into the output document
 #

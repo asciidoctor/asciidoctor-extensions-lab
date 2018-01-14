@@ -1,6 +1,6 @@
 require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 
-include ::Asciidoctor
+include Asciidoctor
 
 # A docinfo processor that emits an appropriate license URL into a document.
 # Requires that the license attribute contain one or more http or https URL.

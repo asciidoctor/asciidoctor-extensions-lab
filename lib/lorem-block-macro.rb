@@ -1,7 +1,6 @@
 require 'middleman-core'
 require 'middleman-core/extensions/lorem'
-require 'asciidoctor'
-require 'asciidoctor/extensions'
+require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 
 Asciidoctor::Extensions.register do
   block_macro :lorem do

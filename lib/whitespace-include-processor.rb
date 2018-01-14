@@ -1,4 +1,6 @@
-include ::Asciidoctor
+require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
+
+include Asciidoctor
 
 # An include processor that substitutes tabs with spaces in included source code.
 #

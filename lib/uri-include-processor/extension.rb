@@ -1,7 +1,7 @@
 require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 require 'open-uri'
 
-include ::Asciidoctor
+include Asciidoctor
 
 # TIP This feature is supported out of the box in Asciidoctor if you set the allow-uri-read attribute
 class UriIncludeProcessor < Extensions::IncludeProcessor

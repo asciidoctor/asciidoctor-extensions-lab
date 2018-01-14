@@ -1,5 +1,5 @@
 require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
-include ::Asciidoctor
+include Asciidoctor
 
 # An inline macro that picks text based on the presence of document-level attributes.
 #

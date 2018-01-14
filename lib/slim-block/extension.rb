@@ -2,7 +2,7 @@ require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 require 'tilt'
 require 'slim'
 
-include ::Asciidoctor
+include Asciidoctor
 
 # An extension that processes the contents of a block
 # as a Slim template.

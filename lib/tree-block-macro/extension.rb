@@ -1,6 +1,6 @@
 require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 
-include ::Asciidoctor
+include Asciidoctor
 
 # A block macro that reads the contents of the specified directory
 # and renders a decorated tree structure in a listing block.

@@ -1,6 +1,6 @@
 require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 
-include ::Asciidoctor
+include Asciidoctor
 
 # A docinfo processor that allows docinfo footer content to be written in
 # AsciiDoc format. The AsciiDoc file is converted in the same manner as

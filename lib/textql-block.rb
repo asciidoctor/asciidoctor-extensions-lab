@@ -1,6 +1,6 @@
 require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 
-include ::Asciidoctor
+include Asciidoctor
 
 # A block that queries the CSV content in the block using textql
 # (https://github.com/dinedal/textql) and generates an AsciiDoc table with the
