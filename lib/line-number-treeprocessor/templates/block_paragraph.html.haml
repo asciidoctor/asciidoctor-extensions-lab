@@ -1,0 +1,7 @@
+- if attr? :'data-file'
+  %div{:id=>@id, :class=>['paragraph', role], :'data-file'=>(attr :'data-file'), :'data-line'=>(attr :'data-line')}
+- else
+  %div{:id=>@id, :class=>['paragraph', role], :'data-line'=>(attr :'data-line')}
+- if title?
+  .title=title
+%p<=content

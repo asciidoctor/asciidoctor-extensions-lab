@@ -100,6 +100,9 @@ Highlights source blocks using the highlight command.
 ImplicitApidocInlineMacro, link:lib/implicit-apidoc-inline-macro.rb[]::
 Adds an inline macro for linking to the Javadoc of a class in the Java EE API.
 
+LineNumberTreeProcessor, link:lib/line-number-treeprocessor.rb[]::
+Adds line numbering and file references to allow connecting between source document and output. Should be called with the sourcemap preprocessor included as a separate extension and also with reference to the templates folder included. See link:lib/line-number-treeprocessor/sample.adoc[`sample.adoc`] for further information.
+
 LicenseUrlDocinfoProcessor, link:lib/license-url-docinfoprocessor.rb[]::
 Adds a link to the license specified by the `license` attribute to the document header.
 
