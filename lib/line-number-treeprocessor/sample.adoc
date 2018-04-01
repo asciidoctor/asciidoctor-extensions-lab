@@ -26,6 +26,8 @@ NOTE: To process the templates the `tilt` and `haml` gems must be installed.
 
 TIP: Attributes in html starting with data- seem to be the https://www.w3schools.com/tags/att_global_data.asp[preferred way] to add metadata to html5.
 
+There's an include at the bottom of this file to link:sample2.adoc[`sample2.adoc`] which should result in `data-file` changing and `data-line` beginning at the new file line number.
+
 == Some Random Latin
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -36,8 +38,10 @@ Suspendisse potenti.
 Nunc aliquam at est sed interdum.
 Aenean tincidunt mi in dolor tincidunt, nec mattis ante iaculis.
 Vivamus sit amet vulputate mi, eu vestibulum nisi.
+
 Duis diam risus, maximus ut nibh a, condimentum venenatis sem.
 Aenean laoreet in sem eget bibendum.
+
 Nunc varius tellus sed lacinia semper.
 Praesent ac odio fermentum, lobortis mi a, tincidunt ante.
 Donec id auctor leo, ut mattis ante.
@@ -48,130 +52,15 @@ Nunc sit amet dolor eget massa posuere egestas.
 Nam molestie faucibus nibh.
 Ut a lorem luctus, consectetur purus at, sodales odio.
 Proin convallis massa et leo luctus efficitur.
+
 Nullam posuere mauris et ligula efficitur placerat.
 Interdum et malesuada fames ac ante ipsum primis in faucibus.
 Morbi fermentum justo vel aliquam semper.
+
 Curabitur tincidunt sit amet mauris eget ultricies.
+
 Proin lacinia pretium quam, sed imperdiet metus maximus ut.
+
 In lorem leo, aliquam quis fringilla at, porttitor vel velit.
-Fusce molestie, lectus et rutrum varius, purus metus ornare urna, ac placerat risus nisi eu dolor.
-Nunc pretium fermentum metus nec ullamcorper.
-Aenean quis ipsum ullamcorper, pretium risus ut, pretium ex.
-Suspendisse porta erat eu justo accumsan, eget dignissim urna bibendum.
-Proin iaculis, sem nec malesuada vestibulum, urna lectus pellentesque tortor, id viverra leo magna at nulla.
-Morbi ex velit, pellentesque et augue dignissim, sagittis tempus velit.
-Mauris iaculis sodales felis, quis efficitur felis finibus maximus.
-
-Donec pharetra dictum erat, vitae rutrum nisi lobortis a.
-Vivamus libero ante, ornare ut ultrices quis, sodales quis enim.
-Integer vel nibh ligula.
-Cras sed mi arcu.
-Vestibulum vitae velit quis tellus pulvinar molestie id non nunc.
-Nunc eget aliquet urna.
-Nunc vel libero tempor, ultricies mi at, finibus felis.
-
-== Still Boring
-
-Sed quis nibh quis lacus pulvinar dapibus.
-Nam varius fermentum tristique.
-Nam sit amet ex elit.
-Maecenas nunc libero, porta tempus orci eget, tincidunt faucibus justo.
-Aenean ac massa non ex feugiat commodo.
-Aenean molestie, libero vitae finibus blandit, velit augue ornare nisi, ac maximus felis metus vitae massa.
-Fusce faucibus tempor dictum.
-Vivamus gravida lacus nec leo convallis, quis vehicula ante ultrices.
-Fusce mattis lobortis quam, eget accumsan urna accumsan eget.
-Donec non finibus lectus.
-Morbi sit amet egestas quam, in lacinia lacus.
-Nunc gravida turpis odio, ac auctor dolor accumsan nec.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-Donec blandit lacus mi, ac ultrices nisl pellentesque ut.
-
-Nulla scelerisque vel nisl non semper.
-Nulla at blandit magna, ut aliquam nunc.
-Duis at feugiat tortor, id tristique felis.
-Fusce suscipit risus ut nisl placerat auctor at quis augue.
-Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-Praesent in eleifend nisl.
-Vestibulum maximus faucibus aliquam.
-Quisque sollicitudin a nisi in sollicitudin.
-Fusce et tortor erat.
-Fusce fermentum a turpis ut lobortis.
-Cras orci ligula, gravida in lobortis in, posuere sit amet mi.
-Pellentesque elit lacus, rutrum nec feugiat quis, lobortis at sem.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-Curabitur sed ipsum vel neque scelerisque scelerisque.
-Ut vitae est nisi.
-Phasellus quis nulla nec orci eleifend porttitor.
-Mauris venenatis magna ac tortor dictum vehicula.
-Curabitur fringilla risus molestie, condimentum ipsum sed, aliquet orci.
-Sed velit libero, tristique vel turpis id, pretium dapibus lectus.
-Proin et turpis vitae velit bibendum lacinia.
-Nulla mollis orci vitae lacus congue finibus.
-Nullam bibendum mauris id dolor convallis, congue finibus nisl elementum.
-Cras enim odio, scelerisque eu urna eget, tempor consectetur odio.
-Donec euismod pharetra lacus nec sodales.
-Mauris ultrices volutpat interdum.
-Ut convallis a mi a pulvinar.
-
-Donec fringilla dolor iaculis porta hendrerit.
-In auctor velit massa, eu tristique diam tempor quis.
-Praesent a malesuada dui, eu faucibus dolor.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-* Nulla scelerisque semper lectus, et condimentum ante tincidunt quis.
-* Donec vel libero vel ante fermentum varius ac ut arcu.
-* Nunc lobortis justo vel metus malesuada pretium.
-
-Fusce fermentum non felis nec volutpat.
-Nullam et placerat risus.
-Morbi vel magna lorem.
-Vestibulum maximus purus et justo commodo iaculis.
-Ut tristique justo non tellus mollis fermentum.
-Nam cursus efficitur nibh, at blandit metus gravida sit amet.
-Nullam porta suscipit orci, sit amet ultrices orci sollicitudin et.
-
-. Maecenas posuere enim tortor.
-.. Nam aliquet pretium vehicula.
-.. Morbi sed fringilla sem.
-. Nulla facilisi.
-
-Ut vehicula, nulla sed venenatis vestibulum, purus est hendrerit felis, eu dapibus nunc lacus ac neque.
-Vivamus vestibulum iaculis porta.
-Ut convallis augue id risus facilisis, sodales scelerisque erat posuere.
-Donec ullamcorper enim ut nisi laoreet, at accumsan tellus sagittis.
-Sed magna nisi, faucibus in lacus vel, sodales aliquet sem.
-
-[cols="2*"]
-|===
-|Ut in tellus at purus malesuada mollis.
-|Vestibulum diam sem, faucibus vel nulla a, aliquam cursus sapien.
-
-|Maecenas nec cursus libero, in aliquet enim.
-|Fusce libero sapien, congue eget sagittis nec, imperdiet et mi.
-
-|Sed aliquet pharetra massa, nec egestas nisl vehicula vitae.
-|Sed semper, urna sed efficitur pulvinar, erat nisl sollicitudin enim, eget pretium sapien nisi vitae metus.
-
-|Quisque semper eros lobortis mi luctus malesuada.
-|Nulla lacinia mattis tortor, non fermentum augue scelerisque sit amet.
-
-|Vivamus vel velit hendrerit, mollis sapien id, lobortis lorem.
-|Maecenas erat metus, porttitor sed magna ac, imperdiet rhoncus tortor.
-|===
-
-Integer sollicitudin magna blandit leo condimentum fermentum.
-Aliquam sit amet consectetur purus.
-Aliquam sed dui blandit ligula fermentum tincidunt.
-Donec vitae augue non urna lobortis dignissim non dictum velit.
-Maecenas ac metus volutpat, vehicula mauris at, dignissim odio.
-Suspendisse at enim facilisis, aliquam ligula vel, imperdiet lectus.
-Proin augue leo, finibus ac leo in, volutpat vulputate enim.
-Aliquam rutrum est vitae ultricies semper.
-Nullam a lacinia urna.
-
-[WARNING]
-Suspendisse at enim facilisis, aliquam ligula vel, imperdiet lectus.
 
 include::sample2.adoc[]
