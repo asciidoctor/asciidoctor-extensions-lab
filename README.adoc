@@ -101,7 +101,7 @@ ImplicitApidocInlineMacro, link:lib/implicit-apidoc-inline-macro.rb[]::
 Adds an inline macro for linking to the Javadoc of a class in the Java EE API.
 
 IndexMarkupInlineMacro, link:lib/index-markup-inline-macro.rb[]::
-Gives four macros which, together, allow writing in your AsciiDoc all DocBook's expressions of indexing-markup.
+Gives four macros which, taken together, make it possible to write in AsciiDoc all your DocBook indexing-markup.
 
 LicenseUrlDocinfoProcessor, link:lib/license-url-docinfoprocessor.rb[]::
 Adds a link to the license specified by the `license` attribute to the document header.
