@@ -1,4 +1,4 @@
-RUBY_ENGINE == 'opal' ? (require 'indexmarkup-inline-macro/extension') : (require_relative 'indexmarkup-inline-macro/extension')
+RUBY_ENGINE == 'opal' ? (require 'index-markup-inline-macro/extension') : (require_relative 'index-markup-inline-macro/extension')
 
 Asciidoctor::Extensions.register do
 	inline_macro IndexMarkupNoteInlineMacro
