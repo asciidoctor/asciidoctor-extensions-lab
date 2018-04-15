@@ -29,7 +29,7 @@ class IndexMarkupNoteInlineMacro < Extensions::InlineMacroProcessor
 
 	sig_arr = [ 'normal', 'preferred' ]
 	sco_arr = [ 'global', 'local', 'all' ]
-	cool_string = ''
+	see_string = ''
 	
 	attrs.each_key do |x|
 	  if x =~ /^type$/i
@@ -37,9 +37,9 @@ class IndexMarkupNoteInlineMacro < Extensions::InlineMacroProcessor
 	  elsif x =~ /^zone$/i
 		zone = "#{attrs[$&]}"
 	  elsif x =~ /^see$/i
-	    cool_string += "<see>#{attrs[$&]}</see>"
+	    see_string += "<see>#{attrs[$&]}</see>"
 	  elsif x =~ /^seealso[0-9]*$/i
-	    cool_string += "<seealso>#{attrs[$&]}</seealso>"
+	    see_string += "<seealso>#{attrs[$&]}</seealso>"
 	  elsif x =~ /^significance$/i
 		significance = "#{attrs[$&]}".downcase
 	  elsif x =~ /^scope$/i
@@ -72,7 +72,7 @@ class IndexMarkupNoteInlineMacro < Extensions::InlineMacroProcessor
 	# But then, if you're going to use @zone, NONE OF the block-ids' names you're referencing may contain ANY SPACES!!
 	# Asciidoctor's auto-generated IDs are OK!! but, if defining your own anchors (User Manual sec. 27.2), please note the rules that Asciidoctor uses when generating such (sec. 16.2; https://asciidoctor.org/docs/user-manual/#auto-generated-ids )
 
-    %(<indexterm#{typy}#{zony}#{pagenumy}#{signy}#{scopy}><primary#{sortas_1}>#{attrs['primary']}</primary>#{secy}#{terty}#{cool_string}</indexterm>)
+    %(<indexterm#{typy}#{zony}#{pagenumy}#{signy}#{scopy}><primary#{sortas_1}>#{attrs['primary']}</primary>#{secy}#{terty}#{see_string}</indexterm>)
   
   end
 end
@@ -104,7 +104,7 @@ class IndexMarkupRangeStartInlineMacro < Extensions::InlineMacroProcessor
 	
 	sig_arr = [ 'normal', 'preferred' ]
 	sco_arr = [ 'global', 'local', 'all' ]
-	cool_string = ''
+	see_string = ''
 	
 	attrs.each_key do |x|
 	  if x =~ /^type$/i
@@ -112,9 +112,9 @@ class IndexMarkupRangeStartInlineMacro < Extensions::InlineMacroProcessor
 	  elsif x =~ /^id$/i
 	    id = "#{attrs[$&]}"
 	  elsif x =~ /^see$/i
-	    cool_string += "<see>#{attrs[$&]}</see>"
+	    see_string += "<see>#{attrs[$&]}</see>"
 	  elsif x =~ /^seealso[0-9]*$/i
-	    cool_string += "<seealso>#{attrs[$&]}</seealso>"
+	    see_string += "<seealso>#{attrs[$&]}</seealso>"
 	  elsif x =~ /^significance$/i
 		significance = "#{attrs[$&]}".downcase
 	  elsif x =~ /^scope$/i
@@ -141,7 +141,7 @@ class IndexMarkupRangeStartInlineMacro < Extensions::InlineMacroProcessor
 	secy = sec ? %(<secondary#{sortas_2}>#{sec}</secondary>) : nil
 	terty = tert ? %(<tertiary#{sortas_3}>#{tert}</tertiary>) : nil
 
-    %(<indexterm#{idy} class="startofrange"#{typy}#{pagenumy}#{signy}#{scopy}><primary#{sortas_1}>#{attrs['primary']}</primary>#{secy}#{terty}#{cool_string}</indexterm>)
+    %(<indexterm#{idy} class="startofrange"#{typy}#{pagenumy}#{signy}#{scopy}><primary#{sortas_1}>#{attrs['primary']}</primary>#{secy}#{terty}#{see_string}</indexterm>)
   
   end
 end
