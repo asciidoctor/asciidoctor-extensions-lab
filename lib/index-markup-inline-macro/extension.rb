@@ -11,7 +11,7 @@ class IndexMarkupNoteInlineMacro < Extensions::InlineMacroProcessor
   using_format :short  # this way, no <target> bit is required (OR EVEN ALLOWED!) in the inline-macro-notation
   
   def process parent, target, attrs
-	return unless (parent.document.basebackend? 'docbook')
+	return unless (parent.document.basebackend? 'docbook') && (attrs.has_key? 'primary')
 
     # some positional attributes:
     sec = (attrs.has_key? 'secondary') ? attrs['secondary'] : nil
@@ -86,7 +86,7 @@ class IndexMarkupRangeStartInlineMacro < Extensions::InlineMacroProcessor
   using_format :short  # this way, no <target> bit is required (OR EVEN ALLOWED!) in the inline-macro-notation
   
   def process parent, target, attrs
-	return unless (parent.document.basebackend? 'docbook')
+	return unless (parent.document.basebackend? 'docbook') && (attrs.has_key? 'primary')
 
     # some positional attributes:
     sec = (attrs.has_key? 'secondary') ? attrs['secondary'] : nil
