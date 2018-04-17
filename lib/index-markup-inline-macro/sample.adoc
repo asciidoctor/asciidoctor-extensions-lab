@@ -25,7 +25,7 @@ To give you something concrete, here's what that inline-macro notation--crappy c
 
 `+<indexterm type="tech"><primary>DocBook</primary><secondary sortas="duck">the Duck</secondary></indexterm>+`
 
-In fact, that notation is included in a paragraph above (though, if you're using this extension and any but a DocBook backend, it won't appear in the output).indexing_note:[ Gone with the Wind, Abbot & Costello, The King of Siam         , secondary_sORTas = 'Wilma', TYPE = nonsense, primary_SORtas ="Fred",sCoPe= All ,  tertIAry_sORTas = 'Barney', seealso20= 'my jeans',seealso ='your jeans', sigNIFicance = nOrMaL, ] Here's another one that's up there:
+In fact, that notation is included in a paragraph above (though, if you're using this extension and any but a DocBook backend, it won't appear in the output).indexing_note:[ Gone with the Wind, Abbot & Costello, The King of Siam         , secondary_sORTas = 'Wilma', TYPE = nonsense, primary_SORtas ="Fred",sCoPe= All ,  tertIAry_sORTas = 'Barney', seealso20= 'my jeans',seealso ='your jeans', sigNIFicance = nOrMaL, pagenum =208 ] Here's another one that's up there:
 
 `+indexing_note:[AsciiDoctor, tYpE =tech, seealso = AsciiDoc , priMARy_sortas = Asciidoctor, seeALSO20= lightweight markup languages ]+`
 
@@ -71,11 +71,11 @@ These ID values must match exactly, _including case,_ and must satisfy https://w
 
 By the way, here's an artificial, "`everything but the kitchen sink`" sort of entry I placed inside a paragraph above--just to illustrate some other attributes available:
 
-`+indexing_note:[ Gone with the Wind, Abbot & Costello, The King of Siam         , secondary_sORTas = 'Wilma', TYPE = nonsense, primary_SORtas ="Fred",sCoPe= All ,  tertIAry_sORTas = 'Barney', seealso20= 'my jeans',seealso ='your jeans', sigNIFicance = nOrMaL, ]+`
+`+indexing_note:[ Gone with the Wind, Abbot & Costello, The King of Siam         , secondary_sORTas = 'Wilma', TYPE = nonsense, primary_SORtas ="Fred",sCoPe= All ,  tertIAry_sORTas = 'Barney', seealso20= 'my jeans',seealso ='your jeans', sigNIFicance = nOrMaL, pagenum =208 ]+`
 
 The DocBook it converts to is:
 
-`+<indexterm type="nonsense" significance="normal" scope="all"><primary sortas="Fred">Gone with the Wind</primary><secondary sortas="Wilma">Abbot &amp; Costello</secondary><tertiary sortas="Barney">The King of Siam</tertiary><seealso>my jeans</seealso><seealso>your jeans</seealso></indexterm>+`
+`+<indexterm type="nonsense" pagenum="208" significance="normal" scope="all"><primary sortas="Fred">Gone with the Wind</primary><secondary sortas="Wilma">Abbot &amp; Costello</secondary><tertiary sortas="Barney">The King of Siam</tertiary><seealso>my jeans</seealso><seealso>your jeans</seealso></indexterm>+`
 
 You'll have noticed that a few of our '`seealso`'-named attributes had numeric characters at the end: e.g., `+seealso20+`.
 That's because in AsciiDoctor attribute-lists, _you cannot have two named attributes with the same name._
@@ -83,18 +83,20 @@ If you do, AsciiDoctor uses only the last value with that name.
 
 To "`unique-ify`" their attribute names within the same macro-notation instance, add a unique numerical sequence (any length) to the end of each--or, to all but one--of the `+seealso+` attributes. In this way, your `+seealso+` values will all pass through into `+<seealso>+` elements--as in the above examples.
 
-Another attribute you can have which creates an element in DocBook, is `+see+`.
-For its meaning, and that of DocBook's `+<indexterm>+` attributes `+type+`, `+significance+`, `+scope+`, and `+pagenum+` (all of which you can use in your list), please see the excellent DocBook text by Norman Walsh--most editions of which you can https://tdg.docbook.org/tdg/4.5/docbook.html[find online]. (Bob Stayton's http://www.sagehill.net/book-description.html[book] _DocBook XSL_, now in its 4th ed., is also invaluable.)
-I will warn you, though, that if you include a `+see+` in the same indexing-markup notation where you have a `+seealso+`-type attribute, the DocBook schema will complain.footnote:[Although your _capitalization_ of the attribute-names is irrelevant, your _spelling_ them correctly is crucial. Also, using (and spelling correctly) any of the enumerated proper values for `+scope+` and `+significance+` is crucial. Any misspellings cause your attribute to be ignored.]footnote:[Also: if you include a `+tertiary_sortas+` attribute, but forget to include an actual tertiary positional-attribute _value_, then no `+<tertiary>+` element at all will appear in the output. The same is true of `+<secondary>+`--but NOT of `+<primary>+`, though only the bare `+<primary>+` element will appear (with no attribute).]
+The other attribute you can have which creates an element in DocBook, is `+see+`.
+For its meaning, and that of DocBook's `+<indexterm>+` attributes `+type+`, `+significance+`, `+scope+`, and `+pagenum+` (all of which you may use in lists), and the `+<primary>+`,  `+<secondary>+`, or  `+<tertiary>+` attribute `+sortas+` (for which you must use either `+primary_sortas+`, `+secondary_sortas+`, or `+tertiary_sortas+` in your list, respectively), please see the excellent DocBook text by Norman Walsh--most editions of which you can https://tdg.docbook.org/tdg/4.5/docbook.html[find online]. (Bob Stayton's http://www.sagehill.net/book-description.html[book] _DocBook XSL_, now in its 4th ed., is also invaluable.)
+These named attributes will work in either an `+indexing_note+` or an `+indexing_start+` list.footnote:[Although your _capitalization_ of the attribute-names is irrelevant, your _spelling_ them correctly is crucial. Also, using (and spelling correctly) any of the enumerated proper values for `+scope+` and `+significance+` is crucial. Any misspellings cause your attribute to be ignored.]
 
-Now, I omitted one other attribute which, in our macros, you can use only in `+indexing_note+`: that attribute is `+zone+`.
+I will warn you, though, that if you include a `+see+` in the same indexing-markup notation where you have a `+seealso+`-type attribute, the DocBook schema will complain. Also: if you include a `+tertiary_sortas+` attribute, but forget to include an actual tertiary positional-attribute _value_, then no `+<tertiary>+` element at all will appear in the output. The same is true of `+<secondary>+`--but NOT of `+<primary>+`, though only the bare `+<primary>+` element will appear (with no attribute). And if you forget to give your `+indexing_start+` or `+indexing_end+` an `+id+` attribute, you'll get one anyway--just not with the value you were likely intending!
+
+Now, I omitted one other attribute which, in our macros, you can use only in an `+indexing_note+`: that attribute is `+zone+`.
 It contains a single-space-character-separated list of XML ID-values (see above) that are each an anchor (ID) of sections or paragraphs within your AsciiDoctor manuscript (see the https://asciidoctor.org/docs/user-manual/[AsciiDoctor User Manual], sections 16.2; 27.1{N}2).
 
 When it includes `+zone+`, an `+indexing_note+` indexes, not its own location, but all the sections or paragraphs, in your manuscript, to which its `+zone+` attribute refers!
 The location of such an `+indexing_note+` itself is irrelevant to the index.footnote:[Although I've been using it throughout--and I advise you to get very familiar with it--the `+type+` attribute is optional. But any untyped index, if living alongside other, specialized ("`typed`") indices, will suck into its contents every single item that appears in _any_ of those other indices! If that's not what you want your "`General Index`" to do, then one of your index types should simply be "`general`"{M}and you should accordingly "`type`" _every instance_ of indexing-macro you have in your AsciiDoctor.]
 
 
-All the extension's inline macros should be used _within_ a paragraph. That's important: for a number of reasons, you don't want the `+indexterm+` elements to appear _between_ paragraphs. But we said there's also a block macro in this extension.
+All three inline macros should be used _within_ a paragraph. That's important: for a number of reasons, you don't want the `+indexterm+` elements to appear _between_ paragraphs. But we said there's also a block macro in this extension.
 
 Such a macro is to _create_ a block. This particular block macro is not to do indexing-markup: it's to indicate the place you want DocBook XSL to create the actual index, a.k.a. the "`index catalog`":
 
