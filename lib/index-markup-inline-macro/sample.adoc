@@ -13,7 +13,7 @@ So then, what you need{M}__really need__{M}my frabjous colleagues, is a way to w
 Well, little buckaroos and buckarinas, this is it!
 
 This extension lets you write--very easily{M}__all__ the kinds of indexing-markup the DocBook Duckindexing_note:[DocBook, the Duck, secoNdAry_sORTas= duck, type= interesting animals] supports.
-It doesn't get better than that!
+It doesn't get better than that!indexing_note:[DocBook, indexing, tYpE = tech, Zone = how_many_levels ]
 
 TIP: And why is it worthwhile to do such indexing-markup? Well, that would be because if AsciiDoctor is the bee's knees, well, DocBook is the cat's pajamas! "`DocBook`" in the wider sense, that is--which includes the awesome "`DocBook XSL`", and can do such awesomeness as __generating a full index, from that markup!__footnote:[However, it will not create specialized indices for you, based on `+type+`, unless you pass the XSL stylesheet a 1 (true) value for its `+index.on.type+` parameter.]
 
@@ -35,6 +35,7 @@ which gets turned into
 
 A usage-note: in AsciiDoc's attribute-lists, the "positional" attributes are called that _for a reason!_ and they *must* appear *before* the named ones, lest they get renamed--or in any case, referenced--wrongly!
 
+[#how_many_levels]
 In this macro, the first such attribute's value goes into a `+<primary>+`, the second (if any) into a `+<secondary>+`, and any third into a `+<tertiary>+`.
 That's it, that's all the index-levels you get in DocBook; and, it's all the positional attributes you get, in any of this extension's three inline macros.
 (Any others you insert will quietly be ignored.)
