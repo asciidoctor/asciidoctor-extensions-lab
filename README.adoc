@@ -76,6 +76,9 @@ Introduces a new admonition block type, complete with a custom icon.
 EmojiInlineMacro, link:lib/emoji-inline-macro.rb[]::
 Adds an emoji inline macro for inserting emoji by name.
 
+FoldLinesTreeProcessor, link:lib/fold-lines-tree-processor.rb[]::
+Replaces newlines (i.e., line feeds) in paragraphs with a single space.
+
 FrontMatterPreprocessor, link:lib/front-matter-preprocessor.rb[]::
 Emulates the built-in behavior of Asciidoctor to sweep away YAML front matter into the `front-matter` attribute.
 
