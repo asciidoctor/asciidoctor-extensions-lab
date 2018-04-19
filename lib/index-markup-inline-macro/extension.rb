@@ -2,6 +2,14 @@ require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 
 include Asciidoctor
 
+
+# toggles whether to generate an <indexterm> for EMPTY/MISSING PRIMARY-positional attribute, in indexing_note/indexing_start
+$empty_indexing_primary_allowed = false
+
+# toggles whether to generate EMPTY secondary or tertiary for indexing_note/indexing_start that invokes its 'sortas' attribute
+$empty_indexing_elems_allowed = false
+
+
 class IndexMarkupNoteInlineMacro < Extensions::InlineMacroProcessor
   use_dsl
 
@@ -11,7 +19,7 @@ class IndexMarkupNoteInlineMacro < Extensions::InlineMacroProcessor
   using_format :short  # this way, no <target> bit is required (OR EVEN ALLOWED!) in the inline-macro-notation
   
   def process parent, target, attrs
-	return unless (parent.document.basebackend? 'docbook') && (attrs.has_key? 'primary') && (attrs['primary'])
+	return unless (parent.document.basebackend? 'docbook') && ($empty_indexing_primary_allowed || ((attrs.has_key? 'primary') && (attrs['primary'])))
 
     # some positional attributes:
     sec = (attrs.has_key? 'secondary') ? attrs['secondary'] : nil
@@ -60,11 +68,11 @@ class IndexMarkupNoteInlineMacro < Extensions::InlineMacroProcessor
 	pagenumy = pagenum ? %( pagenum="#{pagenum}") : nil
     signy = significance && (sig_arr.include? significance) ? %( significance="#{significance}") : nil
     scopy = scope && (sco_arr.include? scope) ? %( scope="#{scope}") : nil
-	sortas_1 = primary_sortas && (attrs.has_key? 'primary') ? %( sortas="#{primary_sortas}") : nil
+	sortas_1 = primary_sortas ? %( sortas="#{primary_sortas}") : nil
 	sortas_2 = secondary_sortas ? %( sortas="#{secondary_sortas}") : nil
 	sortas_3 = tertiary_sortas ? %( sortas="#{tertiary_sortas}") : nil
-	secy = sec ? %(<secondary#{sortas_2}>#{sec}</secondary>) : nil
-	terty = tert ? %(<tertiary#{sortas_3}>#{tert}</tertiary>) : nil
+	secy = sec || (sortas_2 && $empty_indexing_elems_allowed) ? %(<secondary#{sortas_2}>#{sec}</secondary>) : nil
+	terty = tert || (sortas_3 && $empty_indexing_elems_allowed) ? %(<tertiary#{sortas_3}>#{tert}</tertiary>) : nil
 
 	# The DocBook schema will complain if you put both <see> and <seealso> in the same <indexterm>. (THIS MACRO WILL LET YOU! :o
 
@@ -86,7 +94,7 @@ class IndexMarkupRangeStartInlineMacro < Extensions::InlineMacroProcessor
   using_format :short  # this way, no <target> bit is required (OR EVEN ALLOWED!) in the inline-macro-notation
   
   def process parent, target, attrs
-	return unless (parent.document.basebackend? 'docbook') && (attrs.has_key? 'primary') && (attrs['primary'])
+	return unless (parent.document.basebackend? 'docbook') && ($empty_indexing_primary_allowed || ((attrs.has_key? 'primary') && (attrs['primary'])))
 
     # some positional attributes:
     sec = (attrs.has_key? 'secondary') ? attrs['secondary'] : nil
@@ -135,11 +143,11 @@ class IndexMarkupRangeStartInlineMacro < Extensions::InlineMacroProcessor
 	pagenumy = pagenum ? %( pagenum="#{pagenum}") : nil
     signy = significance && (sig_arr.include? significance) ? %( significance="#{significance}") : nil
     scopy = scope && (sco_arr.include? scope) ? %( scope="#{scope}") : nil
-	sortas_1 = primary_sortas && (attrs.has_key? 'primary') ? %( sortas="#{primary_sortas}") : nil
+	sortas_1 = primary_sortas ? %( sortas="#{primary_sortas}") : nil
 	sortas_2 = secondary_sortas ? %( sortas="#{secondary_sortas}") : nil
 	sortas_3 = tertiary_sortas ? %( sortas="#{tertiary_sortas}") : nil
-	secy = sec ? %(<secondary#{sortas_2}>#{sec}</secondary>) : nil
-	terty = tert ? %(<tertiary#{sortas_3}>#{tert}</tertiary>) : nil
+	secy = sec || (sortas_2 && $empty_indexing_elems_allowed) ? %(<secondary#{sortas_2}>#{sec}</secondary>) : nil
+	terty = tert || (sortas_3 && $empty_indexing_elems_allowed) ? %(<tertiary#{sortas_3}>#{tert}</tertiary>) : nil
 
     %(<indexterm#{idy} class="startofrange"#{typy}#{pagenumy}#{signy}#{scopy}><primary#{sortas_1}>#{attrs['primary']}</primary>#{secy}#{terty}#{see_string}</indexterm>)
   
