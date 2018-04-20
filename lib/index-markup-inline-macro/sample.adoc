@@ -4,7 +4,7 @@
 :N: pass:[&#8211;]
 
 indexing_note:[DocBook, indexing, tYpE = tech, Zone = how_many_levels ,secondary_sortas= index markup ]
-This extension supplies three inline macros and one block macro. Taken together, their functionality goes beyond the DocBook-index-markup capabilities that are currently (4/2018) in AsciiDoctor,indexing_note:[AsciiDoctor, tYpE =tech, seealso = AsciiDoc , priMARy_sortas = Asciidoctor, seeALSO99= lightweight markup languages ] making it possible to write in AsciiDoc any and all DocBook-supported indexing markup.
+This extension supplies three inline macros and one block macro. Taken together, their functionality goes beyond the DocBook-index-markup capabilities that are currently (4/2018) in AsciiDoctor,indexing_note:[AsciiDoctor, tYpE =tech, seealso = AsciiDoc , priMARy_sortas = Asciidoctor, seeALSO99= lightweight markup languages ] making it possible to write in AsciiDoc any and all DocBook indexing-markup.
 
 There are two basic ways to express that a certain topic appears at a particular place in the document:
 
