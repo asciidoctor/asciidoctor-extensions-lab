@@ -80,6 +80,7 @@ class PadCounterConfigureInlineMacro < Extensions::InlineMacroProcessor
         if default.to_i != 0 && default =~ /^[0-9]+/
 	      $pad_counter_default = $&
 	    end
+		break
 	  end
 	end
 	
