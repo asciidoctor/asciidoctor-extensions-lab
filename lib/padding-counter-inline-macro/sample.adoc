@@ -1,0 +1,19 @@
+= A counter that does padding
+
+conf_cntrs:[ default =081xx ]
+
+. XXX-counter:seq1[]
+
+. XXX-counter:seq1[value = AAA ]
+. XXX-disp_cntr:seq1[]
+
+. incr_cntr:seq1[]XXX-disp_cntr:seq1[]
+. XXX-counter:seq1[]
+. XXX-disp_cntr:seq1[]
+
+. YYY-counter:seq2[]
+. YYY-counter:seq2[]
+. YYY-counter:seq2[VALUE = 0099]
+
+. YYY-counter:seq2[]
+

@@ -126,6 +126,9 @@ MultipageHtml5Converter, link:lib/multipage-html5-converter.rb[]::
 A simple converter that chunks the HTML5 output into multiple pages.
 Still far from complete.
 
+PaddingCounterInlineMacro, link:lib/padding-counter-inline-macro.rb[]::
+Adds four inline macros for doing padding-style counters--employing the wonderful String#succ! method.
+
 PassBlockMacro, link:lib/pass-block-macro.rb[]::
 Adds a pass block macro to AsciiDoc.
 
