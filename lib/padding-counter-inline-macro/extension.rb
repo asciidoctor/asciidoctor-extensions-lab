@@ -72,17 +72,12 @@ class PadCounterConfigureInlineMacro < Extensions::InlineMacroProcessor
 
   def process parent, target, attrs 
 
-    default = nil
-		
-	attrs.each_key do |x|
+  	attrs.each_key do |x|
 	  if x =~ /^default$/i
-		default = "#{attrs[$&]}"
-        if default.to_i != 0 && default =~ /^[0-9]+/
-	      $pad_counter_default = $&
-	    end
-		break
+		$pad_counter_default = "#{attrs[$&]}"
+        break
 	  end
-	end
+    end
 	
 	return nil
 	

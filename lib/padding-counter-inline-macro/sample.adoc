@@ -1,6 +1,6 @@
 = A counter that does padding
 
-conf_cntrs:[ default =081xx ]
+conf_cntrs:[ default =081 ]
 
 . XXX-counter:seq1[]
 
