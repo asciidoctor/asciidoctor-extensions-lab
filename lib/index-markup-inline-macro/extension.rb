@@ -21,8 +21,8 @@ class IndexMarkupNoteInlineMacro < Extensions::InlineMacroProcessor
   def process parent, target, attrs
 	return unless (parent.document.basebackend? 'docbook') && ($empty_indexing_primary_allowed || ((attrs.has_key? 'primary') && (attrs['primary'])))
 
-    # some positional attributes:
-    sec = (attrs.has_key? 'secondary') ? attrs['secondary'] : nil
+	# some positional attributes:
+	sec = (attrs.has_key? 'secondary') ? attrs['secondary'] : nil
 	tert = (attrs.has_key? 'tertiary') ? attrs['tertiary'] : nil
 	
 	# some named attributes:
@@ -41,33 +41,33 @@ class IndexMarkupNoteInlineMacro < Extensions::InlineMacroProcessor
 	
 	attrs.each_key do |x|
 	  if x =~ /^type$/i
-		type = "#{attrs[$&]}"
+	    type = "#{attrs[$&]}"
 	  elsif x =~ /^zone$/i
-		zone = "#{attrs[$&]}"
+	    zone = "#{attrs[$&]}"
 	  elsif x =~ /^see$/i
 	    see_string += "<see>#{attrs[$&]}</see>"
 	  elsif x =~ /^seealso[0-9]*$/i
 	    see_string += "<seealso>#{attrs[$&]}</seealso>"
 	  elsif x =~ /^significance$/i
-		significance = "#{attrs[$&]}".downcase
+	    significance = "#{attrs[$&]}".downcase
 	  elsif x =~ /^scope$/i
-		scope = "#{attrs[$&]}".downcase
+	    scope = "#{attrs[$&]}".downcase
 	  elsif x =~ /^primary_sortas$/i
-		primary_sortas = "#{attrs[$&]}"
+	    primary_sortas = "#{attrs[$&]}"
 	  elsif x =~ /^secondary_sortas$/i
-		secondary_sortas = "#{attrs[$&]}"
+	    secondary_sortas = "#{attrs[$&]}"
 	  elsif x =~ /^tertiary_sortas$/i
-		tertiary_sortas = "#{attrs[$&]}"
+	    tertiary_sortas = "#{attrs[$&]}"
 	  elsif x =~ /^pagenum$/i
-		pagenum = "#{attrs[$&]}"
+	    pagenum = "#{attrs[$&]}"
 	  end
 	end
 	
 	zony = zone ? %( zone="#{zone}") : nil
 	typy = type ? %( type="#{type}") : nil
 	pagenumy = pagenum ? %( pagenum="#{pagenum}") : nil
-    signy = significance && (sig_arr.include? significance) ? %( significance="#{significance}") : nil
-    scopy = scope && (sco_arr.include? scope) ? %( scope="#{scope}") : nil
+	signy = significance && (sig_arr.include? significance) ? %( significance="#{significance}") : nil
+	scopy = scope && (sco_arr.include? scope) ? %( scope="#{scope}") : nil
 	sortas_1 = primary_sortas ? %( sortas="#{primary_sortas}") : nil
 	sortas_2 = secondary_sortas ? %( sortas="#{secondary_sortas}") : nil
 	sortas_3 = tertiary_sortas ? %( sortas="#{tertiary_sortas}") : nil
@@ -76,11 +76,7 @@ class IndexMarkupNoteInlineMacro < Extensions::InlineMacroProcessor
 
 	# The DocBook schema will complain if you put both <see> and <seealso> in the same <indexterm>. (THIS MACRO WILL LET YOU! :o
 
-	# @zone is of type IDREFS, so holds a single-whitespace- (i.e., #x20)-separated list; "so a single IndexTerm can point to multiple ranges."
-	# But then, if you're going to use @zone, NONE OF the block-ids' names you're referencing may contain ANY SPACES!!
-	# Asciidoctor's auto-generated IDs are OK!! but, if defining your own anchors (User Manual sec. 27.2), please note the rules that Asciidoctor uses when generating such (sec. 16.2; https://asciidoctor.org/docs/user-manual/#auto-generated-ids )
-
-    %(<indexterm#{typy}#{zony}#{pagenumy}#{signy}#{scopy}><primary#{sortas_1}>#{attrs['primary']}</primary>#{secy}#{terty}#{see_string}</indexterm>)
+	%(<indexterm#{typy}#{zony}#{pagenumy}#{signy}#{scopy}><primary#{sortas_1}>#{attrs['primary']}</primary>#{secy}#{terty}#{see_string}</indexterm>)
   
   end
 end
@@ -96,8 +92,8 @@ class IndexMarkupRangeStartInlineMacro < Extensions::InlineMacroProcessor
   def process parent, target, attrs
 	return unless (parent.document.basebackend? 'docbook') && ($empty_indexing_primary_allowed || ((attrs.has_key? 'primary') && (attrs['primary'])))
 
-    # some positional attributes:
-    sec = (attrs.has_key? 'secondary') ? attrs['secondary'] : nil
+	# some positional attributes:
+	sec = (attrs.has_key? 'secondary') ? attrs['secondary'] : nil
 	tert = (attrs.has_key? 'tertiary') ? attrs['tertiary'] : nil
 	
 	# some named attributes:
@@ -116,7 +112,7 @@ class IndexMarkupRangeStartInlineMacro < Extensions::InlineMacroProcessor
 	
 	attrs.each_key do |x|
 	  if x =~ /^type$/i
-		type = "#{attrs[$&]}"
+	    type = "#{attrs[$&]}"
 	  elsif x =~ /^id$/i
 	    id = "#{attrs[$&]}"
 	  elsif x =~ /^see$/i
@@ -124,32 +120,32 @@ class IndexMarkupRangeStartInlineMacro < Extensions::InlineMacroProcessor
 	  elsif x =~ /^seealso[0-9]*$/i
 	    see_string += "<seealso>#{attrs[$&]}</seealso>"
 	  elsif x =~ /^significance$/i
-		significance = "#{attrs[$&]}".downcase
+	    significance = "#{attrs[$&]}".downcase
 	  elsif x =~ /^scope$/i
-		scope = "#{attrs[$&]}".downcase
+	    scope = "#{attrs[$&]}".downcase
 	  elsif x =~ /^primary_sortas$/i
-		primary_sortas = "#{attrs[$&]}"
+	    primary_sortas = "#{attrs[$&]}"
 	  elsif x =~ /^secondary_sortas$/i
-		secondary_sortas = "#{attrs[$&]}"
+	    secondary_sortas = "#{attrs[$&]}"
 	  elsif x =~ /^tertiary_sortas$/i
-		tertiary_sortas = "#{attrs[$&]}"
+	    tertiary_sortas = "#{attrs[$&]}"
 	  elsif x =~ /^pagenum$/i
-		pagenum = "#{attrs[$&]}"
+	    pagenum = "#{attrs[$&]}"
 	  end
 	end
 	
 	idy = %( id="#{id}")
 	typy = type ? %( type="#{type}") : nil
 	pagenumy = pagenum ? %( pagenum="#{pagenum}") : nil
-    signy = significance && (sig_arr.include? significance) ? %( significance="#{significance}") : nil
-    scopy = scope && (sco_arr.include? scope) ? %( scope="#{scope}") : nil
+	signy = significance && (sig_arr.include? significance) ? %( significance="#{significance}") : nil
+	scopy = scope && (sco_arr.include? scope) ? %( scope="#{scope}") : nil
 	sortas_1 = primary_sortas ? %( sortas="#{primary_sortas}") : nil
 	sortas_2 = secondary_sortas ? %( sortas="#{secondary_sortas}") : nil
 	sortas_3 = tertiary_sortas ? %( sortas="#{tertiary_sortas}") : nil
 	secy = sec || (sortas_2 && $empty_indexing_elems_allowed) ? %(<secondary#{sortas_2}>#{sec}</secondary>) : nil
 	terty = tert || (sortas_3 && $empty_indexing_elems_allowed) ? %(<tertiary#{sortas_3}>#{tert}</tertiary>) : nil
 
-    %(<indexterm#{idy} class="startofrange"#{typy}#{pagenumy}#{signy}#{scopy}><primary#{sortas_1}>#{attrs['primary']}</primary>#{secy}#{terty}#{see_string}</indexterm>)
+	%(<indexterm#{idy} class="startofrange"#{typy}#{pagenumy}#{signy}#{scopy}><primary#{sortas_1}>#{attrs['primary']}</primary>#{secy}#{terty}#{see_string}</indexterm>)
   
   end
 end
@@ -164,19 +160,19 @@ class IndexMarkupRangeEndInlineMacro < Extensions::InlineMacroProcessor
   def process parent, target, attrs
 	return unless (parent.document.basebackend? 'docbook')
 
-    # named attribute:
+	# named attribute:
 	id = 'phonyID_you-were-missing-a-real-one'
 	
 	attrs.each_key do |x|
 	  if x =~ /^id$/i
 	    id = "#{attrs[$&]}"
-		break
+	    break
 	  end
 	end	
 	
 	idy = %( startref="#{id}")
 
-    %(<indexterm#{idy} class="endofrange" />)
+	%(<indexterm#{idy} class="endofrange" />)
   
   end
 end
@@ -200,14 +196,14 @@ class IndexCatalogBlockMacro < Asciidoctor::Extensions::BlockMacroProcessor
 	
 	attrs.each_key do |x|
 	  if x =~ /^type$/i
-		type = "#{attrs[$&]}"
-		break
+	    type = "#{attrs[$&]}"
+	    break
 	  end
 	end
   
 	typy = type ? %( type="#{type}") : nil
 
-    dbook = %(<index#{typy}>#{title}</index>)
+	dbook = %(<index#{typy}>#{title}</index>)
 	create_pass_block parent, dbook, attrs, subs: nil
 	
   end
