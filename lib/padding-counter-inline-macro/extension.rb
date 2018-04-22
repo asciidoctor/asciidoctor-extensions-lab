@@ -15,22 +15,22 @@ class PadCounterInlineMacro < Extensions::InlineMacroProcessor
   def process parent, target, attrs  
     
     value = nil
-		
-	attrs.each_key do |x|
-	  if x =~ /^value$/i
-		value = "#{attrs[$&]}"
-	    $pad_counter_values["#{target}"] = value
+        
+    attrs.each_key do |x|
+      if x =~ /^value$/i
+        value = "#{attrs[$&]}"
+        $pad_counter_values["#{target}"] = value
         return value
-	  end
-	end
+      end
+    end
 
     unless $pad_counter_values["#{target}"]
       $pad_counter_values["#{target}"] = $pad_counter_default
-	  return $pad_counter_default
-	else
-	  return $pad_counter_values["#{target}"].succ!
-	end
-	
+      return $pad_counter_default
+    else
+      return $pad_counter_values["#{target}"].succ!
+    end
+    
   end
 end
 
@@ -41,10 +41,10 @@ class PadCounterIncrementInlineMacro < Extensions::InlineMacroProcessor
   named :incr_cntr
 
   def process parent, target, attrs  
-	
-	$pad_counter_values["#{target}"].succ!
+    
+    $pad_counter_values["#{target}"].succ!
 
-	return nil
+    return nil
 
   end
 end
@@ -57,8 +57,8 @@ class PadCounterDisplayInlineMacro < Extensions::InlineMacroProcessor
 
   def process parent, target, attrs
   
-	return $pad_counter_values["#{target}"]
-	
+    return $pad_counter_values["#{target}"]
+    
   end
 end
 
@@ -72,15 +72,15 @@ class PadCounterConfigureInlineMacro < Extensions::InlineMacroProcessor
 
   def process parent, target, attrs 
 
-  	attrs.each_key do |x|
-	  if x =~ /^default$/i
-		$pad_counter_default = "#{attrs[$&]}"
+    attrs.each_key do |x|
+      if x =~ /^default$/i
+        $pad_counter_default = "#{attrs[$&]}"
         break
-	  end
+      end
     end
-	
-	return nil
-	
+    
+    return nil
+    
   end
 end
 
