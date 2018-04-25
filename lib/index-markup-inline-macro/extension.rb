@@ -41,25 +41,25 @@ class IndexMarkupNoteInlineMacro < Extensions::InlineMacroProcessor
 	
 	attrs.each_key do |x|
 	  if x =~ /^type$/i
-	    type = "#{attrs[$&]}"
+		type = attrs[$&]
 	  elsif x =~ /^zone$/i
-	    zone = "#{attrs[$&]}"
+		zone = attrs[$&]
 	  elsif x =~ /^see$/i
 	    see_string += "<see>#{attrs[$&]}</see>"
 	  elsif x =~ /^seealso[0-9]*$/i
 	    see_string += "<seealso>#{attrs[$&]}</seealso>"
 	  elsif x =~ /^significance$/i
-	    significance = "#{attrs[$&]}".downcase
+		significance = attrs[$&].downcase
 	  elsif x =~ /^scope$/i
-	    scope = "#{attrs[$&]}".downcase
+		scope = attrs[$&].downcase
 	  elsif x =~ /^primary_sortas$/i
-	    primary_sortas = "#{attrs[$&]}"
+		primary_sortas = attrs[$&]
 	  elsif x =~ /^secondary_sortas$/i
-	    secondary_sortas = "#{attrs[$&]}"
+		secondary_sortas = attrs[$&]
 	  elsif x =~ /^tertiary_sortas$/i
-	    tertiary_sortas = "#{attrs[$&]}"
+		tertiary_sortas = attrs[$&]
 	  elsif x =~ /^pagenum$/i
-	    pagenum = "#{attrs[$&]}"
+		pagenum = attrs[$&]
 	  end
 	end
 	
@@ -112,25 +112,25 @@ class IndexMarkupRangeStartInlineMacro < Extensions::InlineMacroProcessor
 	
 	attrs.each_key do |x|
 	  if x =~ /^type$/i
-	    type = "#{attrs[$&]}"
+		type = attrs[$&]
 	  elsif x =~ /^id$/i
-	    id = "#{attrs[$&]}"
+	    id = attrs[$&]
 	  elsif x =~ /^see$/i
 	    see_string += "<see>#{attrs[$&]}</see>"
 	  elsif x =~ /^seealso[0-9]*$/i
 	    see_string += "<seealso>#{attrs[$&]}</seealso>"
 	  elsif x =~ /^significance$/i
-	    significance = "#{attrs[$&]}".downcase
+		significance = attrs[$&].downcase
 	  elsif x =~ /^scope$/i
-	    scope = "#{attrs[$&]}".downcase
+		scope = attrs[$&].downcase
 	  elsif x =~ /^primary_sortas$/i
-	    primary_sortas = "#{attrs[$&]}"
+		primary_sortas = attrs[$&]
 	  elsif x =~ /^secondary_sortas$/i
-	    secondary_sortas = "#{attrs[$&]}"
+		secondary_sortas = attrs[$&]
 	  elsif x =~ /^tertiary_sortas$/i
-	    tertiary_sortas = "#{attrs[$&]}"
+		tertiary_sortas = attrs[$&]
 	  elsif x =~ /^pagenum$/i
-	    pagenum = "#{attrs[$&]}"
+		pagenum = attrs[$&]
 	  end
 	end
 	
@@ -165,7 +165,7 @@ class IndexMarkupRangeEndInlineMacro < Extensions::InlineMacroProcessor
 	
 	attrs.each_key do |x|
 	  if x =~ /^id$/i
-	    id = "#{attrs[$&]}"
+	    id = attrs[$&]
 	    break
 	  end
 	end	
@@ -196,7 +196,7 @@ class IndexCatalogBlockMacro < Asciidoctor::Extensions::BlockMacroProcessor
 	
 	attrs.each_key do |x|
 	  if x =~ /^type$/i
-	    type = "#{attrs[$&]}"
+		type = attrs[$&]
 	    break
 	  end
 	end
