@@ -34,7 +34,7 @@ class SectionNumbersTreeProcessor < Extensions::TreeProcessor
     if block.numbered && (defined? block.level)
       if block.level.to_i > $level_previous + 1
         for i in ($level_previous + 1)..block.level.to_i
-          $levels_arr[i - 1] = '0'
+          $levels_arr[i - 1] = '1'
         end
       end
       $level_previous = block.level.to_i
