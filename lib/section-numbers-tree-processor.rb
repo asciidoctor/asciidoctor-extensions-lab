@@ -13,7 +13,7 @@ If using asciidoctor-fopub, I'd set the XSL parameter 'section.autolabel' to 0 a
     But in asciidoctor-fopub, whether these are 1 or 0 by default DEPENDS, on whether the :sectnums: attribute was unset in your AsciiDoc header metadata:
 	
     they default to 1 IF the <?asciidoc-numbered?> XML processing-instruction is present in the DocBook XML file; and 
-    that <?asciidoc-numbered?> XML processing-instruction will be present UNLESS :sectnums: was unset in your AsciiDoc document's header metadata.
+    that <?asciidoc-numbered?> processing-instruction will be present UNLESS :sectnums: was unset in your AsciiDoc document's header metadata.
    
 (For how to pass XSL stylesheet parameters when using asciidoctor-fopub, please see https://github.com/asciidoctor/asciidoctor-fopub#custom-xsl-parameters.)
    
