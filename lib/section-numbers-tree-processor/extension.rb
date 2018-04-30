@@ -22,31 +22,31 @@ class SectionNumbersTreeProcessor < Extensions::TreeProcessor
 
   def process_blocks node
     node.blocks.each do |block|
-	  if block.context == :section && (defined? block.title)
-	    block.title = "#{concat_sec_nr block}#{block.title}"
-	    process_blocks block if block.blocks?
-	    nil
-	  end
-	end
+      if block.context == :section && (defined? block.title)
+        block.title = "#{concat_sec_nr block}#{block.title}"
+        process_blocks block if block.blocks?
+        nil
+      end
+    end
   end
   
   def concat_sec_nr block
-	if block.numbered && (defined? block.level)
+    if block.numbered && (defined? block.level)
       if block.level.to_i > $level_previous + 1
-	    for i in ($level_previous + 1)..block.level.to_i
-		  $levels_arr[i - 1] = '0'
-		end
-	  end
-	  $level_previous = block.level.to_i
-	  $levels_arr[block.level.to_i - 1] = block.number.to_s
-	  str = $nr_prefix + $levels_arr[0]
-	  for i in 1..(block.level.to_i - 1)
-	    str += "#{$punct}#{$levels_arr[i]}"
-	  end
-	  str += $nr_suffix
-	else
-	  nil
-	end
+        for i in ($level_previous + 1)..block.level.to_i
+          $levels_arr[i - 1] = '0'
+        end
+      end
+      $level_previous = block.level.to_i
+      $levels_arr[block.level.to_i - 1] = block.number.to_s
+      str = $nr_prefix + $levels_arr[0]
+      for i in 1..(block.level.to_i - 1)
+        str += "#{$punct}#{$levels_arr[i]}"
+      end
+      str += $nr_suffix
+    else
+      nil
+    end
   end
 end
 
