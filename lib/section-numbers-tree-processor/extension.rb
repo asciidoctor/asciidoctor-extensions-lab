@@ -6,8 +6,9 @@ include Asciidoctor
 
 $punct = '.'
 $nr_suffix = '. '
-$nr_prefix = ''
+$sec_nr_prefix = ''
 $chap_nums = false
+$chap_nr_prefix = 'Chap. '
 
 # DON'T mess with these values:
 
@@ -47,12 +48,14 @@ class SectionNumbersTreeProcessor < Extensions::TreeProcessor
       end
       $level_previous = block.level.to_i
       $levels_arr[block.level.to_i - 1] = block.number.to_s
-      str = $nr_prefix + $levels_arr[0]
+      pref = (dtype && dtype == 'book' && block.level.to_i == 1) ? $chap_nr_prefix : \
+          ( block.level.to_i > 0 ? $sec_nr_prefix : '')
+      str = pref + $levels_arr[0]
       for i in 1..(block.level.to_i - 1)
         str += "#{$punct}#{$levels_arr[i]}"
       end
       str += $nr_suffix
-      if ($chap_nums || !dtype || dtype != 'book' || block.level.to_i > 1)
+      if ($chap_nums || !dtype || dtype != 'book' || block.level.to_i != 1)
         str
       else
         ''
