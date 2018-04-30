@@ -4,11 +4,11 @@ include Asciidoctor
 
 # Mess with these values to your heart's content:
 
-$punct = '.'
-$nr_suffix = '. '
-$sec_nr_prefix = ''
-$chap_nums = true
+$punct = '.'         # punctuation between levels' numbers: e.g., '.' yields '1.3.2'
+$nr_suffix = '. '    # punctuation after the number and before the chapter's/section's title
+$chap_nums = true    # enables/disables chapter-numbering
 $chap_nr_prefix = 'Chapter '
+$sec_nr_prefix = ''
 
 # DON'T mess with these values:
 
