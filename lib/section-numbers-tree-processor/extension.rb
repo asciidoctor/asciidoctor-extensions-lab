@@ -7,8 +7,8 @@ include Asciidoctor
 $punct = '.'
 $nr_suffix = '. '
 $sec_nr_prefix = ''
-$chap_nums = false
-$chap_nr_prefix = 'Chap. '
+$chap_nums = true
+$chap_nr_prefix = 'Chapter '
 
 # DON'T mess with these values:
 
@@ -55,11 +55,7 @@ class SectionNumbersTreeProcessor < Extensions::TreeProcessor
         str += "#{$punct}#{$levels_arr[i]}"
       end
       str += $nr_suffix
-      if ($chap_nums || !dtype || dtype != 'book' || block.level.to_i != 1)
-        str
-      else
-        ''
-      end
+      ($chap_nums || !dtype || dtype != 'book' || block.level.to_i != 1) ? str : ''
     else
       nil
     end
