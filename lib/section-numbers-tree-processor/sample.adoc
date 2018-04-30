@@ -48,9 +48,9 @@ content oh yes
 
 ===== Another Subsection for sure the most tantalizing YET
 
-=== Subsection back to just amazingly tantalizing
-
 content for sure
+
+=== Subsection back to just amazingly tantalizing
 
 content oh yes
 
