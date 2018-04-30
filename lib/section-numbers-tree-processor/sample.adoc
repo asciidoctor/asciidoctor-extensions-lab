@@ -1,10 +1,10 @@
 = big deal
 :sectnums:
+:sectnumlevels: 4
 
 == Section
 
 content
-
 
 === Subsection Most Tantalizing
 
@@ -21,7 +21,7 @@ content
 content
 
 :sectnums!:
-===== Subsection the most tantalizing YET
+===== Subsection the most tantalizing YET, but in a non-section-numbering part!
 
 content
 
@@ -42,15 +42,15 @@ oh yea
 
 content oh yes
 
-==== Yet Another Subsection the most tantalizing YET
+===== Yet Another Subsection the most tantalizing YET
 
 content oh yes
+
+===== Another Subsection for sure the most tantalizing YET
 
 === Subsection back to just amazingly tantalizing
 
 content for sure
-
-==== Another Subsection for sure the most tantalizing YET
 
 content oh yes
 
@@ -58,4 +58,7 @@ content oh yes
 oh yea
 
 === Subsection oh so really tantalizing
+oh yea
+
+====== Subsection so MUCH deeper, indeed suddenly 5 levels deep!
 oh yea

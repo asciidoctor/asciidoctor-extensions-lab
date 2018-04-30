@@ -16,22 +16,23 @@ $level_previous = 0  # pertinent only where someone has, in their sequence, wron
 class SectionNumbersTreeProcessor < Extensions::TreeProcessor
   def process document
     return unless (document.basebackend? 'docbook') && document.blocks?
-    process_blocks document
+    levels = document.attributes['sectnumlevels']
+    process_blocks document, levels
     nil
   end
 
-  def process_blocks node
+  def process_blocks node, levels
     node.blocks.each do |block|
       if block.context == :section && (defined? block.title)
-        block.title = "#{concat_sec_nr block}#{block.title}"
-        process_blocks block if block.blocks?
+        block.title = "#{concat_sec_nr block, levels}#{block.title}"
+        process_blocks block, levels if block.blocks?
         nil
       end
     end
   end
   
-  def concat_sec_nr block
-    if block.numbered && (defined? block.level)
+  def concat_sec_nr block, levels
+    if block.numbered && (defined? block.level) && block.level.to_i <= levels.to_i
       if block.level.to_i > $level_previous + 1
         for i in ($level_previous + 1)..block.level.to_i
           $levels_arr[i - 1] = '1'
