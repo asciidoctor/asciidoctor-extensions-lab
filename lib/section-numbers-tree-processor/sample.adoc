@@ -1,0 +1,61 @@
+= big deal
+:sectnums:
+
+== Section
+
+content
+
+
+=== Subsection Most Tantalizing
+
+----
+content
+----
+
+==== Subsection Even More Tantalizing
+
+content
+
+==== ANOTHER Subsection Even More Tantalizing
+
+content
+
+:sectnums!:
+===== Subsection the most tantalizing YET
+
+content
+
+:sectnums:
+=== Subsection back to just tantalizing
+
+content for sure
+
+== Section back to just tantalizing
+
+oh yea
+
+=== Subsection just tantalizing
+
+oh yea
+
+==== Another Subsection the most tantalizing YET
+
+content oh yes
+
+==== Yet Another Subsection the most tantalizing YET
+
+content oh yes
+
+=== Subsection back to just amazingly tantalizing
+
+content for sure
+
+==== Another Subsection for sure the most tantalizing YET
+
+content oh yes
+
+== Subsection really really tantalizing
+oh yea
+
+=== Subsection oh so really tantalizing
+oh yea
