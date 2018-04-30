@@ -136,7 +136,7 @@ PullquoteInlineMacro, link:lib/pullquote-inline-macro.rb[]::
 Adds an inline macro to pull a quote out of the flow and display it in a sidebar.
 
 SectionNumbersTreeProcessor, link:lib/section-numbers-tree-processor.rb[]::
-Empowers your sectnums, sectnumlevels, and leveloffset attributes for conversions to DocBook.
+Empowers your AsciiDoc sectnums, sectnumlevels, and leveloffset attributes for conversions to DocBook.
 
 SectnumoffsetTreeprocessor, link:lib/sectnumoffset-treeprocessor.rb[]::
 Increments all level-1 section numbers (and subsequently all subsections) by the value of the `sectnumoffset` attribute.
