@@ -7,6 +7,7 @@ include Asciidoctor
 $punct = '.'
 $nr_suffix = '. '
 $nr_prefix = ''
+$chap_nums = false
 
 # DON'T mess with these values:
 
@@ -17,21 +18,22 @@ class SectionNumbersTreeProcessor < Extensions::TreeProcessor
   def process document
     return unless (document.basebackend? 'docbook') && document.blocks?
     levels = (defined? document.attributes['sectnumlevels']) ? document.attributes['sectnumlevels'] : nil
-    process_blocks document, levels
+    dtype = (defined? document.attributes['doctype']) ? document.attributes['doctype'] : nil
+    process_blocks document, levels, dtype
     nil
   end
 
-  def process_blocks node, levels
+  def process_blocks node, levels, dtype
     node.blocks.each do |block|
       if block.context == :section && (defined? block.title)
-        block.title = "#{concat_sec_nr block, levels}#{block.title}"
-        process_blocks block, levels if block.blocks?
+        block.title = "#{concat_sec_nr block, levels, dtype}#{block.title}"
+        process_blocks block, levels, dtype if block.blocks?
         nil
       end
     end
   end
   
-  def concat_sec_nr block, levels
+  def concat_sec_nr block, levels, dtype
     if block.numbered && (defined? block.level) && (!(levels) || block.level.to_i <= levels.to_i)
       if block.level.to_i > $levels_arr.length
         for i in ($levels_arr.length)..block.level.to_i
@@ -50,6 +52,11 @@ class SectionNumbersTreeProcessor < Extensions::TreeProcessor
         str += "#{$punct}#{$levels_arr[i]}"
       end
       str += $nr_suffix
+      if ($chap_nums || !dtype || dtype != 'book' || block.level.to_i > 1)
+        str
+      else
+        ''
+      end
     else
       nil
     end
