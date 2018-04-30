@@ -33,6 +33,11 @@ class SectionNumbersTreeProcessor < Extensions::TreeProcessor
   
   def concat_sec_nr block, levels
     if block.numbered && (defined? block.level) && block.level.to_i <= levels.to_i
+      if block.level.to_i > $levels_arr.length
+        for i in ($levels_arr.length)..block.level.to_i
+          $levels_arr.push '0'
+        end
+      end
       if block.level.to_i > $level_previous + 1
         for i in ($level_previous + 1)..block.level.to_i
           $levels_arr[i - 1] = '1'
