@@ -9,7 +9,7 @@ $nr_suffix_sntp = '. '    # punctuation after the number and before the chapter'
 $chap_nums_sntp = true    # enables/disables chapter-numbering
 $chap_nr_prefix_sntp = 'Chapter '
 $sec_nr_prefix_sntp = ''
-# The style you want at each level (first level is chapters; each level's style must be 'A', 'a', or '1'):
+# The style you want at each level (first level is chapters; each level's style must be 'A', 'a', or '1'; add more if you need):
 $styles_arr_sntp = [ '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' ]
 
 # DON'T mess with these values:
