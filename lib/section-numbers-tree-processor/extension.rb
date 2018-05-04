@@ -87,7 +87,9 @@ class SectionNumbersTreeProcessor < Extensions::TreeProcessor
   
   def convert_block_nr nr, level
     my_char = String.new($styles_arr_sntp[level])
-    # You COULD, if you wish, put an 'if' here which checks whether my_char is a Roman numeral and, if so, calls a separate function to convert the number to the appropriate Roman-numeral format (uppercase or lowercase), but if not, runs this loop:
+    # You COULD, if you wish, put an 'if' here which checks whether my_char is a 'I' or an 'i' and, if so, calls some function
+	# (based on, e.g., https://codequizzes.wordpress.com/2013/10/27/converting-an-integer-to-a-roman-numeral/ )
+	#  to convert nr to the appropriate Roman-numeral format (uppercase or lowercase)--but if not, runs this loop:
     for i in 1..(nr - 1)
       my_char.succ!
     end
