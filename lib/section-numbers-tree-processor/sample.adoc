@@ -1,6 +1,10 @@
 = big deal
 :sectnums:
+:partnums:
 :sectnumlevels: 4
+:doctype: book
+
+= A first big deal
 
 == Section
 
@@ -29,6 +33,9 @@ content
 === Subsection back to just tantalizing
 
 content for sure
+
+= Here's another big deal!
+Oh indeed.
 
 == Section back to just tantalizing
 
@@ -60,5 +67,5 @@ oh yea
 === Subsection oh so really tantalizing
 oh yea
 
-====== Subsection so MUCH deeper, indeed suddenly 5 levels deep!
+====== Subsection so MUCH deeper, indeed suddenly 5 levels deep--COUNTING the chap.nr as 1, if doctype is 'book'!!
 oh yea

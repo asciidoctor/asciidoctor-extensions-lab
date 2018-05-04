@@ -7,16 +7,20 @@ include Asciidoctor
 $punct_sntp = '.'         # punctuation between levels' numbers: e.g., '.' yields '1.3.2'
 $nr_suffix_sntp = '. '    # punctuation after the number and before the chapter's/section's title
 $chap_nums_sntp = true    # enables/disables chapter-labeling
+$part_nums_sntp = true    # enables/disables part-labeling
 $chap_nr_in_sec_nr_sntp = true   # in book, starts sec-labels' nrs with chapter's number (whether or not chap-labeling enabled)
+$part_nr_in_chap_nr_sntp = false  # in book, starts chap.-labels' nrs with part's number (whether or not part-labeling enabled)
+$part_nr_in_sec_nr_sntp = true # comes into play only if $part_nr_in_chap_nr_sntp = true AND $chap_nr_in_sec_nr_sntp = true
+$part_nr_prefix_sntp = 'Part '
 $chap_nr_prefix_sntp = 'Chapter '
 $sec_nr_prefix_sntp = ''
-# The style you want at each level (first level is chapters; each level's style must be 'A', 'a', or '1'; add more if you need):
+# The style you want at each level (level 0 is PARTS, 1 CHAPS; set each level's style to 'A', 'a', or '1'; add more if you need):
 $styles_arr_sntp = [ '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' ]
 
 # DON'T mess with these values:
 
 $levels_arr_sntp = [ '0', '0', '0', '0', '0', '0', '0', '0', '0', '0' ]
-$level_previous_sntp = 0  # pertinent only where someone has, in their sequence, wrongly jumped two rather than only one level deeper
+$level_previous_sntp = 0  # pertinent only where someone has, in sequence, (wrongly) jumped two, rather than one level deeper
 
 class SectionNumbersTreeProcessor < Extensions::TreeProcessor
   def process document
@@ -36,37 +40,54 @@ class SectionNumbersTreeProcessor < Extensions::TreeProcessor
       end
     end
   end
-  
+
   def concat_sec_nr block, levels, dtype
     if block.numbered && (defined? block.level) && (!(levels) || block.level.to_i <= levels.to_i)
-      if block.level.to_i > $levels_arr_sntp.length
-        for i in ($levels_arr_sntp.length)..block.level.to_i
+      if block.level.to_i >= $levels_arr_sntp.length
+        for i in ($levels_arr_sntp.length - 1)..block.level.to_i
           $levels_arr_sntp.push '0'
         end
       end
       if block.level.to_i > $level_previous_sntp + 1
-        for i in ($level_previous_sntp + 1)..block.level.to_i
-          $levels_arr_sntp[i - 1] = $styles_arr_sntp[i - 1]
+        for i in ($level_previous_sntp + 1)..(block.level.to_i - 1)
+          $levels_arr_sntp[i] = $styles_arr_sntp[i]
         end
       end
       $level_previous_sntp = block.level.to_i
-      $levels_arr_sntp[block.level.to_i - 1] = convert_block_nr block.number, block.level.to_i
+      # Get your block.number converted:
+      $levels_arr_sntp[block.level.to_i] = convert_block_nr block.number, block.level.to_i 
+      # Apply any appropriate prefix:
       pref = (dtype && dtype == 'book' && block.level.to_i == 1) ? $chap_nr_prefix_sntp : \
-          ( block.level.to_i > 0 ? $sec_nr_prefix_sntp : '')
-      level_to_start = (dtype && dtype == 'book' && block.level.to_i > 1 && !$chap_nr_in_sec_nr_sntp) ? 2 : 1
-      str = pref + $levels_arr_sntp[level_to_start - 1]
-      for i in level_to_start..(block.level.to_i - 1)
+          ( (dtype && dtype == 'book' && block.level.to_i == 0) ? $part_nr_prefix_sntp : \
+          ( block.level.to_i > 0 ? $sec_nr_prefix_sntp : ''))
+      # When doctype='book', must check whether level-1 nrs belong in (the true) sec.nrs--or, level-0 nrs belong in the chap.nrs:
+      if (dtype && dtype == 'book')
+        if block.level.to_i > 1
+          level_to_start = ($chap_nr_in_sec_nr_sntp ? ($part_nr_in_chap_nr_sntp && $part_nr_in_sec_nr_sntp ? 0 : 1 ) : 2)
+        elsif block.level.to_i == 1
+          level_to_start = ($part_nr_in_chap_nr_sntp ? 0 : 1)
+        else
+          level_to_start = 0
+        end
+      else
+        level_to_start = 1
+      end
+      str = pref + $levels_arr_sntp[level_to_start]
+      for i in (level_to_start + 1)..block.level.to_i
         str += "#{$punct_sntp}#{$levels_arr_sntp[i]}"
       end
       str += $nr_suffix_sntp
-      ($chap_nums_sntp || !dtype || dtype != 'book' || block.level.to_i != 1) ? str : ''
+      #  When doctype='book', must check whether chap-nrs are enabled--and, whether part-nrs are enabled--and what level ur at:
+      dtype && dtype =='book'&& \
+         ((block.level.to_i == 1 && !$chap_nums_sntp) || (block.level.to_i == 0 && !$part_nums_sntp)) ? '' : str
     else
       nil
     end
   end
   
   def convert_block_nr nr, level
-    my_char = String.new($styles_arr_sntp[level - 1])
+    my_char = String.new($styles_arr_sntp[level])
+    # You COULD, if you wish, put an 'if' here which checks whether my_char is a Roman numeral and, if so, calls a separate function to convert the number to the appropriate Roman-numeral format (uppercase or lowercase), but if not, runs this loop:
     for i in 1..(nr - 1)
       my_char.succ!
     end
