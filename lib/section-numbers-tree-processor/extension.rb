@@ -8,14 +8,14 @@ $punct_sntp = '.'         # punctuation between levels' numbers: e.g., '.' yield
 $nr_suffix_sntp = '. '    # punctuation after the number and before the chapter's/section's title
 $chap_nums_sntp = true    # enables/disables chapter-labeling
 $part_nums_sntp = true    # enables/disables part-labeling
-$chap_nr_in_sec_nr_sntp = true   # in book, starts sec-labels' nrs with chapter's number (whether or not chap-labeling enabled)
+$chap_nr_in_sec_nr_sntp = false   # in book, starts sec-labels' nrs with chapter's number (whether or not chap-labeling enabled)
 $part_nr_in_chap_nr_sntp = false  # in book, starts chap.-labels' nrs with part's number (whether or not part-labeling enabled)
 $part_nr_in_sec_nr_sntp = true # comes into play only if $part_nr_in_chap_nr_sntp = true AND $chap_nr_in_sec_nr_sntp = true
 $part_nr_prefix_sntp = 'Part '
 $chap_nr_prefix_sntp = 'Chapter '
 $sec_nr_prefix_sntp = ''
-# The style you want at each level (level 0 is PARTS, 1 CHAPS; set each level's style to 'A', 'a', or '1'; add more if you need):
-$styles_arr_sntp = [ '1', '1', '1', '1', '1', '1', '1', '1', '1', '1' ]
+# The style you want at each level (level 0 is PARTS, 1 CHAPS; set each style to 'A','a','I','i', or '1'; add more if you need):
+$styles_arr_sntp = [ 'I', '1', '1', '1', '1', '1', '1', '1', '1', '1' ]
 
 # DON'T mess with these values:
 
@@ -87,13 +87,47 @@ class SectionNumbersTreeProcessor < Extensions::TreeProcessor
   
   def convert_block_nr nr, level
     my_char = String.new($styles_arr_sntp[level])
-    # You COULD, if you wish, put an 'if' here which checks whether my_char is a 'I' or an 'i' and, if so, calls some function
-    # (based on, e.g., https://codequizzes.wordpress.com/2013/10/27/converting-an-integer-to-a-roman-numeral/ )
-    #  to convert nr to the appropriate Roman-numeral format (uppercase or lowercase)--but if not, runs this loop:
-    for i in 1..(nr - 1)
-      my_char.succ!
+    if my_char == 'i' || my_char == 'I'
+      big_roman = int_to_roman_str nr
+      return (my_char == 'i' ? big_roman.downcase : big_roman)
+    else
+      for i in 1..(nr - 1)
+        my_char.succ!
+      end
+      return my_char
     end
-    return my_char
+  end
+  
+  def int_to_roman_str nr
+    # (Thanks, https://codequizzes.wordpress.com/2013/10/27/converting-an-integer-to-a-roman-numeral/ !)
+    if nr > 3999 then return 'BLAP!!--NrTooBigForRomanNumFunction:-/' end
+    map_of_roman = {
+      1000 => "M",
+      900 => "CM",
+      500 => "D",
+      400 => "CD",
+      100 => "C",
+      90 => "XC",
+      50 => "L",
+      40 => "XL",
+      10 => "X",
+      9 => "IX",
+      5 => "V",
+      4 => "IV",
+      1 => "I"
+    }
+    result = ''
+
+    if nr == 0
+      result
+    else
+      map_of_roman.keys.each do |divisor|
+        quotient, modulus = nr.divmod(divisor)
+        result << map_of_roman[divisor] * quotient
+        nr = modulus
+      end
+      result
+    end
   end
 end
 

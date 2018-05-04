@@ -69,3 +69,21 @@ oh yea
 
 ====== Subsection so MUCH deeper, indeed suddenly 5 levels deep--COUNTING the chap.nr as 1, if doctype is 'book'!!
 oh yea
+
+= A third big deal
+
+What I said
+
+== Thinking of things
+
+No, not what I said
+
+== Going further
+
+Ah, now, that's what I'm talking {rsquo}bout.
+
+= A final big deal
+
+== Are we au fait with Roman numerals, yet, my chilluns?
+
+Oh, yessss
