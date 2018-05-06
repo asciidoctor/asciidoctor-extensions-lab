@@ -6,8 +6,8 @@ include Asciidoctor
 
 $punct_sntp = '.'         # punctuation between levels' numbers: e.g., '.' yields '1.3.2'
 $nr_suffix_sntp = '. '    # punctuation after the number and before the chapter's/section's title
-$chap_nums_sntp = true    # enables/disables chapter-labeling
-$part_nums_sntp = true    # enables/disables part-labeling
+$chap_nums_sntp = true    # enables/disables chapter-labeling--in a book
+$part_nums_sntp = true    # enables/disables part-labeling--in a book
 $chap_nr_in_sec_nr_sntp = true   # in book, starts sec-labels' nrs with chapter's number (whether or not chap-labeling enabled)
 $part_nr_in_chap_nr_sntp = false  # in book, starts chap.-labels' nrs with part's number (whether or not part-labeling enabled)
 $part_nr_in_sec_nr_sntp = true # comes into play only if $part_nr_in_chap_nr_sntp = true AND $chap_nr_in_sec_nr_sntp = true
