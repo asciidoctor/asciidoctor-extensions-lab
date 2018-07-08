@@ -65,7 +65,10 @@ a|NOTE: Alas, this doesn't work. Can macros be nested in Asciidoctor?
 |+gitget:master[b,d]+
 |gitget:master[b,d]
 
+|Information on invalid commit `abcdef` yields output `Unknown`
+|+gitget:abcdef[c,"d,t,z"]+
+|gitget:abcdef[c,"d,t,z"]
+
 |===
 
 
-gitget:abcdef[c,"d,t,z"]
