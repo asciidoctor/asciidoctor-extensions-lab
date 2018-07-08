@@ -82,6 +82,9 @@ Replaces newlines (i.e., line feeds) in paragraphs with a single space.
 FrontMatterPreprocessor, link:lib/front-matter-preprocessor.rb[]::
 Emulates the built-in behavior of Asciidoctor to sweep away YAML front matter into the `front-matter` attribute.
 
+GitMetadataInlineMacro, link:lib/git-metadata-inline-macro.rb[]::
+Provide information on references using a macro (e.g. commits, branches and tags).
+
 GitMetadataPreprocessor, link:lib/git-metadata-preprocessor.rb[]::
 Provide information on the local git repository, e.g. the branch or tag name or the commit id.
 
