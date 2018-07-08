@@ -1,0 +1,71 @@
+= Git Metadata Inline Macro Extension
+
+== Introduction
+
+This macro allows extraction of parameters associated with commits, tags and branches.
+
+It is problem of modest use, my main purpose in writing it is to allow me to extract dates for tags easily and enter them in a repository Changelog via a macro.
+
+The macro is called `gitget` and can be invoked with three arguments:
+
+[horizontal]
+1:: name of the reference (branch name -- e.g. `master`, tag name, or commit hash)
+2:: type of reference `b`=branch, `t`=tag, `c`=commit
+3:: return information desired. This can be a comma delimited list of values, e.g.
++
+* `m` = commit or annotated tag message
+* `h` = commit or tag hash
+* `hs` = commit or tag hash truncated to 7 chars
+* `a` = commit or tag author
+* `e` = commmit or tag author email
+* `t` = commit or tag time
+* `d` = commit or tag date
+* `z` = commit or tag timezone
+* `c` = (only for annotated tags) commit this tag points to
+
+== Examples
+
+[cols="1*,1*m,1*",options="header"]
+|===
+|Description
+|Macro
+|Output
+
+|Commit message for `9efe1`
+|+gitget:9efe1[c,m]+
+|gitget:9efe1[c,m]
+
+|Author for commit `9efe1`
+|+gitget:9efe1[c,a]+
+|gitget:9efe1[c,a]
+
+|Date, time and timezone for `9efe1` +
+(_note quotes required around comma delimited values when extracting multiple pieces of information_)
+|+gitget:9efe1[c,"d,t,z"]+
+|gitget:9efe1[c,"d,t,z"]
+
+|Date, time and timezone for annotated tag `blah2` +
+(_note quotes required around comma delimited values when extracting multiple pieces of information_)
+|+gitget:blah2[t,"d,t"]+
+|gitget:blah2[t,"d,t"]
+
+|Date for lightweight tag `blah`
+|+gitget:blah[t,d]+
+|gitget:blah[t,d]
+
+|Commit associated with annotated tag `blah2`
+|+gitget:blah2[t,c]+
+|gitget:blah2[t,c]
+
+|Date of commit associated with annotated tag `blah2` +
+|+gitget:"gitget:blah2[t,c]"[c,d]+
+a|NOTE: Alas, this doesn't work. Can macros be nested in Asciidoctor?
+
+|Date for last change to branch `master`
+|+gitget:master[b,d]+
+|gitget:master[b,d]
+
+|Information on invalid commit `abcdef` yields output `Unknown`
+|+gitget:abcdef[c,"d,t,z"]+
+|gitget:abcdef[c,"d,t,z"]
+|===
