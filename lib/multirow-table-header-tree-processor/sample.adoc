@@ -1,0 +1,19 @@
+.Role: Read-Only User
+[hrows=2]
+|===
+.2+| Resource 3+| Privileges
+
+h| Read
+h| Write
+h| Manage
+
+| Data
+| Yes
+| No
+| No
+
+| Permissions
+| Yes
+| No
+| No
+|===
