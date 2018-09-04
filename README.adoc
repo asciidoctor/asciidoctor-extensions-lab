@@ -126,8 +126,7 @@ MentionsInlineMacro, link:lib/mentions-inline-macro.rb[]::
 Detects Twitter-style username mentions and converts them to links.
 
 MultipageHtml5Converter, link:lib/multipage-html5-converter.rb[]::
-A simple converter that chunks the HTML5 output into multiple pages.
-Still far from complete.
+A converter that chunks the HTML5 output into multiple pages.
 
 MultirowTableHeaderTreeProcessor, link:lib/multirow-table-header-tree-processor.rb[]::
 Promotes additional rows from the table body to the table head(er).

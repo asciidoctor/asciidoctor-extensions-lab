@@ -1,12 +1,111 @@
-= Document Title
+= MultipageHtml5Converter Sample
 Author Name
 :doctype: book
+:toc: left
+:sectnums:
+// The default multipage-level value is 1 (split into chapters)
+:multipage-level: 0
 
-== Chapter 1
+This sample document attempts to showcase the features of the
+MultipageHtml5Converter extension.
 
-Content for chapter 1.
+These three paragraphs are in the "preamble" area (the first has the `lead`
+attribute). This content belongs to the root-level node and is written to the
+main output file (`sample.html`, by default).
 
-== Chapter 2
+[[root-inline,root inline anchor]]This paragraph has a titled inline anchor
+with id `\[[root-inline]]`. It is linked from <<xrefs2>>.
 
-Content for chapter 2.
-For more content, see <<_chapter_1#,Chapter 1>>.
+[[about-sample]]
+= About This Sample
+
+[[tree]]
+== Tree Nodes
+
+The MultipageHtml5Converter splits the document into node types during
+processing, based on the value of the `multipage-level` attribute. If a node's
+level is equal to the `multipage-level` value specified for it or the nearest
+ancestor node, then the node is generated as a leaf node. In this context,
+"node" refers to an Asciidoctor Document or Section.
+
+For this document, the following node types are determined. A file is written
+for each root, branch, and leaf node. Each content node is included in its
+parent (leaf) node file.
+
+**<<sample>>** – `multipage-level=0`, source document root → root node
+
+* <<about-sample>> – level-0 part → leaf node
+.. <<tree>> – level-1 chapter → content node
+.. <<output>> – level-1 chapter → content node
+* <<custom-level>> – `multipage-level=1`, level-0 part → branch node
+.. <<custom-chapter-1>> – level-1 chapter → leaf node
+... <<xrefs1>> – level-2 section → content node
+.. <<custom-chapter-2>> – level-1 chapter → leaf node
+... <<xrefs2>> – level-2 section → content node
+
+[[output]]
+== Output Files
+
+The MultipageHtml5Converter creates the following five output files from this
+`sample.adoc` document.
+
+**<<sample>>** – root node with id/title `\[[sample]]` (from the file name) →
+the main output file (<<sample,sample.html>> by default)
+
+* <<about-sample>> – leaf node with id `\[[about-sample]]` →
+  <<about-sample,about-sample.html>>
+.. <<tree>> – content node → included in parent node
+.. <<output>> – content node → included in parent node
+* <<custom-level>> – branch node with id `\[[custom-level]]` →
+  <<custom-level,custom-level.html>>
+.. <<custom-chapter-1>> – leaf node with id `\[[custom-chapter-1]]` →
+   <<custom-chapter-1,custom-chapter-1.html>>
+... <<xrefs1>> – content node → included in parent node
+.. <<custom-chapter-2>> – leaf node with id `\[[custom-chapter-2]]` →
+   <<custom-chapter-2,custom-chapter-2.html>>
+... <<xrefs2>> – content node → included in parent node
+
+[multipage-level=1]
+[[custom-level]]
+= Custom Level Part
+
+This second part has `multipage-level=1` set, which causes level-1 nodes to be
+leaf nodes (split into chapters). Nodes above that level are branch (or root)
+nodes, while nodes below that level are content nodes.
+
+The first part, <<about-sample>>, has no `multipage-level` attribute set, so
+it uses the document-level attribute, which is `multipage-level=0` (split into
+parts).
+
+[[custom-chapter-1]]
+== One Chapter
+
+This is a level-1 chapter, and attribute value `multipage-level=1` is set at
+parent node "<<custom-level>>", so this is generated as a leaf node. All
+descendant nodes are generated as content nodes.
+
+[[xrefs1]]
+=== Cross-References
+
+This section is a level-2 node and attribute value `multipage-level=1` is set
+at ancestor node "<<custom-level>>". Therefore, this section is generated as a
+content node (and is included in its parent node).
+
+* See <<xrefs2>> (on another page).
+* See the <<xrefs2-inline>> on another page.
+* See <<sample>> (the document id/title and root node).
+
+[[custom-chapter-2]]
+== Another Chapter
+
+This chapter is a leaf node and contains one section.
+
+[[xrefs2]]
+=== More Cross-References
+
+This section is a level-2 node, and is generated as a content node.
+
+* See <<xrefs1>> (on another page).
+* [[xrefs2-inline,xrefs2 inline anchor]]This list item has a titled inline
+  anchor with id `\[[xrefs2-inline]]`, and is linked from <<xrefs1>>.
+* See the <<root-inline>> on the root page.
