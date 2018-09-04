@@ -19,6 +19,7 @@ main output file (`sample.html`, by default).
 with id `\[[root-inline]]`. It is linked from <<xrefs2>>.
 
 [[about-sample]]
+[desc="Explains how this sample document is processed"]
 = About This Sample
 
 [[tree]]
@@ -69,6 +70,7 @@ the main output file (<<sample,sample.html>> by default)
 
 [multipage-level=1]
 [[custom-level]]
+[desc="Shows a custom multipage-level value and additional features"]
 = Custom Level Part
 
 This second part has `multipage-level=1` set, which causes level-1 nodes to be

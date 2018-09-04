@@ -16,6 +16,8 @@
 # - Supports cross-references between pages.
 # - Generates a full Table of Contents for each page, but with relevant entries
 #   only (the TOC collapses as required for each page).
+# - Includes a description for each section on the branch/leaf landing pages
+#   (from the `desc` attribute, if set).
 # - Generates previous/up/home/next navigation links for each page.
 # - Allows the TOC entry for the current page to be styled with CSS.
 # - Supports standalone and embedded (--no-header-footer) HTML output.
