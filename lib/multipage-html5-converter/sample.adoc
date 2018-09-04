@@ -8,6 +8,8 @@ Author Name
 
 This sample document attempts to showcase the features of the
 MultipageHtml5Converter extension.
+The output can be generated from the current directory with `asciidoctor
+-r ../multipage-html5-converter.rb -b multipage_html5 sample.adoc`.
 
 These three paragraphs are in the "preamble" area (the first has the `lead`
 attribute). This content belongs to the root-level node and is written to the
