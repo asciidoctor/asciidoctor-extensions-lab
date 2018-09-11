@@ -1,0 +1,36 @@
+= Sample
+:linkcss:
+
+This macro adds HTML https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*[data attributes] using a macro named `da` (data attribute).
+
+Simply put, two arguments only, name and value.
+
+Example:
+
+* `da:group['giraffe']` will add a data attribute to the HTML entity it corresponds to with a name `data-group` and a value of `giraffe`.
+
+This requires custom templates and so invoking this using Asciidoctor should be done with something like:
+
+`asciidoctor --trace --verbose -E haml -b html5 -T ./lib/data-attribute-inline-macro/templates -r ./lib/data-attribute-inline-macro.rb lib/data-attribute-inline-macro/sample.adoc`
+
+NOTE: To process the templates the `tilt` and `haml` gems must be installed.
+
+== A Heading da:group['giraffe']
+
+Testing da:file[giraffe]
+
+
+
+
+Dan's notes:
+
+      if sect0
+        %(<h1#{id_attr} class="sect0#{(role = node.role) ? " #{role}" : ''}">#{title}</h1>
+#{node.content})
+      else
+        %(<div class="sect#{level}#{(role = node.role) ? " #{role}" : ''}">
+<h#{level + 1}#{id_attr}>#{title}</h#{level + 1}>
+#{level == 1 ? %[<div class="sectionbody">
+#{node.content}
+</div>] : node.content}
+</div>)

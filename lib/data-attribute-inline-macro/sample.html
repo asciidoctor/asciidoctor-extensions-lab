@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.7.1">
+<title>Sample</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<link rel="stylesheet" href="./asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Sample</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph"></div>
+<p>This macro adds HTML <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*">data attributes</a> using a macro named <code>da</code> (data attribute).</p>
+<div class="paragraph"></div>
+<p>Simply put, two arguments only, name and value.</p>
+<div class="paragraph"></div>
+<p>Example:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code></code> will add a data attribute to the HTML entity it corresponds to with a name <code>data-group</code> and a value of <code>giraffe</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph"></div>
+<p>This requires custom templates and so invoking this using Asciidoctor should be done with something like:</p>
+<div class="paragraph"></div>
+<p><code>asciidoctor --trace --verbose -E haml -b html5 -T ./lib/data-attribute-inline-macro/templates -r ./lib/data-attribute-inline-macro.rb lib/data-attribute-inline-macro/sample.adoc</code></p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+To process the templates the <code>tilt</code> and <code>haml</code> gems must be installed.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1" data-group="giraffe" id="_a_heading"></div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2018-09-10 21:33:09 HST
+</div>
+</div>
+</body>
+</html>

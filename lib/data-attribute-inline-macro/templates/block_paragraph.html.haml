@@ -1,0 +1,7 @@
+%div{:id=>@id, :class=>['paragraph', role], :data => attributes}
+- if title?
+  .title=title
+%p<=content
+
+
+-# http://haml.info/docs/yardoc/file.REFERENCE.html#html5-custom-data-attributes
