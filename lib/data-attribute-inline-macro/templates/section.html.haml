@@ -1,0 +1,4 @@
+-# http://haml.info/docs/yardoc/file.REFERENCE.html#html5-custom-data-attributes
+
+-#%div{ class => "sect#{level}" }
+%div{:id=>@id, :class=>"sect#{level}#{(role = node.role) ? " #{role}" : ''}", :data => attributes}

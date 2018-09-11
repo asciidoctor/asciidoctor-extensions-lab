@@ -73,6 +73,9 @@ Adds a copyright to the document footer based on the value of the `copyright` at
 CustomAdmonitionBlock, link:lib/custom-admonition-block.rb[]::
 Introduces a new admonition block type, complete with a custom icon.
 
+DataAttributeInlineMacro, link:lib/data-attribute-inline-macro.rb[]::
+Allow adding HTML https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*[data attributes] to a document
+
 DumpAttributesBlockMacro, link:lib/dump-attributes-block-macro.rb[]::
 Dumps the document attributes as attribute entries in a source block.
 
