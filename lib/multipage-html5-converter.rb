@@ -23,13 +23,14 @@
 # - Supports standalone and embedded (--no-header-footer) HTML output.
 # - Retains correct section numbering throughout.
 #
-# Nodes:
+# Notes and limitations:
 #
 # - Tested with Asciidoctor 1.5.7.1; inline anchors in unordered list items
 #   require the fix for asciidoctor issue #2812.
 # - This extension is tightly coupled with Asciidoctor internals, and future
 #   changes in Asciidoctor may require updates here. Hopefully this extension
 #   exposes ways in which the Asciidoctor API can be improved.
+# - Footnotes are currently not supported.
 # - Please contribute fixes and enhancements!
 #
 # Usage:
