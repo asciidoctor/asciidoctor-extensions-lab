@@ -49,7 +49,6 @@ document.addEventListener('DOMContentLoaded', function() {
     resultNode.style.display = 'none';
     var viewLink = document.createElement('a');
     viewLink.className = 'view-result';
-    viewLink.href = '#';
     viewLink.appendChild(document.createTextNode('[ view result ]'));
     resultNode.previousElementSibling.querySelector('.title').appendChild(viewLink);
     viewLink.addEventListener('click', toggle_result_block);
