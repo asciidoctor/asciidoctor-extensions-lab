@@ -79,6 +79,9 @@ Dumps the document attributes as attribute entries in a source block.
 EmojiInlineMacro, link:lib/emoji-inline-macro.rb[]::
 Adds an emoji inline macro for inserting emoji by name.
 
+EnableSourcemapPreprocessor, link:lib/enable-sourcemap-preprocessor.rb[]::
+Specifies sourcemap attribute for document.
+
 FoldLinesTreeProcessor, link:lib/fold-lines-tree-processor.rb[]::
 Replaces newlines (i.e., line feeds) in paragraphs with a single space.
 
