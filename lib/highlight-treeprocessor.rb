@@ -18,7 +18,7 @@ include Asciidoctor
 Extensions.register do
   treeprocessor do
     process do |document|
-      document.find_by context: :listing, style: 'source' do |src|
+      (document.find_by context: :listing, style: 'source').each do |src|
         # TODO handle callout numbers
         src.subs.clear
         lang = src.attr 'language', 'text', false
@@ -41,7 +41,6 @@ Extensions.register do
           wait_thr.value
         end
       end if document.attr? 'source-highlighter', 'highlight'
-      nil
     end 
   end
 

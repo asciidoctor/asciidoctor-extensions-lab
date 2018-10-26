@@ -16,6 +16,7 @@
 # TODO
 # - add cli option to write attributes passed to cli to header of document
 # - escape all preprocessor directives after lines are processed (these are preprocessor directives that were escaped in the input)
+# - wrap in a custom converter so it can be used as an extension
 
 require 'asciidoctor'
 require 'optparse'

@@ -73,11 +73,17 @@ Adds a copyright to the document footer based on the value of the `copyright` at
 CustomAdmonitionBlock, link:lib/custom-admonition-block.rb[]::
 Introduces a new admonition block type, complete with a custom icon.
 
+DumpAttributesBlockMacro, link:lib/dump-attributes-block-macro.rb[]::
+Dumps the document attributes as attribute entries in a source block.
+
 EmojiInlineMacro, link:lib/emoji-inline-macro.rb[]::
 Adds an emoji inline macro for inserting emoji by name.
 
 EnableSourcemapPreprocessor, link:lib/enable-sourcemap-preprocessor.rb[]::
 Specifies sourcemap attribute for document.
+
+FoldLinesTreeProcessor, link:lib/fold-lines-tree-processor.rb[]::
+Replaces newlines (i.e., line feeds) in paragraphs with a single space.
 
 FrontMatterPreprocessor, link:lib/front-matter-preprocessor.rb[]::
 Emulates the built-in behavior of Asciidoctor to sweep away YAML front matter into the `front-matter` attribute.
@@ -125,6 +131,10 @@ Detects Twitter-style username mentions and converts them to links.
 MultipageHtml5Converter, link:lib/multipage-html5-converter.rb[]::
 A simple converter that chunks the HTML5 output into multiple pages.
 Still far from complete.
+
+MultirowTableHeaderTreeProcessor, link:lib/multirow-table-header-tree-processor.rb[]::
+Promotes additional rows from the table body to the table head(er).
+Number of header rows is controlled by the `hrows` attribute on the table block.
 
 PassBlockMacro, link:lib/pass-block-macro.rb[]::
 Adds a pass block macro to AsciiDoc.
