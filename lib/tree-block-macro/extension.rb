@@ -11,55 +11,72 @@ include Asciidoctor
 #   tree::directory[]
 #
 class TreeBlockMacro < Asciidoctor::Extensions::BlockMacroProcessor
+  FS_UNITS = %w(B K M G T P E)
+
   include_dsl
   named :tree
+
   def process parent, target, attrs
     target = parent.sub_attributes target
-    maxdepth = (attrs.has_key? 'maxdepth') ? attrs['maxdepth'].to_i : nil
+    maxdepth = (attrs.key? 'maxdepth') && attrs['maxdepth'].to_i
     if maxdepth && maxdepth < 1
       warn 'asciidoctor: maxdepth for tree must be greater than 0'
       maxdepth = 1
     end
-    levelarg = maxdepth ? %(-L #{maxdepth}) : nil
-    sizearg = (attrs.has_key? 'size-option') ? '-sh --du' : nil
-    dirarg = (attrs.has_key? 'dir-option') ? '-d' : nil
-    # TODO could also output using plantuml
-    subs = if sizearg
-      [:specialcharacters, :quotes, :macros]
-    else
-      [:specialcharacters, :macros]
+    dirs_only = (attrs.key? 'dir-option')
+    subs = (show_size = attrs.key? 'size-option') ? [:specialcharacters, :quotes, :macros] : [:specialcharacters, :macros]
+    target_pathname = Pathname target
+    lines = (walk target_pathname, dirs_only, maxdepth).map do |path|
+      filesize = path.directory? ? (calculate_folder_size path) : path.size
+      formatted_filesize = show_size ? %([.gray]#[#{format_filesize filesize}]# ) : ''
+      indent = '    ' * ((path.instance_variable_get :@depth) - 1)
+      %(#{indent}#{icon_for path} #{formatted_filesize}#{path.basename}#{path.directory? ? '/' : ''})
     end
-    files_with_sizes = Dir["#{target}/**/*"].map {|f| [f + (File.directory?(f) ? '/' : ''), File.size(f)] }
-    lines = files_with_sizes.map do |file, file_size|
-      p = Pathname(file)
-      final_size = p.directory? ? files_with_sizes.select {|f, s| f.start_with?(file)}.map(&:last).sum : file_size
-      size_string = sizearg ? "[.gray]#[#{filesize(final_size)}]#" : ''
-      "    " * (p.each_filename.count - 1) + "icon:#{icon(p)} #{p.basename}#{p.directory? ? '/' : ''}"
-    end
-    #warn tree
-    create_listing_block parent, lines.join("\n"), attrs, subs: subs
+    create_listing_block parent, lines, attrs, subs: subs
   end
 
   private
-  def filesize(size)
-    units = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'Pib', 'EiB']
 
-    return '0.0 B' if size == 0
-    exp = (Math.log(size) / Math.log(1024)).to_i
-    exp = 6 if exp > 6
-
-    '%.1f %s' % [size.to_f / 1024 ** exp, units[exp]]
+  def walk path, dirs_only, maxdepth, depth = 1
+    entries = []
+    path.children.sort {|a, b| a.basename <=> b.basename }.sort {|a, b| a.directory? ? -1 : (b.directory? ? 1 : 0) }.each do |child|
+      child.instance_variable_set :@depth, depth
+      if child.directory?
+        entries << child
+        entries = entries.concat walk child, dirs_only, maxdepth, depth + 1 if !maxdepth || depth < maxdepth
+      elsif !dirs_only
+        entries << child
+      end
+    end
+    entries
   end
 
-  def icon(p)
-    if p.directory?
-      'folder-open[role=lime]'
-    elsif p.executable?
-      'gears[]'
-    elsif p.extname == 'adoc'
-      'file-text[role=silver]'
+  def calculate_folder_size path
+    path.size + (Pathname.glob %(#{path}/**/*)).reduce(0) {|accum, path| accum += path.size }
+  end
+
+  def format_filesize size_in_bytes
+    return '   0B' if size_in_bytes == 0
+    exp = ((Math.log size_in_bytes) / (Math.log 1024)).to_i
+    raise %(Unsupported file size: #{size_in_bytes}) if exp > 6
+    size = size_in_bytes / 1024.0 ** exp
+    if size < 10
+      formatted_size = '%4.1f' % [size]
     else
-      'file[role=silver]'
+      formatted_size = '%4d' % [size.round]
+    end
+    %(#{formatted_size}#{FS_UNITS[exp]})
+  end
+
+  def icon_for path
+    if path.directory?
+      'icon:folder-open[role=lime]'
+    elsif path.executable?
+      'icon:gears[]'
+    elsif path.extname == 'adoc'
+      'icon:file-text[role=silver]'
+    else
+      'icon:file[role=silver]'
     end
   end
 end
