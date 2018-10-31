@@ -1,0 +1,14 @@
+= Sub Document
+
+ifndef::indir[:indir: .]
+
+Sub document paragraph.
+
+The variable `indir` has the value `{indir}`.
+This variable can be useful for in standalone documents that can also be included into other documents.
+
+image::{indir}/images/example.svg[]
+
+The above image has been included using `image::\{indir\}/images/example.svg[]`.
+The `indir` variable that is used in the image path always points to the directory of the current (possibly included) asciidoc file.
+As a result, the image path is correct, no matter if `sub.adoc` is compiled standalone or included in `master.adoc`.
