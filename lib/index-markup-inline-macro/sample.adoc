@@ -4,13 +4,13 @@
 :N: pass:[&#8211;]
 
 indexing_note:[DocBook, indexing, tYpE = tech, Zone = how_many_levels ,secondary_sortas= index markup ]
-This extension supplies three inline macros and one block macro. Taken together, their functionality goes beyond the DocBook-index-markup capabilities that are currently (4/2018) in AsciiDoctor,indexing_note:[AsciiDoctor, tYpE =tech, seealso = AsciiDoc , priMARy_sortas = Asciidoctor, seeALSO99= lightweight markup languages ] making it possible to write in AsciiDoc any and all DocBook indexing-markup.
+This extension supplies three inline macros and one block macro. Taken together, their functionality goes beyond the DocBook-index-markup capabilities that are currently (4/2018) in Asciidoctor,indexing_note:[Asciidoctor, tYpE =tech, seealso = AsciiDoc , priMARy_sortas = Asciidoctor, seeALSO99= lightweight markup languages ] making it possible to write in AsciiDoc any and all DocBook indexing-markup.
 
 There are two basic ways to express that a certain topic appears at a particular place in the document:
 
 . the `+indexing_note+` inline macro
 * You can express _implicitly_ that such-a-place is a place in which the topic shows up--by putting an `+indexing_note+` in that very place
-* You can express _explicitly_ that this, that, and the other location are places where the topic shows up--by using an `+indexing_note+` with a `+zone+` named attribute (which, in DocBook, is of the built-in XML datatype `+IDREFS+`); the latter contains a single-space-character-separated list of XML `+ID+`-values that are each an anchor (ID) of sections or paragraphs within your AsciiDoctor manuscript (see the https://asciidoctor.org/docs/user-manual/[AsciiDoctor User Manual], sections 16.2; 27.1{N}2). In this case, the macro's own location is irrelevant
+* You can express _explicitly_ that this, that, and the other location are places where the topic shows up--by using an `+indexing_note+` with a `+zone+` named attribute (which, in DocBook, is of the built-in XML datatype `+IDREFS+`); the latter contains a single-space-character-separated list of XML `+ID+`-values that are each an anchor (ID) of sections or paragraphs within your Asciidoctor manuscript (see the https://asciidoctor.org/docs/user-manual/[Asciidoctor User Manual], sections 16.2; 27.1{N}2). In this case, the macro's own location is irrelevant
 
 . the `+indexing_start+` and `+indexing_end+` inline macros
 * Here, you express the location implicitly by wrapping the passage of text in this pair of macros. An `+indexing_start+` can have any of the named attributes that an `+indexing_note+` can have (see below), _except for_ `+zone+` (see above).
@@ -26,8 +26,8 @@ All three inline macros get converted to a DocBook `+<indexterm>+` element. In y
 Any others you insert will quietly be ignored.
 
 In DocBook, a `+<seealso>+` can occur any number of times (with differing values each time, of course) inside a given `+<indexterm>+`.
-But in AsciiDoctor, _you cannot have two named attributes with the same name_ in the same attribute list.
-indexing_note:[AsciiDoctor, type= tech, seealso = AsciiDoc , priMARy_sortas = Asciidoctor, seeALSO20= lightweight markup languages ](If you do, AsciiDoctor uses only the last value with that name.)
+But in Asciidoctor, _you cannot have two named attributes with the same name_ in the same attribute list.
+indexing_note:[Asciidoctor, type= tech, seealso = AsciiDoc , priMARy_sortas = Asciidoctor, seeALSO20= lightweight markup languages ](If you do, Asciidoctor uses only the last value with that name.)
 indexing_start:[ DocBook, indexing, id= DocBook, type= tech, secondary_sortas= index markup]
 So, to "`unique-ify`" multiple `+<seealso>+` names within the same `+indexing_note+` or `+indexing_start+` instance, add a unique numerical sequence (any length) to the end of each--or, to all but one--of the `+seealso+` attributes: e.g.,  `+seealso55+`.
 
