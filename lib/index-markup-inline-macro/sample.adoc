@@ -4,7 +4,7 @@
 :N: pass:[&#8211;]
 
 indexing_note:[DocBook, indexing, tYpE = tech, Zone = how_many_levels ,secondary_sortas= index markup ]
-This extension supplies three inline macros and one block macro. Taken together, their functionality goes beyond the DocBook-index-markup capabilities that are currently (4/2018) in Asciidoctor,indexing_note:[Asciidoctor, tYpE =tech, seealso = AsciiDoc , priMARy_sortas = Asciidoctor, seeALSO99= lightweight markup languages ] making it possible to write in AsciiDoc any and all DocBook indexing-markup.
+This extension supplies three inline macros and one block macro. Taken together, their functionality goes beyond the DocBook-index-markup capabilities that are currently (4/2018) in Asciidoctor,indexing_note:[Asciidoctor, tYpE =tech, seealso = AsciiDoc , priMARy_sortas = AsciiDoctor, seeALSO99= lightweight markup languages ] making it possible to write in AsciiDoc any and all DocBook indexing-markup.
 
 There are two basic ways to express that a certain topic appears at a particular place in the document:
 
@@ -27,7 +27,7 @@ Any others you insert will quietly be ignored.
 
 In DocBook, a `+<seealso>+` can occur any number of times (with differing values each time, of course) inside a given `+<indexterm>+`.
 But in Asciidoctor, _you cannot have two named attributes with the same name_ in the same attribute list.
-indexing_note:[Asciidoctor, type= tech, seealso = AsciiDoc , priMARy_sortas = Asciidoctor, seeALSO20= lightweight markup languages ](If you do, Asciidoctor uses only the last value with that name.)
+indexing_note:[Asciidoctor, type= tech, seealso = AsciiDoc , priMARy_sortas = AsciiDoctor, seeALSO20= lightweight markup languages ](If you do, Asciidoctor uses only the last value with that name.)
 indexing_start:[ DocBook, indexing, id= DocBook, type= tech, secondary_sortas= index markup]
 So, to "`unique-ify`" multiple `+<seealso>+` names within the same `+indexing_note+` or `+indexing_start+` instance, add a unique numerical sequence (any length) to the end of each--or, to all but one--of the `+seealso+` attributes: e.g.,  `+seealso55+`.
 
