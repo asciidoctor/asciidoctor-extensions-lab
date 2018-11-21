@@ -11,31 +11,21 @@ include Asciidoctor
 #   $ gem install asciidoctor
 #
 class ShellSessionTreeprocessor < Extensions::Treeprocessor
-  def process document
-    return unless document.blocks?
-    process_blocks document
-    nil
-  end
+  LF = ?\n
 
-  def process_blocks node
-    node.blocks.each_with_index do |block, i|
-      if block.context == :literal &&
-          (((first_line = block.lines.first).start_with? '$ ') ||
-            (first_line.start_with? '> '))
-        node.blocks[i] = convert_to_terminal_listing block
-      else
-        process_blocks block if block.blocks?
-      end
+  def process document
+    (document.find_by(context: :literal) {|candidate| candidate.lines[0].start_with? '$ ', '> ' }).each do |block|
+      (children = block.parent.blocks)[children.index block] = convert_to_terminal_listing block
     end
+    nil
   end
 
   def convert_to_terminal_listing block
     attrs = block.attributes
     attrs['role'] = 'terminal'
-    prompt_attr = (attrs.has_key? 'prompt') ?
+    prompt_attr = (attrs.key? 'prompt') ?
         %( data-prompt="#{block.sub_specialchars attrs['prompt']}") : nil
-    lines = block.lines.map do |line|
-      line = block.sub_specialchars line.chomp
+    lines = (block.content.split LF).map do |line|
       if line.start_with? '$ '
         %(<span class="command"#{prompt_attr}>#{line[2..-1]}</span>)
       elsif line.start_with? '&gt; '
@@ -45,8 +35,6 @@ class ShellSessionTreeprocessor < Extensions::Treeprocessor
         line
       end
     end
-    create_listing_block block.document, lines * EOL, attrs, subs: nil
-    #attributes['language'] = 'bash'
-    #Block.new(@document, :listing, :content_model => :verbatim, :style => 'source', :source => block.source[2..-1], :attributes => attributes)
+    create_listing_block block.parent, lines * LF, attrs, subs: nil
   end
 end

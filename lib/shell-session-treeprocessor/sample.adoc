@@ -1,6 +1,22 @@
 = Shell Session Treeprocessor Extension
 
+== Command
+
+ $ gem install asciidoctor
+
+== Command with Output
+
  $ echo 'Hello, World!'
  > Hello, World!
 
+== Command Inside List Item
+
+. Install the application
+
  $ gem install asciidoctor
+
+. Verify it was installed
++
+[subs=attributes+]
+ $ asciidoctor -v
+ > Asciidoctor {asciidoctor-version} [https://asciidoctor.org]
