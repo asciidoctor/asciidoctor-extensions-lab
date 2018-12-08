@@ -1,0 +1,66 @@
+= Line Number Treeprocessor
+:apply-data-line:
+
+== So What Does This Do?
+
+If you have the attribute `apply-data-line` set you will get three things.
+
+. Each paragraph will have a class added to it with `data-line-xxx` where `xxx` is the line number. For example:
++
+[source,html]
+<div class="paragraph data-line-115" 
++
+While semantically doubtful this is easy to achieve in Asciidoctor without using templates to control the output. To achieve only this, using Asciidoctor (in Ruby), use something like the following command:
++
+`asciidoctor -r ./lib/enable-sourcemap-preprocessor.rb -r ./lib/line-number-treeprocessor.rb lib/line-number-treeprocessor/sample.adoc`
+
+. Line numbers as a `data-line` attribute (_only for each block paragraph_).
+
+. The relevant source file as `data-file` attribute for each paragrah. This is to include relevant information for the Asciidoctor https://asciidoctor.org/docs/user-manual/#include-directive[include directive] (_only for each block paragraph_).
+
+For producing the `data-line` and `data-file` attributes in the html a haml https://github.com/rtomayko/tilt[Tilt] template is used. The `line-number-treeprocessor` extension writes an attribute with this information against each block and the template allows us to place it into the html.  To achieve this, using Asciidoctor (in Ruby), use something like the following command:
+
+`asciidoctor --trace --verbose -E haml -b html5 -T ./lib/line-number-treeprocessor/templates -r ./lib/enable-sourcemap-preprocessor.rb -r ./lib/line-number-treeprocessor.rb lib/line-number-treeprocessor/sample.adoc`
+
+NOTE: To process the templates the `tilt` and `haml` gems must be installed.
+
+TIP: Attributes in html starting with data- seem to be the https://www.w3schools.com/tags/att_global_data.asp[preferred way] to add metadata to html5.
+
+There's an include at the bottom of this file to link:sample2.adoc[`sample2.adoc`] which should result in `data-file` changing and `data-line` beginning at the new file line number.
+
+== Some Random Latin
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+In maximus ligula iaculis tellus fringilla consectetur.
+Integer faucibus diam vitae purus molestie condimentum ut nec dui.
+Proin eget facilisis tortor.
+Suspendisse potenti.
+Nunc aliquam at est sed interdum.
+Aenean tincidunt mi in dolor tincidunt, nec mattis ante iaculis.
+Vivamus sit amet vulputate mi, eu vestibulum nisi.
+
+Duis diam risus, maximus ut nibh a, condimentum venenatis sem.
+Aenean laoreet in sem eget bibendum.
+
+Nunc varius tellus sed lacinia semper.
+Praesent ac odio fermentum, lobortis mi a, tincidunt ante.
+Donec id auctor leo, ut mattis ante.
+Praesent nulla dui, lacinia at pretium sed, laoreet eget magna.
+Sed vel congue ligula.
+Nunc sit amet dolor eget massa posuere egestas.
+
+Nam molestie faucibus nibh.
+Ut a lorem luctus, consectetur purus at, sodales odio.
+Proin convallis massa et leo luctus efficitur.
+
+Nullam posuere mauris et ligula efficitur placerat.
+Interdum et malesuada fames ac ante ipsum primis in faucibus.
+Morbi fermentum justo vel aliquam semper.
+
+Curabitur tincidunt sit amet mauris eget ultricies.
+
+Proin lacinia pretium quam, sed imperdiet metus maximus ut.
+
+In lorem leo, aliquam quis fringilla at, porttitor vel velit.
+
+include::sample2.adoc[]
