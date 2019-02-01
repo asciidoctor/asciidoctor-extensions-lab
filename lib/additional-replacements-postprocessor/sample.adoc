@@ -1,0 +1,31 @@
+= AsciiDoctor Replacements Example
+
+This is a sample file that demonstrates the `additional-replacements-postprocessor.rb` AsciiDoctor extension
+
+CLI Usage:
+
+......................
+$ asciidoctor -r ./lib/additional-replacements-postprocessor.rb ./lib/additional-replacements-postprocessor/sample.adoc
+......................
+
+Use \(o) for a *degree symbol*, as in "`The temperature hit a record low of -37(o)F.`"
+
+For the *fractions* half (1/2), one-quarter (1/4), and three-quarters (3/4), use \1/2, \1/4, and \3/4, respectively.
+
+The following words should all have an *acutes*:
+Saute, saute, sauted, sauteing.
+Decor, decor.
+Cliche, cliche, cliched, cliches.
+Entree, entree, entrees.
+Touche, touche.
+
+The following words should all have *cedillas*:
+Facade, facade, facades.
+Soupcon, soupcon.
+
+The following words should all have *umlauts*:
+Naive, naive.
+
+The following words should have both an *umlaut* and an *acute*:
+Naivite, naivite.
+
