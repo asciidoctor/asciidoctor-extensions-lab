@@ -58,6 +58,9 @@ NOTE: The registration file (e.g., emoji-inline-macro.rb) goes in the [path]_lib
 
 The following extensions are available in the lab.
 
+AdditionalReplacementsPostprocessor, link:lib/additional-replacements-postprocessor.rb.rb[]::
+Automatically replaces certain sequences of characters with better typography (e.g. adds cedilla descenders to the C's in "`facade`" and "`soupcon,`" punctuates "`naivite`" with an umlaut over the first I and an acute over the E, and converts 1/4, 1/2, and 3/4 to single characters).
+
 AutoXrefTreeprocessor, link:lib/autoxref-treeprocessor.rb[]::
 Refers images, tables, listings, sections by their numbers.
 
