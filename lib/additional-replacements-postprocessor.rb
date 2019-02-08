@@ -3,14 +3,14 @@ require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 include Asciidoctor
 
 class AdditionalReplacementsPostprocessor < Extensions::Postprocessor
-  MathSymbolPatterns = [/(?<!\\)\(o\)/, /(?<![\\0-9])1\/2(?![0-9])/, /(?<![\\0-9])1\/4(?![0-9])/, /(?<![\\0-9])3\/4(?![0-9])/]
-  MathSymbols = ['&#176;', '&#189;', '&#188;', '&#190;']
+  MathSymbolPatterns = [/(?<![\\0-9])1\/2(?![0-9])/, /(?<![\\0-9])1\/4(?![0-9])/, /(?<![\\0-9])3\/4(?![0-9])/]
+  MathSymbols = ['&#189;', '&#188;', '&#190;']
 
-  MathSymbolPatternsEscaped = [/\\\(o\)/, /\\1\/2/, /\\1\/4/, /\\3\/4/]
-  MathSymbolsEscaped = ['(o)', '1/2', '1/4', '3/4']
+  MathSymbolPatternsEscaped = [/\\1\/2/, /\\1\/4/, /\\3\/4/]
+  MathSymbolsEscaped = ['1/2', '1/4', '3/4']
 
-  AcuteWordPatterns = [/\bSaute/, /\bsaute/, /\bDecor\b/, /\bdecor\b/, /\bCliche/, /\bcliche/, /\bEntree/, /\bentree/, /\bTouche\b/, /\btouche\b/]
-  AcuteWords = ['Saut&#233;', 'saut&#233;', 'D&#233;cor', 'd&#233;cor', 'Clich&#233;', 'clich&#233;', 'Entr&#233;e', 'entr&#233;e', 'Touch&#233;', 'touch&#233;']
+  AcuteWordPatterns = [/\bSaute/, /\bsaute/, /\bDecor\b/, /\bdecor\b/, /\bCliche/, /\bcliche/, /\bEntree/, /\bentree/, /\bTouche\b/, /\btouche\b/, /\bRisque\b/, /\brisque\b/]
+  AcuteWords = ['Saut&#233;', 'saut&#233;', 'D&#233;cor', 'd&#233;cor', 'Clich&#233;', 'clich&#233;', 'Entr&#233;e', 'entr&#233;e', 'Touch&#233;', 'touch&#233;', 'Risqu&#233;', 'risqu&#233;']
 
   CedillaWordPatterns = [/\bFacade/, /\bfacade/, /\bSoupcon/, /\bsoupcon/]
   CedillaWords = ['Fa&#231;ade', 'fa&#231;ade', 'Soup&#231;on', 'soup&#231;on']

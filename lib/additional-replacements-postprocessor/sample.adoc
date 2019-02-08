@@ -1,4 +1,5 @@
 = AsciiDoctor Replacements Example
+:ditto: &#34;
 
 This is a sample file that demonstrates the `additional-replacements-postprocessor.rb` AsciiDoctor extension
 
@@ -8,16 +9,16 @@ CLI Usage:
 $ asciidoctor -r ./lib/additional-replacements-postprocessor.rb ./lib/additional-replacements-postprocessor/sample.adoc
 ......................
 
-Use \(o) for a *degree symbol*, as in "`The temperature hit a record low of -37(o)F.`"
 
 For the *fractions* half (1/2), one-quarter (1/4), and three-quarters (3/4), use \1/2, \1/4, and \3/4, respectively.
 
-The following words should all have an *acutes*:
+The following words should all have *acutes*:
 Saute, saute, sauted, sauteing.
 Decor, decor.
 Cliche, cliche, cliched, cliches.
 Entree, entree, entrees.
 Touche, touche.
+Risque, risque.
 
 The following words should all have *cedillas*:
 Facade, facade, facades.
@@ -29,3 +30,33 @@ Naive, naive.
 The following words should have both an *umlaut* and an *acute*:
 Naivite, naivite.
 
+Reminder: AsciiDoctor has many built-in attribute definitions for special symbols.
+(The latter half of this list are so that actual text does not get confused with AsciiDoc syntax.)
+
+[width="100%",cols="5,^2,^2,8",options="header"]
+|===
+^| Symbol                    ^|  Notation     ^|  Becomes     ^| Example
+| Degree                      |  \{deg\}       |  &amp;#176;   | A record low of -37{deg}F.
+| Non-Breaking Space          |  \{nbsp\}      |  &amp;#160;   |
+| Zero-Width Space            |  \{zwsp\}      |  &amp;#8203;  | 
+| Word Joiner                 |  \{wj\}        |  &amp;#8288;  | 
+| Apostrophe (vertical)       |  \{apos\}      |  &amp;#39;    | An example character constant: `{apos}X{apos}`
+| Double Quote (vertical)     |  \{quot\}      |  &amp;#34;    | An example string constant: `{quot}Abc{quot}`
+| Left Single Quote           |  \{lsquo\}     |  &amp;#8216;  | {ldquo}...and then he said {lsquo}Oh yeah?{rsquo}{rdquo}
+| Right Single Quote          |  \{rsquo\}     |  &amp;#8217; ^| {ditto}
+| Left Double Quote           |  \{ldquo\}     |  &amp;#8220; ^| {ditto}
+| Right Double Quote          |  \{rdquo\}     |  &amp;#8221; ^| {ditto}
+| Plus                        |  \{plus\}      |  &amp;#43;    | {plus}
+| Broken Vertical Bar         |  \{brvbar\}    |  &amp;#166;   | {brvbar}
+| Solid Vertical Bar          |  \{vbar\}      |               | {vbar}
+| Ampersand                   |  \{amp\}       |               | {amp}
+| Less Than                   |  \{lt\}        |               | {lt}
+| Greater Than                |  \{gt\}        |               | {gt}
+| Start Square Bracket        |  \{startsb\}   |               | He tweeted, "`Covfefe{startsb}sic{endsb}.`"
+| End Square Bracket          |  \{endsb\}     |              ^| {ditto}
+| Caret                       |  \{caret\}     |               | {caret}
+| Asterisk                    |  \{asterisk\}  |               | {asterisk}
+| Tilde                       |  \{tilde\}     |               | {tilde}
+| Backslash                   |  \{backslash\} |               | {backslash}
+| Back Tick                   |  \{backtick\}  |               | {backtick}
+|===
