@@ -34,7 +34,7 @@ class SectionNumbersTreeProcessor < Extensions::TreeProcessor
   def process_blocks node, levels, dtype
     node.blocks.each do |block|
       if block.context == :section && (defined? block.title)
-        block.title = "#{concat_sec_nr block, levels, dtype}#{block.title}"
+        block.title.replace "#{concat_sec_nr block, levels, dtype}#{block.title}"
         process_blocks block, levels, dtype if block.blocks?
         nil
       end
