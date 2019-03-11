@@ -134,7 +134,7 @@ class IndexMarkupRangeStartInlineMacro < Extensions::InlineMacroProcessor
 	  end
 	end
 	
-	idy = %( id="#{id}")
+	idy = (parent.document.backend == 'docbook45') ? %( id="#{id}") : %( xml:id="#{id}")
 	typy = type ? %( type="#{type}") : nil
 	pagenumy = pagenum ? %( pagenum="#{pagenum}") : nil
 	signy = significance && (sig_arr.include? significance) ? %( significance="#{significance}") : nil
