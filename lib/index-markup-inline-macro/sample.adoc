@@ -1,0 +1,61 @@
+= Doing DocBook index-markup in AsciiDoc
+
+// N-dash:
+:N: pass:[&#8211;]
+
+indexing_note:[DocBook, indexing, tYpE = tech, Zone = how_many_levels ,secondary_sortas= index markup ]
+This extension supplies three inline macros and one block macro. Taken together, their functionality goes beyond the DocBook-index-markup capabilities that are currently (4/2018) in Asciidoctor,indexing_note:[Asciidoctor, tYpE =tech, seealso = AsciiDoc , priMARy_sortas = AsciiDoctor, seeALSO99= lightweight markup languages ] making it possible to write in AsciiDoc any and all DocBook indexing-markup.
+
+There are two basic ways to express that a certain topic appears at a particular place in the document:
+
+. the `+indexing_note+` inline macro
+* You can express _implicitly_ that such-a-place is a place in which the topic shows up--by putting an `+indexing_note+` in that very place
+* You can express _explicitly_ that this, that, and the other location are places where the topic shows up--by using an `+indexing_note+` with a `+zone+` named attribute (which, in DocBook, is of the built-in XML datatype `+IDREFS+`); the latter contains a single-space-character-separated list of XML `+ID+`-values that are each an anchor (ID) of sections or paragraphs within your Asciidoctor manuscript (see the https://asciidoctor.org/docs/user-manual/[Asciidoctor User Manual], sections 16.2; 27.1{N}2). In this case, the macro's own location is irrelevant
+
+. the `+indexing_start+` and `+indexing_end+` inline macros
+* Here, you express the location implicitly by wrapping the passage of text in this pair of macros. An `+indexing_start+` can have any of the named attributes that an `+indexing_note+` can have (see below), _except for_ `+zone+` (see above).
+** The `+indexing_start+` _must_ contain an `+id+` named attribute (which inside `+indexing_note+` does nothing)
+** The `+indexing_end+` macro-notation should specify one thing only--the `+id+` of the `+indexing_start+` notation that marks the start of the passage being indexed.
+These two values, which are of XML datatype `+ID+`, must match exactly, _including case,_ and must (as such) satisfy https://www.w3.org/TR/REC-xml/#NT-Name[XML's rules for "`NT-Name`" values].
+
++
+This way of marking a "`range`" of text is more flexible, in one way, than using an `+indexing_note+` with a `+zone+`: "`the range can span unbalanced element boundaries.`" (https://tdg.docbook.org/tdg/4.5/indexterm.html)
+
+[#how_many_levels]
+All three inline macros get converted to a DocBook `+<indexterm>+` element. In your `+indexing_note+` and `+indexing_start+` macros, your first positional attribute's value gets put into a `+<primary>+`, the second (if any) into a `+<secondary>+`, and any third into a `+<tertiary>+`.
+Any others you insert will quietly be ignored.
+
+In DocBook, a `+<seealso>+` can occur any number of times (with differing values each time, of course) inside a given `+<indexterm>+`.
+But in Asciidoctor, _you cannot have two named attributes with the same name_ in the same attribute list.
+indexing_note:[Asciidoctor, type= tech, seealso = AsciiDoc , priMARy_sortas = AsciiDoctor, seeALSO20= lightweight markup languages ](If you do, Asciidoctor uses only the last value with that name.)
+indexing_start:[ DocBook, indexing, id= DocBook, type= tech, secondary_sortas= index markup]
+So, to "`unique-ify`" multiple `+<seealso>+` names within the same `+indexing_note+` or `+indexing_start+` instance, add a unique numerical sequence (any length) to the end of each--or, to all but one--of the `+seealso+` attributes: e.g.,  `+seealso55+`.
+
+The other attribute you can have which creates an element in DocBook is `+see+`.
+For its meaning, and that of DocBook's `+<indexterm>+` attributes `+type+`, `+significance+`, `+scope+`, and `+pagenum+` (all of which you may use in lists), and the `+<primary>+`,  `+<secondary>+`, or  `+<tertiary>+` attribute, `+sortas+` (for which you must use either `+primary_sortas+`, `+secondary_sortas+`, or `+tertiary_sortas+` in your list, respectively), please see the excellent DocBook text by Norman Walsh--most editions of which you can https://tdg.docbook.org/tdg/4.5/docbook.html[find online].indexing_end:[id=DocBook]
+These named attributes will work in either an `+indexing_note+` or an `+indexing_start+`.
+
+Although your _capitalization_ of the attribute-names is irrelevant, your _spelling_ them correctly is crucial.
+Likewise, using (and spelling correctly) any of the proper https://tdg.docbook.org/tdg/4.5/indexterm.html[enumerated values] for `+scope+` and `+significance+` is crucial. Any misspellings cause your attribute to be ignored.
+
+Also, if you include a `+secondary_sortas+` attribute, but forget to include an actual secondary positional-attribute _value_, then no `+<secondary>+` element at all will appear in the output--unless you've set `+$empty_indexing_elems_allowed+` to `+true+` in `+extension.rb+`.indexing_note:[stuff happens, secondary_sORTas = accidents happen, type= probably unintended thing with secondary_sortas but no secondary value] The same is true of `+<tertiary>+`.
+
+If you forget to include even a `+<primary>+` unnamed value, then no `+<indexterm>+` element will appearindexing_note:[ type= "thing probably unintended, with no primary value"] at all--unless you've set `+$empty_indexing_primary_allowed+` to `+true+` in `+extension.rb+`. If you forget to give an `+indexing_start+` or `+indexing_end+` an `+id+` attribute, you'll get one anyway--only, not with the value you were likely intending (`+phonyID_you-were-missing-a-real-one+`)!
+
+All three inline macros should be used only _within_ a paragraph--unless it's an `+indexing_note+` with a `+zone+` attribute.
+That's important: for a number of reasons, you don't want these `+indexterm+` elements to appear _between_ paragraphs in your DocBook XML.
+
+But we said there's also a block macro in this extension.indexing_note:[ Gone with the Wind, Abbot & Costello, The King of Siam         , secondary_sORTas = 'Wilma', TYPE = everything but the kitchen sink, primary_SORtas ="Fred",sCoPe= All ,  tertIAry_sORTas = 'Barney', seealso20= 'my jeans',seealso ='your jeans', sigNIFicance = nOrMaL, pagenum =208 ]
+Such a macro is to _create_ a block. This particular block macro is not to do indexing-markup: it's to indicate the place you want DocBook XSL to create the actual index, a.k.a. the "`index catalog`":
+
+`+indexcatalog::[Interesting Animals Index, type = "interesting animals"]+`
+
+Note: since it's a _block_ macro, it needs _two_ colons, `+::+`, instead of just `+:+`.
+That produces this block in your XML:
+
+`+<index type="interesting animals"><title>Interesting Animals Index</title></index>+`
+
+
+indexcatalog::[ Index to Amazing Technologies, type= tech]
+
+
