@@ -13,7 +13,7 @@ include Asciidoctor
 class TreeBlockMacro < Asciidoctor::Extensions::BlockMacroProcessor
   FS_UNITS = %w(B K M G T P E)
 
-  include_dsl
+  use_dsl
   named :tree
 
   def process parent, target, attrs
