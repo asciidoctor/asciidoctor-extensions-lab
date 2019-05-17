@@ -125,6 +125,9 @@ _Replaced by https://github.com/asciidoctor/asciidoctor-mathematical/[Asciidocto
 MathoidTreeprocessor, link:lib/mathoid-treeprocessor.rb[]::
 Converts all stem blocks to SVG using MathJax via the Mathoid library.
 
+MarkdownLinkInlineMacro, link:lib/markdown-link-inline-macro.rb[]::
+Parses a Markdown-style link.
+
 MentionsInlineMacro, link:lib/mentions-inline-macro.rb[]::
 Detects Twitter-style username mentions and converts them to links.
 
