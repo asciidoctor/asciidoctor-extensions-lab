@@ -14,9 +14,8 @@ Extensions.register do
     process do |document|
       if (document.attr? 'sectnums') && (sectnumoffset = (document.attr 'sectnumoffset', 0).to_i) > 0
         ((document.find_by context: :section) || []).each do |sect|
-          # FIXME use filter block once Asciidoctor >= 1.5.3 is available
           next unless sect.level == 1
-          sect.number += sectnumoffset
+          sect.numeral = (sect.numeral.to_i +  sectnumoffset).to_s
         end
       end
       nil
