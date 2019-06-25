@@ -109,6 +109,9 @@ Highlights source blocks using the highlight command.
 ImplicitApidocInlineMacro, link:lib/implicit-apidoc-inline-macro.rb[]::
 Adds an inline macro for linking to the Javadoc of a class in the Java EE API.
 
+IndirIncludeProcessor, link:lib/indir-include-processor.rb[]::
+Adds a variable "indir", pointing at the directory of included asciidoc files.
+
 LicenseUrlDocinfoProcessor, link:lib/license-url-docinfoprocessor.rb[]::
 Adds a link to the license specified by the `license` attribute to the document header.
 

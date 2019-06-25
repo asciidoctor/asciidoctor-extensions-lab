@@ -1,0 +1,7 @@
+= Main Document
+
+Main document's paragraph one, prior to included content.
+
+include::sub/sub.adoc[leveloffset=+1]
+
+Main document's paragraph two, after the included content.
