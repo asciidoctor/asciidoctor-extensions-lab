@@ -14,8 +14,12 @@ If using asciidoctor-fopub, I'd set the XSL parameter 'section.autolabel' to 0 a
 
     they default to 1 IF the <?asciidoc-numbered?> XML processing-instruction is present in the DocBook XML file; and 
     that processing-instruction will be present UNLESS :sectnums: was unset in your AsciiDoc document's header metadata.
+    
+    (Note: That customization is in the asciidoctor-fopub\build\fopub\docbook-xsl\common.xsl file.)
 
-(For how to pass XSL stylesheet parameters when using asciidoctor-fopub, please see https://github.com/asciidoctor/asciidoctor-fopub#custom-xsl-parameters.)
+Likewise, when using asciidoctor-fopub I'd set the 'appendix.autolabel' parameter to 0.
+
+(For how to pass XSL stylesheet parameters when using asciidoctor-fopub, please see https://github.com/asciidoctor/asciidoctor-fopub#custom-xsl-parameters . )
 
 Please note that there are several configuration variables at the top of the accompanying extension.rb file, that you can set to control how the extension does the numbering.
 
