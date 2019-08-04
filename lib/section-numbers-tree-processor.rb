@@ -4,7 +4,7 @@ RUBY_ENGINE == 'opal' ? (require 'section-numbers-tree-processor/extension') : (
 
 With this extension, you can control all your chapter- and section-numbering for DocBook output the same way you control it for the HTML5 backend: namely, by using the :sectnums:, :leveloffset:, :sectnumlevels:, and :doctype: attributes.
 
-I would strongly advise that, after using this extension in your to-DocBook conversion, then when using asciidoctor-fopub or (otherwise) a DocBook XSL stylesheet on your XML, you set the XSL stylesheet parameter 'chapter.autolabel' to 0. That will disable the XSL's chapter-numbering, which is superfluous when using this extension.
+I would strongly advise that, after using this extension in your to-DocBook conversion, then when using asciidoctor-fopub or (otherwise) the DocBook XSL stylesheets on your XML, you set the XSL stylesheet parameter 'chapter.autolabel' to 0. That will disable the XSL's chapter-numbering, which is superfluous when using this extension.
 
 If using asciidoctor-fopub, I'd set the XSL parameter 'section.autolabel' to 0 also. Here's why, if you're interested:
 
@@ -17,7 +17,7 @@ If using asciidoctor-fopub, I'd set the XSL parameter 'section.autolabel' to 0 a
     
     (Note: That customization is in the asciidoctor-fopub\build\fopub\docbook-xsl\common.xsl file.)
 
-Likewise, when using asciidoctor-fopub I'd set the 'appendix.autolabel' parameter to 0.
+Likewise, when using asciidoctor-fopub or (otherwise) DocBook XSL stylesheets, I'd set the 'appendix.autolabel' parameter to 0.
 
 (For how to pass XSL stylesheet parameters when using asciidoctor-fopub, please see https://github.com/asciidoctor/asciidoctor-fopub#custom-xsl-parameters . )
 
