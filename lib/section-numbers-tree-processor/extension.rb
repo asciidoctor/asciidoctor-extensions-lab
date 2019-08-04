@@ -17,7 +17,7 @@ $appx_nr_prefix_sntp = 'Appendix '
 $sec_nr_prefix_sntp = ''
 # The style you want at each level (level 0 is PARTS, 1 CHAPS; set styles to 'A','a','I','i', or '1'; add levels if you need to):
 $styles_arr_sntp = [ 'I', '1', '1', '1', '1', '1', '1', '1', '1', '1' ]
-$styles_appendix_sntp = [ 'I', 'A', '1', '1', '1', '1', '1', '1', '1', '1' ]  # Styles for appx's; level 0 has no effect here
+$styles_appendix_sntp = [ 'I', 'A', '1', '1', '1', '1', '1', '1', '1', '1' ]  # Styles for appendices
 
 # DON'T mess with these values:
 
