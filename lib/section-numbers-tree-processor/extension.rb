@@ -61,7 +61,8 @@ class SectionNumbersTreeProcessor < Extensions::TreeProcessor
       end
       $level_previous_sntp = block.level.to_i
       # Convert the block.number to the style you specified for this level; and store it in levels_arr_sntp[block.level.to_i] :
-      $levels_arr_sntp[block.level.to_i] = convert_block_nr block.number.to_s.tr('A-I', '1-9').to_i, block.level.to_i, styles_arr
+      block_nr_as_int = ( block.sectname == 'appendix' ? ( block.number.unpack('c')[0] - 64 ) : block.number )
+      $levels_arr_sntp[block.level.to_i] = convert_block_nr block_nr_as_int, block.level.to_i, styles_arr
       # Apply any appropriate prefix:
       pref = (dtype && dtype == 'book' && block.level.to_i == 1) ? $chap_nr_prefix_sntp : \
           ( (dtype && dtype == 'book' && block.level.to_i == 0) ? $part_nr_prefix_sntp : \
