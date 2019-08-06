@@ -33,8 +33,10 @@ class CustomAdmonitionBlockDocinfo < Extensions::DocinfoProcessor
   use_dsl
 
   def process doc
-    '<style>
+    if (doc.basebackend? 'html') && doc.backend != 'pdf'
+      '<style>
 .admonitionblock td.icon .icon-question:before {content:"\f128";color:#871452;}
 </style>'
+    end
   end
 end
