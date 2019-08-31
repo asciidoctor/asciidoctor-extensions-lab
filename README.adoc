@@ -12,14 +12,14 @@ To create your own extension, we recommend that you first read the http://asciid
 
 We have the following types of extensions in the lab:
 
-- *Preprocessor* - processes the AsciiDoc source before it is parsed
-- *IncludeProcessor* - intercepts the AsciiDoc include directive
-- *TreeProcessor* - processes the AsciiDoc document (AST) after block-level parsing is complete
-- *Postprocessor* - processes the converted output before it is written to the output stream (or disk)
-- *DocinfoProcessor* - contributes additional content to the header or footer of the output document
-- *BlockProcessor* - adds a custom delimited block
-- *BlockMacroProcessor* - adds a custom block macro
-- *InlineMacroProcessor* - adds a custom inline macro
+* *Preprocessor* - processes the AsciiDoc source before it is parsed
+* *IncludeProcessor* - intercepts the AsciiDoc include directive
+* *TreeProcessor* - processes the AsciiDoc document (AST) after block-level parsing is complete
+* *Postprocessor* - processes the converted output before it is written to the output stream (or disk)
+* *DocinfoProcessor* - contributes additional content to the header or footer of the output document
+* *BlockProcessor* - adds a custom delimited block
+* *BlockMacroProcessor* - adds a custom block macro
+* *InlineMacroProcessor* - adds a custom inline macro
 
 The type of extension (e.g, `-block-macro`) is always used in the name of the extension registration file and directory to make it easy to distinguish.
 You can also look for examples using `git grep`.
@@ -40,17 +40,17 @@ lib/tree-block-macro/extension.rb:class TreeBlockMacro < Asciidoctor::Extensions
 
 Each extension consists of several files:
 
-- A file that registers the extension (sometimes also contains the extension)
-- A file with the extension itself (when not defined in the registration file)
-- A file with sample AsciiDoc source to use to test the extension
-- Auxiliary assets needed by the extension
+* A file that registers the extension (sometimes also contains the extension)
+* A file with the extension itself (when not defined in the registration file)
+* A file with sample AsciiDoc source to use to test the extension
+* Auxiliary assets needed by the extension
 
 For example, the emoji-inline-macro extension has four files:
 
-- https://github.com/asciidoctor/asciidoctor-extensions-lab/blob/master/lib/emoji-inline-macro.rb[lib/emoji-inline-macro.rb] (registration file)
-- https://github.com/asciidoctor/asciidoctor-extensions-lab/blob/master/lib/emoji-inline-macro/extension.rb[lib/emoji-inline-macro/extension.rb] (extension file)
-- https://github.com/asciidoctor/asciidoctor-extensions-lab/blob/master/lib/emoji-inline-macro/sample.adoc[lib/emoji-inline-macro/sample.adoc] (sample AsciiDoc file)
-- https://github.com/asciidoctor/asciidoctor-extensions-lab/blob/master/lib/emoji-inline-macro/twemoji-awesome.css[lib/emoji-inline-macro/twemoji-awesome.css] (auxiliary asset file)
+* https://github.com/asciidoctor/asciidoctor-extensions-lab/blob/master/lib/emoji-inline-macro.rb[lib/emoji-inline-macro.rb] (registration file)
+* https://github.com/asciidoctor/asciidoctor-extensions-lab/blob/master/lib/emoji-inline-macro/extension.rb[lib/emoji-inline-macro/extension.rb] (extension file)
+* https://github.com/asciidoctor/asciidoctor-extensions-lab/blob/master/lib/emoji-inline-macro/sample.adoc[lib/emoji-inline-macro/sample.adoc] (sample AsciiDoc file)
+* https://github.com/asciidoctor/asciidoctor-extensions-lab/blob/master/lib/emoji-inline-macro/twemoji-awesome.css[lib/emoji-inline-macro/twemoji-awesome.css] (auxiliary asset file)
 
 NOTE: The registration file (e.g., emoji-inline-macro.rb) goes in the [path]_lib_ directory whereas the remaining files go inside a directory whose base name matches the name of the registration file (e.g., emoji-inline-macro).
 
