@@ -1,0 +1,4 @@
+= Compilation
+:leveloffset: 1
+
+include::article.adoc[]
