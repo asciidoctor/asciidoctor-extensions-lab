@@ -1,0 +1,27 @@
+= Tabbed Code Extension
+
+How to call a script..
+
+[source,shell,indent=0,subs="verbatim,attributes",role="primary"]
+.Linux/OSX
+----
+mvn io.quarkus:quarkus-maven-plugin:{quarkus-version}:create \
+    -DprojectGroupId=org.acme \
+    -DprojectArtifactId=getting-started \
+    -DclassName="org.acme.quickstart.GreetingResource" \
+    -Dpath="/hello"
+cd getting-started
+----
+
+[source,bat,indent=0,subs="verbatim,attributes",role="secondary"]
+.Windows
+----
+mvn io.quarkus:quarkus-maven-plugin:{quarkus-version}:create ^
+    -DprojectGroupId=org.acme ^
+    -DprojectArtifactId=getting-started ^
+    -DclassName="org.acme.quickstart.GreetingResource" ^
+    -Dpath="/hello"
+cd getting-started
+----
+
+Voila!
