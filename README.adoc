@@ -106,6 +106,9 @@ Adds hardbreaks to the end of all non-empty lines that aren't section titles.
 HighlightTreeprocessor, link:lib/highlight-treeprocessor.rb[]::
 Highlights source blocks using the highlight command.
 
+ImageRefstyleTreeprocessor, link:lib/imagerefstyle-treeprocessor.rb[]::
+Allows custom reference/label/caption style for images (including those output from asciidoctor-diagram) in the form of "Figure `<Chapter.FigureNumber>``.". See also the AutoXrefTreeprocessor for a more sophisticated but similar function.
+
 ImplicitApidocInlineMacro, link:lib/implicit-apidoc-inline-macro.rb[]::
 Adds an inline macro for linking to the Javadoc of a class in the Java EE API.
 
