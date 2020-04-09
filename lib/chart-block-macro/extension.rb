@@ -11,7 +11,7 @@ include Asciidoctor
 class ChartBlockMacro < Extensions::BlockMacroProcessor
   use_dsl
   named :chart
-  name_positional_attributes 'type', 'width', 'height'
+  name_positional_attributes 'type', 'width', 'height', 'axis-x-label', 'axis-y-label', 'data-names'
 
   def process(parent, target, attrs)
     data_path = parent.normalize_asset_path(target, 'target')
@@ -29,7 +29,7 @@ class ChartBlockProcessor < Extensions::BlockProcessor
   use_dsl
   named :chart
   on_context :literal
-  name_positional_attributes 'type', 'width', 'height'
+  name_positional_attributes 'type', 'width', 'height', 'axis-x-label', 'axis-y-label', 'data-names'
   parse_content_as :raw
 
   def process(parent, reader, attrs)
@@ -166,6 +166,9 @@ class C3jsChartBuilder
   def self.chart_bar_script(chart_id, data, labels, attrs)
     chart_height = get_chart_height attrs
     chart_width = get_chart_width attrs
+    axis_x_label = get_axis_x_label attrs
+    axis_y_label = get_axis_y_label attrs
+    data_names = get_data_names attrs
     %(
 <script type="text/javascript">
 c3.generate({
@@ -173,12 +176,17 @@ c3.generate({
   size: { height: #{chart_height}, width: #{chart_width} },
   data: {
     columns: #{data.to_s},
-    type: 'bar'
+    type: 'bar',
+    names: #{data_names.to_s}
   },
   axis: {
     x: {
       type: 'category',
-      categories: #{labels.to_s}
+      categories: #{labels.to_s},
+      label: '#{axis_x_label}'
+    },
+    y: {
+      label: '#{axis_y_label}'
     }
   }
 });
@@ -188,18 +196,26 @@ c3.generate({
   def self.chart_line_script(chart_id, data, labels, attrs)
     chart_height = get_chart_height attrs
     chart_width = get_chart_width attrs
+    axis_x_label = get_axis_x_label attrs
+    axis_y_label = get_axis_y_label attrs
+    data_names = get_data_names attrs
     %(
 <script type="text/javascript">
 c3.generate({
   bindto: '##{chart_id}',
   size: { height: #{chart_height}, width: #{chart_width} },
   data: {
-    columns: #{data.to_s}
+    columns: #{data.to_s},
+    names: #{data_names.to_s}
   },
   axis: {
     x: {
       type: 'category',
-      categories: #{labels.to_s}
+      categories: #{labels.to_s},
+      label: '#{axis_x_label}'
+    },
+    y: {
+      label: '#{axis_y_label}'
     }
   }
 });
@@ -209,6 +225,9 @@ c3.generate({
   def self.chart_step_script(chart_id, data, labels, attrs)
     chart_height = get_chart_height attrs
     chart_width = get_chart_width attrs
+    axis_x_label = get_axis_x_label attrs
+    axis_y_label = get_axis_y_label attrs
+    data_names = get_data_names attrs
     %(
 <script type="text/javascript">
 c3.generate({
@@ -216,12 +235,17 @@ c3.generate({
   size: { height: #{chart_height}, width: #{chart_width} },
   data: {
     columns: #{data.to_s},
-    type: 'step'
+    type: 'step',
+    names: #{data_names.to_s}
   },
   axis: {
     x: {
       type: 'category',
-      categories: #{labels.to_s}
+      categories: #{labels.to_s},
+      label: '#{axis_x_label}'
+    },
+    y: {
+      label: '#{axis_y_label}'
     }
   }
 });
@@ -231,6 +255,9 @@ c3.generate({
   def self.chart_spline_script(chart_id, data, labels, attrs)
     chart_height = get_chart_height attrs
     chart_width = get_chart_width attrs
+    axis_x_label = get_axis_x_label attrs
+    axis_y_label = get_axis_y_label attrs
+    data_names = get_data_names attrs
     %(
 <script type="text/javascript">
 c3.generate({
@@ -238,12 +265,17 @@ c3.generate({
   size: { height: #{chart_height}, width: #{chart_width} },
   data: {
     columns: #{data.to_s},
-    type: 'spline'
+    type: 'spline',
+    names: #{data_names.to_s}
   },
   axis: {
     x: {
       type: 'category',
-      categories: #{labels.to_s}
+      categories: #{labels.to_s},
+      label: '#{axis_x_label}'
+    },
+    y: {
+      label: '#{axis_y_label}'
     }
   }
 });
@@ -263,6 +295,18 @@ c3.generate({
 
   def self.get_chart_width attrs
     (attrs.key? 'width') ? attrs['width'] : '600'
+  end
+
+  def self.get_axis_x_label attrs
+    (attrs.key? 'axis-x-label') ? CGI::unescapeHTML(attrs['axis-x-label']) : ''
+  end
+
+  def self.get_axis_y_label attrs
+    (attrs.key? 'axis-y-label') ? CGI::unescapeHTML(attrs['axis-y-label']) : ''
+  end
+
+  def self.get_data_names attrs
+    (attrs.key? 'data-names') ? CGI::unescapeHTML(attrs['data-names']) : '{}'
   end
 
 end

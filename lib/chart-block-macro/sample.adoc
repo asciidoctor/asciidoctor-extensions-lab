@@ -8,6 +8,12 @@ chart::sample.csv[height=200,width=500]
 
 chart::sample.csv[spline,500,400]
 
+// Set axis labels (see https://c3js.org/samples/axes_label.html)
+chart::sample.csv[step,500,400, axis-x-label="X Label", axis-y-label="Y Label"]
+
+// Set data names (see https://c3js.org/samples/data_name.html )
+chart::sample.csv[line, data-names="{'0':'Name 1', '1':'Name 2'}"]
+
 [chart,line]
 ....
 January,February,March,April,May,June,July
