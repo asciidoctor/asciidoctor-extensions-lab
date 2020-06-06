@@ -26,6 +26,7 @@ class GitMetadataPreprocessor < Asciidoctor::Extensions::Preprocessor
     doc_attrs['git-metadata-author-name'] = head.target.author[:name]
     doc_attrs['git-metadata-author-email'] = head.target.author[:email]
     doc_attrs['git-metadata-date'] = head.target.time.strftime '%Y-%m-%d'
+    doc_attrs['git-metadata-year'] = head.target.time.strftime '%Y'
     doc_attrs['git-metadata-time'] = head.target.time.strftime '%H:%M:%S'
     doc_attrs['git-metadata-timezone'] = head.target.time.strftime '%Z'
     doc_attrs['git-metadata-commit-message'] = head.target.message

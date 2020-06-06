@@ -26,6 +26,9 @@
 |{git-metadata-author-email}
 |git-metadata-author-email
 |
+|latest commit year
+|{git-metadata-year}
+|useful for automated copyright statements
 
 |latest commit date
 |{git-metadata-date}
