@@ -44,6 +44,14 @@ class GitMetadataPreprocessor < Asciidoctor::Extensions::Preprocessor
         .map(&:name)
     doc_attrs['git-metadata-tag'] = tags * ', ' unless tags.empty?
 
+    tag_messages = []
+    tags.each { |t|
+      if t.annotated? && t.annotation.target_id == head.target_id
+        if t.annotation.message
+          tag_messages.push (t.annotation.message)
+    }
+    doc_attrs['git-metadata-tag-message'] = tag_messages
+
     file_location = Pathname.new Dir.pwd
     repo_location = Pathname.new File.dirname(repo.path) # repo.path uses the .git directory
     doc_attrs['git-metadata-relative-path'] = repo_location.relative_path_from file_location
