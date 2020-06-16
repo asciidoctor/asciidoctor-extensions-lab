@@ -4,7 +4,7 @@ include Asciidoctor
 
 # An inline macro that generates links to related man pages.
 #
-# Usage
+# Usage:
 #
 #   man:gittutorial[7]
 #
@@ -19,17 +19,18 @@ class ManInlineMacro < Extensions::InlineMacroProcessor
     suffix = ''
     target = %(#{manname}.html)
     suffix = if (volnum = attrs['volnum'])
-      "(#{volnum})"
+      %((#{volnum}))
     else
       nil
     end
     if parent.document.basebackend? 'html'
       parent.document.register :links, target
-      %(#{(create_anchor parent, text, type: :link, target: target).render}#{suffix})
+      node = create_anchor parent, text, type: :link, target: target
     elsif parent.document.backend == 'manpage'
-      %(\\fB#{manname}\\fP#{suffix})
+      node = create_inline parent, :quoted, manname, type: :strong
     else
-      %(#{manname}#{suffix})
+      node = create_inline parent, :quoted, manname
     end
+    create_inline parent, :quoted, %(#{node.convert}#{suffix})
   end
 end

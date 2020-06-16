@@ -1,5 +1,14 @@
-= Man Inline Macro Extension
+= appname(1)
+:doctype: manpage
 
-See man:gittutorial[7] to get started.
+== Name
 
-//Use linkgit:git-init[1] to create a new repository.
+appname - Perform work.
+
+== Synopsis
+
+_appname_
+
+== See Also
+
+See man:appname-config[7] to learn how to configure this command.
