@@ -1,0 +1,8 @@
+[gherkin]
+....
+Feature: A simple feature 
+
+  Scenario: A simple scenario 
+    Given a simple step 
+    Then another simple step 
+....
