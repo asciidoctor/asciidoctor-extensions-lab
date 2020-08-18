@@ -30,7 +30,6 @@ For example, to look for a `BlockMacroProcessor`, run the following command:
 You'll get a result like this:
 
 ....
-lib/chart-block-macro/extension.rb:class ChartBlockMacro < Extensions::BlockMacroProcessor
 lib/gist-block-macro/extension.rb:class GistBlockMacro < Extensions::BlockMacroProcessor
 lib/pass-block-macro/extension.rb:class PassBlockMacro < Extensions::BlockMacroProcessor
 lib/tree-block-macro/extension.rb:class TreeBlockMacro < Asciidoctor::Extensions::BlockMacroProcessor
@@ -63,6 +62,10 @@ Refers images, tables, listings, sections by their numbers.
 
 ChartBlockMacro, link:lib/chart-block-macro.rb[]::
 Adds a chart block and block macro to AsciiDoc powered by c3js, chartist or chartjs.
+
+pass:m[<del>ChartBlockMacro, link:lib/chart-block-macro.rb[\]</del>]::
+Adds a chart block and block macro to AsciiDoc powered by c3js, chartist or chartjs.
+_Replaced by https://github.com/asciidoctor/asciidoctor-chart/[Asciidoctor Chart]._
 
 ChromeInlineMacro, link:lib/chrome-inline-macro.rb[]::
 Adds an inline macro for linking to a `chrome://` URI.
