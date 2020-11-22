@@ -3,7 +3,13 @@
 :idseparator: -
 :toc: preamble
 
-A repository of sample and incubating Ruby-based extensions for Asciidoctor.
+A repository of sample Ruby-based extensions for Asciidoctor.
+
+This repository is not meant to be a central registry for hosting Asciidoctor extensions.
+The purpose of this repository is to demonstrate how to use the Extensions API and to share patterns for implementing extensions.
+You should not be using the code from this repository in production.
+If you want to use one of the extensions here, and perhaps further develop it, please import it into a new project and distribute it as a RubyGem.
+You can then request to make it a top-level project in the Asciidoctor organization.
 
 If you simply want to use the extensions in this repository, skip ahead to <<using-an-extension>>.
 To create your own extension, we recommend that you first read the http://asciidoctor.org/docs/user-manual/#extensions[extensions section] in the Asciidoctor user manual.
