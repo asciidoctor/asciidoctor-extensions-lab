@@ -26,6 +26,9 @@
 |{git-metadata-author-email}
 |git-metadata-author-email
 |
+|latest commit year
+|{git-metadata-year}
+|useful for automated copyright statements
 
 |latest commit date
 |{git-metadata-date}
@@ -52,6 +55,11 @@
 |git-metadata-commit-message
 |
 
+|current tag message
+|{git-metadata-tag-message}
+|git-metadata-tag-message
+|Useful when the tag message is more relevant than the current commit message
+
 |the current branch
 |{git-metadata-branch}
 |git-metadata-branch
@@ -60,7 +68,7 @@
 |the current tags(s)
 |{git-metadata-tag}
 |git-metadata-tag
-|only defined if there are tags. 
+|only defined if there are tags.
 If there are  multiple tags they are combined with a ``, ``.
 Does both annotated and lightweight tags.
 

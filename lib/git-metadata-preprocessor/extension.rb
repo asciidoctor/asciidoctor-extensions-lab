@@ -26,6 +26,7 @@ class GitMetadataPreprocessor < Asciidoctor::Extensions::Preprocessor
     doc_attrs['git-metadata-author-name'] = head.target.author[:name]
     doc_attrs['git-metadata-author-email'] = head.target.author[:email]
     doc_attrs['git-metadata-date'] = head.target.time.strftime '%Y-%m-%d'
+    doc_attrs['git-metadata-year'] = head.target.time.strftime '%Y'
     doc_attrs['git-metadata-time'] = head.target.time.strftime '%H:%M:%S'
     doc_attrs['git-metadata-timezone'] = head.target.time.strftime '%Z'
     doc_attrs['git-metadata-commit-message'] = head.target.message
@@ -42,6 +43,11 @@ class GitMetadataPreprocessor < Asciidoctor::Extensions::Preprocessor
         .select {|t| t.target_id == head.target_id || (t.annotated? && t.annotation.target_id == head.target_id) }
         .map(&:name)
     doc_attrs['git-metadata-tag'] = tags * ', ' unless tags.empty?
+
+    tags = repo.tags
+      .select {|t| t.annotation.message && t.annotation.target_id == head.target_id }
+      .map {|t| t.annotation.message}
+    doc_attrs['git-metadata-tag-message'] = tags * '. ' unless tags.empty?
 
     file_location = Pathname.new Dir.pwd
     repo_location = Pathname.new File.dirname(repo.path) # repo.path uses the .git directory
