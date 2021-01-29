@@ -1,0 +1,89 @@
+= big deal
+:sectnums:
+:partnums:
+:sectnumlevels: 4
+:doctype: book
+
+= A first big deal
+
+== Section
+
+content
+
+=== Subsection Most Tantalizing
+
+----
+content
+----
+
+==== Subsection Even More Tantalizing
+
+content
+
+==== ANOTHER Subsection Even More Tantalizing
+
+content
+
+:sectnums!:
+===== Subsection the most tantalizing YET, but in a non-section-numbering part!
+
+content
+
+:sectnums:
+=== Subsection back to just tantalizing
+
+content for sure
+
+= Here's another big deal!
+Oh indeed.
+
+== Section back to just tantalizing
+
+oh yea
+
+=== Subsection just tantalizing
+
+oh yea
+
+==== Another Subsection the most tantalizing YET
+
+content oh yes
+
+===== Yet Another Subsection the most tantalizing YET
+
+content oh yes
+
+===== Another Subsection for sure the most tantalizing YET
+
+content for sure
+
+=== Subsection back to just amazingly tantalizing
+
+content oh yes
+
+== Subsection really really tantalizing
+oh yea
+
+=== Subsection oh so really tantalizing
+oh yea
+
+====== Subsection so MUCH deeper, indeed suddenly 5 levels deep--COUNTING the chap.nr as 1, if doctype is 'book'!!
+oh yea
+
+= A third big deal
+
+What I said
+
+== Thinking of things
+
+No, not what I said
+
+== Going further
+
+Ah, now, that's what I'm talking {rsquo}bout.
+
+= A final big deal
+
+== Are we au fait with Roman numerals, yet, my chilluns?
+
+Oh, yessss
