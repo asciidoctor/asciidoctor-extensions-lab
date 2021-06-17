@@ -1,0 +1,3 @@
+----
+include::sample.rb[lines=2..3]
+----
