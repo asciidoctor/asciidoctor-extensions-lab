@@ -1,0 +1,56 @@
+:sectnums:
+:sectnumlevels: 3
+:allow-uri-read:
+:uri-asciidoctor-diagram: https://asciidoctor.org/docs/asciidoctor-diagram/  
+= Introduction
+
+This extension changes the titles for images and certain literal blocks used by {uri-asciidoctor-diagram}[asciidoctor-diagram] so they are in the form: "`Figure `<ChapterNum.ItemWithinChapter>``".
+
+Run with something like:
+
+ /usr/bin/asciidoctor -r asciidoctor-diagram -r ./lib/imagerefstyle-treeprocessor.rb ./lib/imagerefstyle-treeprocessor/sample.adoc --trace
+
+== First Chapter
+
+[#somegreatthing]
+.Some Great Thing
+image::https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg[width=500]
+
+
+[#anothergreatthing]
+.Another Great Thing
+image::https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg[width=250]
+
+=== Sub Chapter
+
+[#stillatthesamelevel]
+.Still At The Same Level
+image::https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg[width=125]
+
+Also see <<anothergreatthing>>
+
+== Another chapter
+
+[[ditaa-diagram]]
+[ditaa]
+.Something beautiful
+....
+                   +-------------+
+                   | Asciidoctor |-------+
+                   |   diagram   |       |
+                   +-------------+       | PNG out
+                       ^                 |
+                       | ditaa in        |
+                       |                 v
+ +--------+   +--------+----+    /---------------\
+ |        | --+ Asciidoctor +--> |               |
+ |  Text  |   +-------------+    |   Beautiful   |
+ |Document|   |   !magic!   |    |    Output     |
+ |     {d}|   |             |    |               |
+ +---+----+   +-------------+    \---------------/
+     :                                   ^
+     |          Lots of work             |
+     +-----------------------------------+
+....
+
+Checkout <<ditaa-diagram>>
