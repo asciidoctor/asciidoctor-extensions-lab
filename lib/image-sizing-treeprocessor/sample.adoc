@@ -1,0 +1,44 @@
+= Image Scaling
+
+Imagine we have lots of images
+
+Local images would work nicely too but to prevent repo bloat we will link to them.
+
+If we open this referring to the fifth section with something like `+++sample.html#_section_5+++` 
+with and without the extension we see quite different behaviour
+
+== Section 1
+
+image::https://openclipart.org/download/275473/FireDiamond.svg[]
+
+== Section 2
+
+image::https://openclipart.org/download/284400/GlitchSimplifiedFire.svg[]
+
+== Section 3
+
+image::https://openclipart.org/download/226036/fire-maze-mobile-casino.svg[]
+
+== Section 4
+
+image::https://openclipart.org/download/223224/fire-anthropomorphism.svg[]
+
+== Section 5
+image::https://openclipart.org/download/189740/Fire-Extinguisher-Sign--Arvin61r58.svg[]
+
+
+== Section 6
+
+These guys are the same height!
+
+image::https://openclipart.org/download/275473/FireDiamond.svg[height=50]
+
+image::https://openclipart.org/download/284400/GlitchSimplifiedFire.svg[height=50]
+
+image::https://openclipart.org/download/226036/fire-maze-mobile-casino.svg[height=50]
+
+image::https://openclipart.org/download/223224/fire-anthropomorphism.svg[height=50]
+
+image::https://openclipart.org/download/189740/Fire-Extinguisher-Sign--Arvin61r58.svg[height=50]
+
+
