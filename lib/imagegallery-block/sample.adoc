@@ -1,0 +1,12 @@
+[gallery]
+--
+image::a.jpg[title="This is the title of image a"]
+image::b.jpg[title="This is the title of image b"]
+--
+
+
+[gallery]
+--
+image::c.jpg[title="This is the title of image c"]
+image::d.jpg[title="This is the title of image d"]
+--
