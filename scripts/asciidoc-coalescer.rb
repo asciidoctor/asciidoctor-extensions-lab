@@ -18,13 +18,13 @@
 
 # TODO
 # - add cli option to write attributes passed to cli to header of document
-# - escape all preprocessor directives after lines are processed (these are preprocessor directives that were escaped in the input)
 # - wrap in a custom converter so it can be used as an extension
 
 require 'asciidoctor'
 require 'optparse'
 
-options = { attributes: [], output: '-' }
+
+options = { attributes: [], output: '-', include_only: false }
 OptionParser.new do |opts|
   opts.banner = 'Usage: ruby asciidoc-coalescer.rb [OPTIONS] FILE'
   opts.on('-a', '--attribute key[=value]', 'A document attribute to set in the form of key[=value]') do |a|
@@ -32,6 +32,9 @@ OptionParser.new do |opts|
   end
   opts.on('-o', '--output FILE', 'Write output to FILE instead of stdout.') do |o|
     options[:output] = o
+  end
+  opts.on('-i', '--include-only', 'Process include:: directives only') do |i|
+    options[:include_only] = i
   end
 end.parse!
 
@@ -54,10 +57,51 @@ doc = Asciidoctor.load_file source_file, safe: :unsafe, header_only: true, attri
 header_attr_names = (doc.instance_variable_get :@attributes_modified).to_a
 header_attr_names.each {|k| doc.attributes[%(#{k}!)] = '' unless doc.attr? k }
 
+## monkey patch lib/asciidoctor/reader.rb#PreprocessorReader.process_line to only process unescaped preprocessor directive "include::"
+if options[:include_only]
+  module Asciidoctor
+    class PreprocessorReader
+      ## adapted from https://github.com/asciidoctor/asciidoctor/blob/1b6da4f2d883e61d2e785ff5dd986c8e2ce0c988/lib/asciidoctor/reader.rb#L802
+      def process_line line
+        return line unless @process_lines
+
+        if line.empty?
+          @look_ahead += 1
+          return line
+        end
+
+        # NOTE highly optimized
+        if (line.end_with? ']') && !(line.start_with? '[') && (line.include? '::')
+          if (line.start_with? 'inc') && IncludeDirectiveRx =~ line
+            # QUESTION should we strip whitespace from raw attributes in Substitutors#parse_attributes? (check perf)
+            if preprocess_include_directive $2, $3
+              # add include directive as comment
+              unshift '// **preprocessed** ' + line
+              # peek again since the content has changed
+              return nil
+            else
+              # the line was not a valid include line and is unchanged
+              # mark it as visited and return it
+              @look_ahead += 1
+              return line
+            end
+          else
+            # NOTE optimization to inline super
+            @look_ahead += 1
+            return line
+          end
+        else
+          # NOTE optimization to inline super
+          @look_ahead += 1
+          return line
+        end
+      end # def process_line
+    end # class PreprocessorReader
+  end # module Asciidoctor
+end # options[:include_only]
+
 doc = Asciidoctor.load_file source_file, safe: :unsafe, parse: false, attributes: doc.attributes
-# FIXME also escape ifdef, ifndef, ifeval and endif directives
-# FIXME do this more carefully by reading line by line; if input differs by output by leading backslash, restore original line
-lines = doc.reader.read.gsub(/^include::(?=.*\[\]$)/m, '\\include::')
+lines = doc.reader.read
 
 if output_file == '-'
   puts lines
