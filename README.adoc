@@ -124,6 +124,9 @@ Skips the implicit author line below the document title in included documents.
 LicenseUrlDocinfoProcessor, link:lib/license-url-docinfoprocessor.rb[]::
 Adds a link to the license specified by the `license` attribute to the document header.
 
+ListOfFiguresTreeprocessor + ListOfFiguresMacro, link:lib/list-of-figures.rb[]::
+Adds a summary of all image captions
+
 LoremBlockMacro, link:lib/lorem-block-macro.rb[]::
 Generates lorem ipsum text using the Middleman lorem extension. (Requires middleman >= 4.0.0).
 

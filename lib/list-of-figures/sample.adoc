@@ -1,0 +1,11 @@
+== Test the List of Figures Macro
+
+.The wonderful linux logo
+image::https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg[Linux Logo,100,100]
+
+.Another wikipedia SVG image
+image::https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/SVG_Logo.svg/400px-SVG_Logo.svg.png[SVG,100,100]
+
+=== List of figures
+
+tof::[]
