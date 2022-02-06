@@ -1,5 +1,10 @@
 #!/usr/bin/env ruby
 
+# !!NOTICE!!
+# This script has been replaced by the Asciidoctor Reducer project.
+# See https://github.com/asciidoctor/asciidoctor-reducer
+# !!NOTICE!!
+#
 # This script coalesces the AsciiDoc content from a document master into a
 # single output file. It does so by resolving all preprocessor directives in
 # the document, and in any files which are included. The resolving of include
@@ -15,11 +20,6 @@
 #
 # You can find a similar extension written against AsciidoctorJ here:
 # https://github.com/hibernate/hibernate-asciidoctor-extensions/blob/master/src/main/java/org/hibernate/infra/asciidoctor/extensions/savepreprocessed/SavePreprocessedOutputPreprocessor.java
-
-# TODO
-# - add cli option to write attributes passed to cli to header of document
-# - escape all preprocessor directives after lines are processed (these are preprocessor directives that were escaped in the input)
-# - wrap in a custom converter so it can be used as an extension
 
 require 'asciidoctor'
 require 'optparse'
@@ -49,7 +49,7 @@ end
 
 # NOTE first, resolve attributes defined at the end of the document header
 # QUESTION can we do this in a single load?
-doc = Asciidoctor.load_file source_file, safe: :unsafe, header_only: true, attributes: options[:attributes]
+doc = Asciidoctor.load_file source_file, safe: :unsafe, parse_header_only: true, attributes: options[:attributes]
 # NOTE quick and dirty way to get the attributes set or unset by the document header
 header_attr_names = (doc.instance_variable_get :@attributes_modified).to_a
 header_attr_names.each {|k| doc.attributes[%(#{k}!)] = '' unless doc.attr? k }
