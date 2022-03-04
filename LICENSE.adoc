@@ -1,6 +1,6 @@
 .The MIT License
 ....
-Copyright (C) 2014-2019 The Asciidoctor Project
+Copyright (C) 2014-present Dan Allen and the individual contributors to Asciidoctor.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

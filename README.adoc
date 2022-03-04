@@ -331,7 +331,7 @@ https://github.com/asciidoctor/asciidoctor-extensions-lab/issues/44[TODO].
 
 == Copyright
 
-Copyright (C) 2014-2019 The Asciidoctor Project.
+Copyright (C) 2014-present The Asciidoctor Project.
 Free use of this software is granted under the terms of the MIT License.
 
 See the link:LICENSE.adoc[LICENSE] file for details.
