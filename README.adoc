@@ -3,16 +3,17 @@
 :idseparator: -
 :toc: preamble
 
-A repository of sample Ruby-based extensions for Asciidoctor.
+This repository is a lab for experimenting with Ruby-based Asciidoctor extensions using the Extensions API.
+*Please do not use this code in production.*
+The code is untested.
+The purpose of these examples is to demonstrate how extensions are set up, how to write them, and what they can do.
+The examples also offer patterns that can be reused when implementing your own extension.
 
-This repository is not meant to be a central registry for hosting Asciidoctor extensions.
-The purpose of this repository is to demonstrate how to use the Extensions API and to share patterns for implementing extensions.
-You should not be using the code from this repository in production.
-If you want to use one of the extensions here, and perhaps further develop it, please import it into a new project and distribute it as a RubyGem.
-You can then request to make it a top-level project in the Asciidoctor organization.
+If you only want to test the extensions in this repository, skip ahead to <<using-an-extension>>.
 
-If you simply want to use the extensions in this repository, skip ahead to <<using-an-extension>>.
-To create your own extension, we recommend that you first read the http://asciidoctor.org/docs/user-manual/#extensions[extensions section] in the Asciidoctor user manual.
+If you want to use one of the extensions from this lab in production, and perhaps develop it further, please import it into a new project and distribute it as a RubyGem.
+If you're prepared to maintain it for the community, you can submit a request in the https://asciidoctor.zulipchat.com[project chat] to graduate it a top-level project in the Asciidoctor organization.
+When writing your own extension, we recommend that you study the https://docs.asciidoctor.org/asciidoctor/latest/extensions/[extensions section] in the Asciidoctor documentation.
 
 == Extension types
 
