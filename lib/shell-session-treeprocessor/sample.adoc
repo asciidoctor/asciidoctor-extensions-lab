@@ -9,6 +9,8 @@
  $ echo 'Hello, World!'
  > Hello, World!
 
+a:: b
+
 == Command Inside List Item
 
 . Install the application

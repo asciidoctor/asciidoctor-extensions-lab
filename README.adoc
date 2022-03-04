@@ -164,7 +164,7 @@ Adds an inline macro to pull a quote out of the flow and display it in a sidebar
 SectnumoffsetTreeprocessor, link:lib/sectnumoffset-treeprocessor.rb[]::
 Increments all level-1 section numbers (and subsequently all subsections) by the value of the `sectnumoffset` attribute.
 
-ShellSessionTreeprocessor, link:lib/shell-session-treeprocessor.rb[]::
+ShellSessionTreeProcessor, link:lib/shell-session-treeprocessor.rb[]::
 Detects a shell command and trailing output and styles it for display in HTML.
 
 ShoutBlock, link:lib/shout-block.rb[]::

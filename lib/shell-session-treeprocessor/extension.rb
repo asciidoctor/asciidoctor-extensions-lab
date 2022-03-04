@@ -10,7 +10,7 @@ include Asciidoctor
 #
 #   $ gem install asciidoctor
 #
-class ShellSessionTreeprocessor < Extensions::Treeprocessor
+class ShellSessionTreeProcessor < Extensions::TreeProcessor
   LF = ?\n
 
   def process document
@@ -37,4 +37,8 @@ class ShellSessionTreeprocessor < Extensions::Treeprocessor
     end
     create_listing_block block.parent, lines * LF, attrs, subs: nil
   end
+end
+
+Asciidoctor::Extensions.register do
+  tree_processor ShellSessionTreeProcessor
 end
