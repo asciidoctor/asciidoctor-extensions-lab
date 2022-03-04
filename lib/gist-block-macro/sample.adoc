@@ -1,4 +1,4 @@
 = Gist Block Macro Extension
 
-.Guard setup to live preview AsciiDoc output
-gist::mojavelinux/5546622[]
+.Hello, World! in Ruby
+gist::https://gist.github.com/mojavelinux/3fee8a82d319905c81ce99a900a1850d[]

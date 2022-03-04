@@ -6,7 +6,8 @@ include Asciidoctor
 #
 # Usage
 #
-#   gist::12345[]
+#   gist::3fee8a82d319905c81ce99a900a1850d[]
+#   gist::https://gist.github.com/mojavelinux/3fee8a82d319905c81ce99a900a1850d[]
 #
 class GistBlockMacro < Extensions::BlockMacroProcessor
   use_dsl
@@ -14,15 +15,9 @@ class GistBlockMacro < Extensions::BlockMacroProcessor
   named :gist
 
   def process parent, target, attrs
-    title_html = (attrs.has_key? 'title') ?
-        %(<div class="title">#{attrs['title']}</div>\n) : nil
-
-    html = %(<div class="openblock gist">
-#{title_html}<div class="content">
-<script src="https://gist.github.com/#{target}.js"></script>
-</div>
-</div>)
-
-    create_pass_block parent, html, attrs, subs: nil
+    role = ((attrs['role'] || '') + ' ').lstrip + 'gist'
+    script = %(<script src="https://gist.github.com/#{target.split('/').pop}.js"></script>)
+    block = create_open_block parent, [], attrs
+    block << (create_pass_block block, script, {})
   end
 end
