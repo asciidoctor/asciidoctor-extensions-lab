@@ -1,1 +1,1 @@
-include::include-*.adoc[opts=adjoin]
+include::include-*.adoc[foo,bar,opts=adjoin]
