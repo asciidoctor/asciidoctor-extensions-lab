@@ -1,0 +1,7 @@
+== Section
+
+text.footnote:[foo]
+
+test.footnote:[bar]
+
+footnotes::[]

@@ -95,6 +95,9 @@ Specifies sourcemap attribute for document.
 FoldLinesTreeProcessor, link:lib/fold-lines-tree-processor.rb[]::
 Replaces newlines (i.e., line feeds) in paragraphs with a single space.
 
+FootnotesBlockMacro, link:lib/footnotes-block-macro.rb[]::
+Consumes the footnotes from the document catalog and puts them into a dedicated section.
+
 FrontMatterPreprocessor, link:lib/front-matter-preprocessor.rb[]::
 Emulates the built-in behavior of Asciidoctor to sweep away YAML front matter into the `front-matter` attribute.
 
