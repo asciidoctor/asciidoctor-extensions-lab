@@ -1,0 +1,32 @@
+= Ruby Runtime Information
+
+|===
+|Name |Value
+
+|ruby-version
+|{ruby-version}
+
+|ruby-release-date
+|{ruby-release-date}
+
+|ruby-platform
+|{ruby-platform}
+
+|ruby-patchlevel
+|{ruby-patchlevel}
+
+|ruby-revision
+|{ruby-revision}
+
+|ruby-copyright
+|{ruby-copyright}
+
+|ruby-engine
+|{ruby-engine}
+
+|ruby-engine-version
+|{ruby-engine-version}
+
+|ruby-description
+|{ruby-description}
+|===
