@@ -15,11 +15,11 @@ Extensions.register do
     process do |document|
       if (document.attr? 'sectnums') && (sectnumoffset = (document.attr 'sectnumoffset', 0).to_i) != 0
         if sectnumoffset > 0
-          document.find_by(context: :section) {|sect| sect.level == 1 }.each do |sect|
+          document.find_by(context: :section) {|sect| sect.level == 1 && sect.numbered }.each do |sect|
             sectnumoffset.times { sect.numeral = sect.numeral.next } rescue (sect.number += sectnumoffset)
           end
         else
-          document.find_by(context: :section) {|sect| sect.level == 1 }.each do |sect|
+          document.find_by(context: :section) {|sect| sect.level == 1 && sect.numbered }.each do |sect|
             sectnumoffset.abs.times { sect.numeral = sect.numeral.to_i.pred.to_s } rescue (sect.number += sectnumoffset)
           end
         end
