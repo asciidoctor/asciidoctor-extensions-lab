@@ -92,6 +92,9 @@ Adds an emoji inline macro for inserting emoji by name.
 EnableSourcemapPreprocessor, link:lib/enable-sourcemap-preprocessor.rb[]::
 Specifies sourcemap attribute for document.
 
+ExternalHeaderAttributesPreprocessor, link:lib/external-header-attributes-preprocessor.rb[]::
+Reads additional AsciiDoc attributes from a YAML-based configuration file and adds them to the document header.
+
 FoldLinesTreeProcessor, link:lib/fold-lines-tree-processor.rb[]::
 Replaces newlines (i.e., line feeds) in paragraphs with a single space.
 

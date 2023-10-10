@@ -1,0 +1,4 @@
+asciidoc:
+  attributes:
+    attribute-from-config: value
+    toc: ''
