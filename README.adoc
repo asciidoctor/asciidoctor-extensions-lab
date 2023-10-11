@@ -6,8 +6,12 @@
 This repository is a lab for experimenting with Ruby-based Asciidoctor extensions using the Extensions API.
 *Please do not use this code in production.*
 The code is untested.
+It is also not packaged and distributed.
 The purpose of these examples is to demonstrate how extensions are set up, how to write them, and what they can do.
 The examples also offer patterns that can be reused when implementing your own extension.
+
+In order to use the extensions in this repository, you need to clone the repository.
+Then, you need to pass the location of the extension you want to use to Asciidoctor using the `-r` CLI option or require it in your Ruby script if you are using the Asciidoctor API.
 
 If you only want to test the extensions in this repository, skip ahead to <<using-an-extension>>.
 
