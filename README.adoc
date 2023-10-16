@@ -202,6 +202,9 @@ Styles an ordered list as a procedure list.
 TelInlineMacro, link:lib/tel-inline-macro.rb[]::
 Adds an inline macro for linking to a `tel:` URI.
 
+TermInlineMacro, link:lib/term-inline-macro.rb[]::
+Demonstrates how to convert an inline macro into a span of text with a role.
+
 TexPreprocessor, link:lib/tex-preprocessor.rb[]::
 Interprets tex markup embedded inside of AsciiDoc.
 
