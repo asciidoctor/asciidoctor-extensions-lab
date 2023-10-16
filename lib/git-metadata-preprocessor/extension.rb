@@ -7,14 +7,14 @@ class GitMetadataPreprocessor < Asciidoctor::Extensions::Preprocessor
   def process document, reader
 
     begin
-      repo = Rugged::Repository.discover('.')
+      repo = Rugged::Repository.discover '.'
     rescue
-      $stderr.puts('Failed to find repository, git-metadata extension terminating')
+      warn 'Failed to find repository, git-metadata extension terminating'
       return
     end
 
     if repo.empty? || repo.bare?
-      $stderr.puts('Repository is empty or bare repository, git-metadata extension terminating')
+      warn 'Repository is empty or bare repository, git-metadata extension terminating'
       return
     end
 
@@ -50,7 +50,7 @@ class GitMetadataPreprocessor < Asciidoctor::Extensions::Preprocessor
     doc_attrs['git-metadata-tag-message'] = tags * '. ' unless tags.empty?
 
     file_location = Pathname.new Dir.pwd
-    repo_location = Pathname.new File.dirname(repo.path) # repo.path uses the .git directory
+    repo_location = Pathname.new File.dirname repo.path # repo.path uses the .git directory
     doc_attrs['git-metadata-relative-path'] = repo_location.relative_path_from file_location
     doc_attrs['git-metadata-repo-path'] = repo_location.realpath
 
