@@ -19,6 +19,6 @@ class ChromeUriMacro < Extensions::InlineMacroProcessor
     if (text = attrs['text']).empty?
       text = target
     end
-    (create_anchor parent, text, type: :link, target: target).render
+    create_anchor parent, text, type: :link, target: target
   end
 end

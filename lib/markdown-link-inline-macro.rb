@@ -10,7 +10,7 @@ Asciidoctor::Extensions.register do
     match %r/\[(?<content>[^\]]*)\]\((?<target>[^\)]+)\)/
     parse_content_as :text
     process do |parent, target, attrs|
-      (create_anchor parent, attrs['text'], type: :link, target: target)
+      create_anchor parent, attrs['text'], type: :link, target: target
     end
   end
 end

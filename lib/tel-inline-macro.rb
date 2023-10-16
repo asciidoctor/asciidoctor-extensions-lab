@@ -17,7 +17,7 @@ Extensions.register do
         text = target
       end
       target = %(tel:#{target})
-      (create_anchor parent, text, type: :link, target: target).render
+      create_anchor parent, text, type: :link, target: target
     end
   end
 end

@@ -11,10 +11,12 @@ Asciidoctor::Extensions.register do
     match /((?:java|javax)\.\w[\.\w]+\.[A-Z]\w+)/
     process do |parent, target|
       doc_uri_pattern = 'https://javaee-spec.java.net/nonav/javadocs/%s.html'
-      doc_uri = doc_uri_pattern % target.gsub(/\./, '/')
+      doc_uri = doc_uri_pattern % (target.gsub %r/\./, '/')
       link_name = target
-      link_name = $1 if target =~ /([A-Z]\w*$)/
-      (create_anchor parent, link_name, type: :link, target: doc_uri, attributes: {'title' => target}).render
+      if /([A-Z]\w*$)/ =~ target
+        link_name = $1
+      end
+      create_anchor parent, link_name, type: :link, target: doc_uri, attributes: { 'title' => target }
     end
   end
 end

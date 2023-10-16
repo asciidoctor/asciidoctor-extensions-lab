@@ -103,6 +103,6 @@ class GitMetadataInlineMacro < Extensions::InlineMacroProcessor
 
   def process parent, target, attributes
     doc = parent.document
-    get_git_info attributes['info_type'], target, attributes['data']
+    create_inline parent, :quoted, (get_git_info attributes['info_type'], target, attributes['data'])
   end
 end

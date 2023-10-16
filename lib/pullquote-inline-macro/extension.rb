@@ -17,12 +17,13 @@ class PullquoteInlineMacro < Extensions::InlineMacroProcessor
     align = (target == '<' || target == '&lt;') ? 'left' : 'right'
     if attributes.key? 'precede'
       text = attributes['pull']
-      %(<span class="pullquote-#{align}" data-pullquote="#{text}"></span>
+      content = %(<span class="pullquote-#{align}" data-pullquote="#{text}"></span>
 #{attributes['precede']}
 #{text})
     else
       text = attributes.values * ', ' # iky!
-      %(<span class="pullquote-#{align}" data-pullquote="#{text}"></span>)
+      content = %(<span class="pullquote-#{align}" data-pullquote="#{text}"></span>)
     end
+    create_inline parent, :quoted, content
   end
 end

@@ -18,10 +18,8 @@ class ManInlineMacro < Extensions::InlineMacroProcessor
     text = manname = target
     suffix = ''
     target = %(#{manname}.html)
-    suffix = if (volnum = attrs['volnum'])
-      %((#{volnum}))
-    else
-      nil
+    if (volnum = attrs['volnum'])
+      suffix = %((#{volnum}))
     end
     if parent.document.basebackend? 'html'
       parent.document.register :links, target
@@ -31,6 +29,6 @@ class ManInlineMacro < Extensions::InlineMacroProcessor
     else
       node = create_inline parent, :quoted, manname
     end
-    create_inline parent, :quoted, %(#{node.convert}#{suffix})
+    suffix ? (create_inline parent, :quoted, %(#{node.convert}#{suffix})) : node
   end
 end

@@ -12,42 +12,38 @@ include Asciidoctor
 #
 Extensions.register do
   inline_macro :pick do
-    #named :pick
-    # FIXME `using_format :short` not working in <= 1.5.2 because of an ordering issue
     using_format :short
     # FIXME allow parse_content_as :attributes
     # parse_content_as :attributes
     process do |parent, target, attrs|
       doc = parent.document
       attrs = (AttributeList.new target).parse if attrs.empty?
-      valid_key = attrs.keys.find {|key|
+      valid_key = attrs.keys.find do |key|
         next false unless String === key
         if key.include? '.'
           key.split('.').find {|key_alt| doc.attr? key_alt }
         else
           doc.attr? key
         end
-      }
-      valid_key ? attrs[valid_key] : ''
+      end
+      valid_key ? (create_inline parent, :quoted, attrs[valid_key]) : nil
     end
   end
 
   inline_macro :pick2 do
-    # FIXME can't set named inside block (regexp doesn't get setup right)
-    #named :ifdef
     # FIXME allow parse_content_as :attributes
     # parse_content_as :attributes
     process do |parent, target, attributes|
       doc = parent.document
-      valid_key = target.split('@').find_index {|key|
+      valid_key = target.split('@').find_index do |key|
         # TODO implement + to require all keys in list to be set
         if key.include? ','
           key.split(',').find {|key_alt| doc.attr? key_alt }
         else
           doc.attr? key
         end
-      }
-      valid_key ? attributes[valid_key + 1] : ''
+      end
+      valid_key ? (create_inline parent, :quoted, attributes[valid_key + 1]) : nil
     end
   end
 end
