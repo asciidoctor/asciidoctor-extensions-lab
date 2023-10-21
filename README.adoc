@@ -344,7 +344,17 @@ You should also add your extension to the <<extension-catalog>> section along wi
 
 == Other extensions
 
-See http://asciidoctor.org/docs/extensions/[this list] of extensions for Asciidoctor.
+See http://asciidoctor.org/docs/extensions/[this list] of official and third-party extensions for Asciidoctor.
+
+You may also be interested in these extensions which were submitted, but never merged:
+
+* https://github.com/asciidoctor/asciidoctor-extensions-lab/pull/66[gallery block]
+* https://github.com/asciidoctor/asciidoctor-extensions-lab/pull/90[create section numbers tree processor]
+* https://github.com/asciidoctor/asciidoctor-extensions-lab/pull/67[icons for toc]
+* https://github.com/asciidoctor/asciidoctor-extensions-lab/pull/80[image sizing tree processor]
+* https://github.com/asciidoctor/asciidoctor-extensions-lab/pull/85[line number tree processor]
+* https://github.com/asciidoctor/asciidoctor-extensions-lab/pull/100[indir include processor]
+* https://github.com/asciidoctor/asciidoctor-extensions-lab/pull/113[figure numbering by chapter tree processor]
 
 ////
 == Transpiling extensions for Asciidoctor.js
