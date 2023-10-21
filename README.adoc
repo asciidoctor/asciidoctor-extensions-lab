@@ -356,12 +356,6 @@ You may also be interested in these extensions which were submitted, but never m
 * https://github.com/asciidoctor/asciidoctor-extensions-lab/pull/100[indir include processor]
 * https://github.com/asciidoctor/asciidoctor-extensions-lab/pull/113[figure numbering by chapter tree processor]
 
-////
-== Transpiling extensions for Asciidoctor.js
-
-https://github.com/asciidoctor/asciidoctor-extensions-lab/issues/44[TODO].
-////
-
 == Copyright
 
 Copyright (C) 2014-present The Asciidoctor Project.
