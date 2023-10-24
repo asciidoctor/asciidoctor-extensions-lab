@@ -2,6 +2,14 @@
 :idprefix:
 :idseparator: -
 :toc: preamble
+ifndef::env-github[:icons: font]
+ifdef::env-github[]
+:toclevels: 1
+:!toc-title:
+:note-caption: :paperclip:
+:tip-caption: :bulb:
+:warning-caption: :warning:
+endif::[]
 
 This repository is a lab for experimenting with Ruby-based Asciidoctor extensions using the Extensions API.
 *Please do not use this code in production.*
