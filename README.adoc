@@ -304,9 +304,7 @@ Include the extension type in the name of the file so others are clear what type
 ----
 require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 
-include Asciidoctor
-
-Extensions.register do
+Asciidoctor::Extensions.register do
   block do
     named :sample
     on_context :open
@@ -318,8 +316,6 @@ Extensions.register do
 end
 ----
 
-TIP: The `include Asciidoctor` line allows you to use classes from Asciidoctor without the `Asciidoctor::` prefix.
-
 === Formal
 
 If you're creating a more complex extension or want to enable reuse, you're encouraged to move the extension code to the [path]_extension.rb_ inside a directory with the same base name as the registration file.
@@ -330,7 +326,7 @@ In the case of a block, block macro or inline macro, this enables you to registe
 ----
 RUBY_ENGINE == 'opal' ? (require 'sample-block/extension') : (require_relative 'sample-block/extension')
 
-Extensions.register do
+Asciidoctor::Extensions.register do
   block SampleBlock
 end
 ----
@@ -338,7 +334,7 @@ end
 ._lib/sample-block/extension.rb_
 [,ruby]
 ----
-class SampleBlock < Extensions::BlockProcessor
+class SampleBlock < Asciidoctor::Extensions::BlockProcessor
   use_dsl
   named :sample
   on_context :open
