@@ -89,6 +89,9 @@ _Replaced by https://github.com/asciidoctor/asciidoctor-chart/[Asciidoctor Chart
 ChromeInlineMacro, link:lib/chrome-inline-macro.rb[]::
 Adds an inline macro for linking to a `chrome://` URI.
 
+CopyToClipboardDocinfoProcessor, link:lib/copy-to-clipboard-docinfo-processor.rb[]::
+Adds a source toolbox with a copy to clipboard button to all source blocks.
+
 CopyrightFooterPostprocessor, link:lib/copyright-footer-postprocessor.rb[]::
 Adds a copyright to the document footer based on the value of the `copyright` attribute.
 

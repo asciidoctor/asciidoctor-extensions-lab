@@ -1,0 +1,16 @@
+= Sample
+:source-highlighter: highlight.js
+
+[,ruby]
+----
+Asciidoctor::Extensions.register do
+  block do
+    named :sample
+    on_context :open
+
+    process do |parent, reader, attrs|
+      create_paragraph parent, reader.lines, attrs
+    end
+  end
+end
+----
