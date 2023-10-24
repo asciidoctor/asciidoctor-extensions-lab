@@ -302,8 +302,6 @@ Include the extension type in the name of the file so others are clear what type
 ._lib/sample-block.rb_
 [,ruby]
 ----
-require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
-
 Asciidoctor::Extensions.register do
   block do
     named :sample
