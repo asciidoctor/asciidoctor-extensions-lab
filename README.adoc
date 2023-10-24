@@ -95,6 +95,9 @@ Adds a copyright to the document footer based on the value of the `copyright` at
 CustomAdmonitionBlock, link:lib/custom-admonition-block.rb[]::
 Introduces a new admonition block type, complete with a custom icon.
 
+DocstatInlineMacro, link:lib/docstat-inline-macro.rb[]::
+A macro that displays the word count and estimated reading time of the current document.
+
 DumpAttributesBlockMacro, link:lib/dump-attributes-block-macro.rb[]::
 Dumps the document attributes as attribute entries in a source block.
 
