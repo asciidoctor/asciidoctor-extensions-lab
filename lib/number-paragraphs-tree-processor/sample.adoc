@@ -1,0 +1,16 @@
+= Document Title
+
+== Section A
+
+first paragraph
+
+second paragraph
+
+== Section B
+
+first paragraph
+
+=== Subsection
+
+.title
+last paragraph
