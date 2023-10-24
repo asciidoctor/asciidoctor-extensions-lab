@@ -148,9 +148,6 @@ pass:m[<del>MathematicalTreeprocessor, link:lib/mathematical-treeprocessor.rb[\]
 Converts all latexmath blocks to SVG using the Mathematical library.
 _Replaced by https://github.com/asciidoctor/asciidoctor-mathematical/[Asciidoctor Mathematical]._
 
-MathoidTreeprocessor, link:lib/mathoid-treeprocessor.rb[]::
-Converts all stem blocks to SVG using MathJax via the Mathoid library.
-
 MarkdownLinkInlineMacro, link:lib/markdown-link-inline-macro.rb[]::
 Parses a Markdown-style link.
 
