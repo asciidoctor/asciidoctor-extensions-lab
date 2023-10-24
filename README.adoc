@@ -348,7 +348,7 @@ You should also add your extension to the <<extension-catalog>> section along wi
 
 == Other extensions
 
-See http://asciidoctor.org/docs/extensions/[this list] of official and third-party extensions for Asciidoctor.
+See http://asciidoctor.org/docs/extensions/[this list] of official and community extensions for Asciidoctor.
 
 You may also be interested in these extensions which were submitted, but never merged:
 
