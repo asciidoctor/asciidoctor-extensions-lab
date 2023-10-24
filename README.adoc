@@ -44,7 +44,7 @@ The type of extension (e.g, `-block-macro`) is always used in the name of the ex
 You can also look for examples using `git grep`.
 For example, to look for a `BlockMacroProcessor`, run the following command:
 
-  $ git grep BlockMacroProcessor lib/
+ $ git grep BlockMacroProcessor lib/
 
 You'll get a result like this:
 
@@ -252,15 +252,15 @@ First, make sure Asciidoctor is installed:
 
 Next, run the extension from the root directory of the project:
 
-  $ asciidoctor -r lib/emoji-inline-macro.rb lib/emoji-inline-macro/sample.adoc
-  # asciidoctor: FAILED: 'lib/emoji-inline-macro.rb' could not be loaded
-  # Use --trace for backtrace
+ $ asciidoctor -r lib/emoji-inline-macro.rb lib/emoji-inline-macro/sample.adoc
+ # asciidoctor: FAILED: 'lib/emoji-inline-macro.rb' could not be loaded
+ # Use --trace for backtrace
 
 Oops!
 We forgot to include the leading `./` when using the `-r` flag
 Let's try again:
 
-  $ asciidoctor -r ./lib/emoji-inline-macro.rb lib/emoji-inline-macro/sample.adoc
+ $ asciidoctor -r ./lib/emoji-inline-macro.rb lib/emoji-inline-macro/sample.adoc
 
 All right, it ran!
 The output file, [path]_sample.html_, was created in the same directory as the source file, [path]_sample.adoc_.
@@ -268,21 +268,23 @@ The output file, [path]_sample.html_, was created in the same directory as the s
 The relevant bits of the input and output are shown below.
 
 ._lib/emoji-inline-macro/sample.adoc_
-```asciidoc
+[,asciidoc]
+----
 Faster than a emoji:turtle[1x]!
 
 This is an example of how you can emoji:heart[lg] Asciidoctor and Twitter Emoji.
-```
+----
 
 ._lib/emoji-inline-macro/sample.html_
-```html
+[,html]
+----
 <div class="paragraph">
 <p>Faster than a <i class="twa twa-1x twa-turtle"></i>!</p>
 </div>
 <div class="paragraph">
 <p>This is an example of how you can <i class="twa twa-lg twa-heart"></i> Asciidoctor and Twitter Emoji.</p>
 </div>
-```
+----
 
 WARNING: Certain extensions require additional libraries.
 Please consult the extension's registration file for details about what is required to use it.
@@ -298,7 +300,8 @@ Create a new file in the [path]_lib_ directory.
 Include the extension type in the name of the file so others are clear what type of extension it is.
 
 ._lib/sample-block.rb_
-```ruby
+[,ruby]
+----
 require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 
 include Asciidoctor
@@ -313,7 +316,7 @@ Extensions.register do
     end
   end
 end
-```
+----
 
 TIP: The `include Asciidoctor` line allows you to use classes from Asciidoctor without the `Asciidoctor::` prefix.
 
@@ -323,16 +326,18 @@ If you're creating a more complex extension or want to enable reuse, you're enco
 In the case of a block, block macro or inline macro, this enables you to register the extension multiple times.
 
 ._lib/sample-block.rb_
-```ruby
+[,ruby]
+----
 RUBY_ENGINE == 'opal' ? (require 'sample-block/extension') : (require_relative 'sample-block/extension')
 
 Extensions.register do
   block SampleBlock
 end
-```
+----
 
 ._lib/sample-block/extension.rb_
-```ruby
+[,ruby]
+----
 class SampleBlock < Extensions::BlockProcessor
   use_dsl
   named :sample
@@ -342,7 +347,7 @@ class SampleBlock < Extensions::BlockProcessor
     create_paragraph parent, reader.lines, attrs
   end
 end
-```
+----
 
 It's customary to provide a sample AsciiDoc file named [path]_sample.adoc_ inside the extension subdirectory that others can use to try the extension.
 You should also add your extension to the <<extension-catalog>> section along with a short description of what it does.
