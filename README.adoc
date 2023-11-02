@@ -174,6 +174,9 @@ MultirowTableHeaderTreeProcessor, link:lib/multirow-table-header-tree-processor.
 Promotes additional rows from the table body to the table head(er).
 Number of header rows is controlled by the `hrows` attribute on the table block.
 
+NestedOpenBlock, link:lib/nested-open-block.rb[]::
+Allows open blocks to be nested by repurposing the example container as an open block.
+
 NumberParagraphsTreeProcessor, link:lib/number-paragraphs-tree-processor.rb[]::
 Naively numbers paragraphs based on position.
 

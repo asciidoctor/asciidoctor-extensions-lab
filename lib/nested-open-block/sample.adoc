@@ -1,0 +1,14 @@
+[open]
+====
+outer
+
+[open]
+======
+inner
+======
+
+[open]
+======
+another inner
+======
+====
