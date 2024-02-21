@@ -75,6 +75,7 @@ NOTE: The registration file (e.g., emoji-inline-macro.rb) goes in the [path]_lib
 == Extension catalog
 
 The following extensions are available in the lab.
+When the registration of the extension is in a separate file from the extension code, you require the registration file.
 
 AutoXrefTreeprocessor (link:lib/autoxref-treeprocessor.rb[registration & extension code])::
 Refers images, tables, listings, sections by their numbers.
