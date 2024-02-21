@@ -76,176 +76,176 @@ NOTE: The registration file (e.g., emoji-inline-macro.rb) goes in the [path]_lib
 
 The following extensions are available in the lab.
 
-AutoXrefTreeprocessor, link:lib/autoxref-treeprocessor.rb[]::
+AutoXrefTreeprocessor (link:lib/autoxref-treeprocessor.rb[registration & extension code])::
 Refers images, tables, listings, sections by their numbers.
 
-BackToTopDocinfoProcessor, link:lib/back-to-top-docinfo-processor.rb[]::
+BackToTopDocinfoProcessor (link:lib/back-to-top-docinfo-processor.rb[registration & extension code])::
 Adds a floating back to top button to the bottom right corner of the page.
 
 pass:m[<del>ChartBlockMacro</del>]::
 Adds a chart block and block macro to AsciiDoc powered by c3js, chartist or chartjs.
 _Replaced by https://github.com/asciidoctor/asciidoctor-chart/[Asciidoctor Chart]._
 
-ChromeInlineMacro, link:lib/chrome-inline-macro.rb[]::
+ChromeInlineMacro (link:lib/chrome-inline-macro.rb[registration], link:lib/chrome-inline-macro/extension.rb[extension code])::
 Adds an inline macro for linking to a `chrome://` URI.
 
-CopyToClipboardDocinfoProcessor, link:lib/copy-to-clipboard-docinfo-processor.rb[]::
+CopyToClipboardDocinfoProcessor (link:lib/copy-to-clipboard-docinfo-processor.rb[registration], link:lib/copy-to-clipboard-docinfo-processor/extension.rb[extension code])::
 Adds a source toolbox with a copy to clipboard button to all source blocks.
 
-CopyrightFooterPostprocessor, link:lib/copyright-footer-postprocessor.rb[]::
+CopyrightFooterPostprocessor (link:lib/copyright-footer-postprocessor.rb[registration], link:lib/copyright-footer-postprocessor/extension.rb[extension code])::
 Adds a copyright to the document footer based on the value of the `copyright` attribute.
 
-CustomAdmonitionBlock, link:lib/custom-admonition-block.rb[]::
+CustomAdmonitionBlock (link:lib/custom-admonition-block.rb[registration], link:lib/custom-admonition-block/extension.rb[extension code])::
 Introduces a new admonition block type, complete with a custom icon.
 
-DocstatInlineMacro, link:lib/docstat-inline-macro.rb[]::
+DocstatInlineMacro (link:lib/docstat-inline-macro.rb[registration], link:lib/docstat-inline-macro/extension.rb[extension code])::
 A macro that displays the word count and estimated reading time of the current document.
 
-DumpAttributesBlockMacro, link:lib/dump-attributes-block-macro.rb[]::
+DumpAttributesBlockMacro (link:lib/dump-attributes-block-macro.rb[registration & extension code])::
 Dumps the document attributes as attribute entries in a source block.
 
-EmojiInlineMacro, link:lib/emoji-inline-macro.rb[]::
+EmojiInlineMacro (link:lib/emoji-inline-macro.rb[registration], link:lib/emoji-inline-macro/extension.rb[extension code])::
 Adds an emoji inline macro for inserting emoji by name.
 
-EnableSourcemapPreprocessor, link:lib/enable-sourcemap-preprocessor.rb[]::
+EnableSourcemapPreprocessor (link:lib/enable-sourcemap-preprocessor.rb[registration & extension code])::
 Specifies sourcemap attribute for document.
 
-ExternalHeaderAttributesPreprocessor, link:lib/external-header-attributes-preprocessor.rb[]::
+ExternalHeaderAttributesPreprocessor (link:lib/external-header-attributes-preprocessor.rb[registration], link:lib/external-header-attributes-preprocessor/extension.rb[extension code])::
 Reads additional AsciiDoc attributes from a YAML-based configuration file and adds them to the document header.
 
-FoldLinesTreeProcessor, link:lib/fold-lines-tree-processor.rb[]::
+FoldLinesTreeProcessor (link:lib/fold-lines-tree-processor.rb[registration & extension code])::
 Replaces newlines (i.e., line feeds) in paragraphs with a single space.
 
-FootnotesBlockMacro, link:lib/footnotes-block-macro.rb[]::
+FootnotesBlockMacro (link:lib/footnotes-block-macro.rb[registration], link:lib/footnotes-block-macro/extension.rb[extension code])::
 Consumes the footnotes from the document catalog and puts them into a dedicated section.
 
-FrontMatterPreprocessor, link:lib/front-matter-preprocessor.rb[]::
+FrontMatterPreprocessor (link:lib/front-matter-preprocessor.rb[registration], link:lib/front-matter-preprocessor/extension.rb[extension code])::
 Emulates the built-in behavior of Asciidoctor to sweep away YAML front matter into the `front-matter` attribute.
 
-GitMetadataInlineMacro, link:lib/git-metadata-inline-macro.rb[]::
+GitMetadataInlineMacro (link:lib/git-metadata-inline-macro.rb[registration], link:lib/git-metadata-inline-macro/extension.rb[extension code])::
 Provide information on references using a macro (e.g. commits, branches and tags).
 
-GitMetadataPreprocessor, link:lib/git-metadata-preprocessor.rb[]::
+GitMetadataPreprocessor (link:lib/git-metadata-preprocessor.rb[registration], link:lib/git-metadata-preprocessor/extension.rb[extension code])::
 Provide information on the local git repository, e.g. the branch or tag name or the commit id.
 
-GistBlockMacro, link:lib/gist-block-macro.rb[]::
+GistBlockMacro (link:lib/gist-block-macro.rb[registration], link:lib/gist-block-macro/extension.rb[extension code])::
 Adds a block macro to embed a gist into an AsciiDoc document.
 
-GlobIncludeProcessor, link:lib/glob-include-processor.rb[]::
+GlobIncludeProcessor (link:lib/glob-include-processor.rb[registration], link:lib/glob-include-processor/extension.rb[extension code])::
 Enhances the include directive to support a glob expression to include all matching files.
 
-GoogleAnalyticsDocinfoProcessor, link:lib/google-analytics-docinfoprocessor.rb[]::
+GoogleAnalyticsDocinfoProcessor (link:lib/google-analytics-docinfoprocessor.rb[registration & extension code])::
 Adds the Google Analytics code for the account identified by the `google-analytics-account` attribute to the bottom of the HTML document.
 
-HardbreaksPreprocessor, link:lib/hardbreaks-preprocessor.rb[]::
+HardbreaksPreprocessor (link:lib/hardbreaks-preprocessor.rb[registration & extension code])::
 Adds hardbreaks to the end of all non-empty lines that aren't section titles.
 
-HighlightTreeprocessor, link:lib/highlight-treeprocessor.rb[]::
+HighlightTreeprocessor (link:lib/highlight-treeprocessor.rb[registration & extension code])::
 Highlights source blocks using the highlight command.
 
-ImplicitApidocInlineMacro, link:lib/implicit-apidoc-inline-macro.rb[]::
+ImplicitApidocInlineMacro (link:lib/implicit-apidoc-inline-macro.rb[registration & extension code])::
 Adds an inline macro for linking to the Javadoc of a class in the Java EE API.
 
-ImplicitHeaderIncludeProcessor, link:lib/implicit-header-include-processor.rb[]::
+ImplicitHeaderIncludeProcessor (link:lib/implicit-header-include-processor.rb[registration], link:lib/implicit-header-include-processor/extension.rb[extension code])::
 Skips the implicit author line below the document title in included documents.
 
-LicenseUrlDocinfoProcessor, link:lib/license-url-docinfoprocessor.rb[]::
+LicenseUrlDocinfoProcessor (link:lib/license-url-docinfoprocessor.rb[registration & extension code])::
 Adds a link to the license specified by the `license` attribute to the document header.
 
-LoremBlockMacro, link:lib/lorem-block-macro.rb[]::
+LoremBlockMacro (link:lib/lorem-block-macro.rb[registration & extension code])::
 Generates lorem ipsum text using the Middleman lorem extension. (Requires middleman >= 4.0.0).
 
-ManInlineMacro, link:lib/man-inline-macro.rb[]::
+ManInlineMacro (link:lib/man-inline-macro.rb[registration], link:lib/man-inline-macro/extension.rb[extension code])::
 Adds an inline macro for linking to another man page (used in the Git documentation).
 
-pass:m[<del>MathematicalTreeprocessor, link:lib/mathematical-treeprocessor.rb[\]</del>]::
+pass:m[<del>MathematicalTreeprocessor</del>]::
 Converts all latexmath blocks to SVG using the Mathematical library.
 _Replaced by https://github.com/asciidoctor/asciidoctor-mathematical/[Asciidoctor Mathematical]._
 
-MarkdownLinkInlineMacro, link:lib/markdown-link-inline-macro.rb[]::
+MarkdownLinkInlineMacro (link:lib/markdown-link-inline-macro.rb[registration & extension code])::
 Parses a Markdown-style link.
 
-MentionsInlineMacro, link:lib/mentions-inline-macro.rb[]::
+MentionsInlineMacro (link:lib/mentions-inline-macro.rb[registration & extension code])::
 Detects Twitter-style username mentions and converts them to links.
 
-MultipageHtml5Converter, link:lib/multipage-html5-converter.rb[]::
+MultipageHtml5Converter (link:lib/multipage-html5-converter.rb[registration & extension code])::
 A converter that chunks the HTML5 output into multiple pages.
 This extension is merely a proof of concept.
 You can find a complete implementation of a multipage HTML converter at https://github.com/owenh000/asciidoctor-multipage.
 
-MultirowTableHeaderTreeProcessor, link:lib/multirow-table-header-tree-processor.rb[]::
+MultirowTableHeaderTreeProcessor (link:lib/multirow-table-header-tree-processor.rb[registration & extension code])::
 Promotes additional rows from the table body to the table head(er).
 Number of header rows is controlled by the `hrows` attribute on the table block.
 
-NestedOpenBlock, link:lib/nested-open-block.rb[]::
+NestedOpenBlock (link:lib/nested-open-block.rb[registration & extension code])::
 Allows open blocks to be nested by repurposing the example container as an open block.
 
-NumberParagraphsTreeProcessor, link:lib/number-paragraphs-tree-processor.rb[]::
+NumberParagraphsTreeProcessor (link:lib/number-paragraphs-tree-processor.rb[registration], link:lib/number-paragraphs-tree-processor/extension.rb[extension code])::
 Naively numbers paragraphs based on position.
 
-PassBlockMacro, link:lib/pass-block-macro.rb[]::
+PassBlockMacro (link:lib/pass-block-macro.rb[registration], link:lib/pass-block-macro/extension.rb[extension code])::
 Adds a pass block macro to AsciiDoc.
 
-PickInlineMacro, link:lib/pick-inline-macro.rb[]::
+PickInlineMacro (link:lib/pick-inline-macro.rb[registration & extension code])::
 Adds an inline macro for selecting between two values based on the value of another attribute.
 
-PullquoteInlineMacro, link:lib/pullquote-inline-macro.rb[]::
+PullquoteInlineMacro (link:lib/pullquote-inline-macro.rb[registration], link:lib/pullquote-inline-macro/extension.rb[extension code])::
 Adds an inline macro to pull a quote out of the flow and display it in a sidebar.
 
-RubyAttributesPreprocessor, link:lib/ruby-attributes-preprocessor.rb[]::
+RubyAttributesPreprocessor (link:lib/ruby-attributes-preprocessor.rb[registration], link:lib/ruby-attributes-preprocessor/extension.rb[extension code])::
 Makes information about the Ruby runtime available to the document by defining document attributes for all constants that begin with RUBY_ (e.g, ruby-version).
 
-SectnumoffsetTreeprocessor, link:lib/sectnumoffset-treeprocessor.rb[]::
+SectnumoffsetTreeprocessor (link:lib/sectnumoffset-treeprocessor.rb[registration & extension code])::
 Increments all level-1 section numbers (and subsequently all subsections) by the value of the `sectnumoffset` attribute.
 
-ShellSessionTreeProcessor, link:lib/shell-session-treeprocessor.rb[]::
+ShellSessionTreeProcessor (link:lib/shell-session-treeprocessor.rb[registration], link:lib/shell-session-treeprocessor/extension.rb[extension code])::
 Detects a shell command and trailing output and styles it for display in HTML.
 
-ShoutBlock, link:lib/shout-block.rb[]::
+ShoutBlock (link:lib/shout-block.rb[registration], link:lib/shout-block/extension.rb[extension code])::
 Converts all text inside a delimited block named `shout` to uppercase and adds trailing exclamation marks.
 
-ShowCommentsPreprocessor, link:lib/showcomments-preprocessor.rb[]::
+ShowCommentsPreprocessor (link:lib/showcomments-preprocessor.rb[registration & extension code])::
 Converts line comments to visual elements (normally dropped).
 
-SlimBlock, link:lib/slim-block.rb[]::
+SlimBlock (link:lib/slim-block.rb[registration], link:lib/slim-block/extension.rb[extension code])::
 Passes the content in blocks named `slim` to the Slim template engine for processing.
 
-StepsPostprocessor, link:lib/steps-postprocessor.rb[]::
+StepsPostprocessor (link:lib/steps-postprocessor.rb[registration], link:lib/steps-postprocessor/extension.rb[extension code])::
 Styles an ordered list as a procedure list.
 
-TelInlineMacro, link:lib/tel-inline-macro.rb[]::
+TelInlineMacro (link:lib/tel-inline-macro.rb[registration & extension code])::
 Adds an inline macro for linking to a `tel:` URI.
 
-TermInlineMacro, link:lib/term-inline-macro.rb[]::
+TermInlineMacro (link:lib/term-inline-macro.rb[registration & extension code])::
 Demonstrates how to convert an inline macro into a span of text with a role.
 
-TexPreprocessor, link:lib/tex-preprocessor.rb[]::
+TexPreprocessor (link:lib/tex-preprocessor.rb[registration], link:lib/tex-preprocessor/extension.rb[extension code])::
 Interprets tex markup embedded inside of AsciiDoc.
 
-TextqlBlock, link:lib/textql-block.rb[]::
+TextqlBlock (link:lib/textql-block.rb[registration & extension code])::
 Adds a block for using textql to process data in an AsciiDoc document.
 
-TreeBlockMacro, link:lib/tree-block-macro.rb[]::
+TreeBlockMacro (link:lib/tree-block-macro.rb[registration], link:lib/tree-block-macro/extension.rb[extension code])::
 Adds a block macro to show the output of the `tree` command.
 
-UndoReplacementsPostprocessor, link:lib/undo-replacements-postprocessor.rb[]::
+UndoReplacementsPostprocessor (link:lib/undo-replacements-postprocessor.rb[registration & extension code])::
 Reverses the text replacements that are performed by Asciidoctor.
 
-UriIncludeProcessor, link:lib/uri-include-processor.rb[]::
+UriIncludeProcessor (link:lib/uri-include-processor.rb[registration], link:lib/uri-include-processor/extension.rb[extension code])::
 Emulates the built-in behavior of Asciidoctor to include content from a URI.
 
-ViewResultDocinfoProcessor, link:lib/view-result-docinfoprocessor.rb[]::
+ViewResultDocinfoProcessor (link:lib/view-result-docinfoprocessor.rb[registration], link:lib/view-result-docinfoprocessor/extension.rb[extension code])::
 Adds an interactive toggle to block content marked as a view result.
 
-WhitespaceIncludeProcessor, link:lib/whitespace-include-processor.rb[]::
+WhitespaceIncludeProcessor (link:lib/whitespace-include-processor.rb[registration & extension code])::
 An include processor that substitutes tabs with spaces (naively) in included source code.
 
-XmlEntityPostprocessor, link:lib/xml-entity-postprocessor.rb[]::
+XmlEntityPostprocessor (link:lib/xml-entity-postprocessor.rb[registration], link:lib/xml-entity-postprocessor/extension.rb[extension code])::
 Converts named entities to character entities so they can be resolved without the use of external entity declarations.
 
+////
 //^
 
-////
 See also:
 
 JIRAInlineMacro, https://github.com/jbosstools/jbosstools-website/blob/master/_ext/asciidoctor_extensions.rb::
