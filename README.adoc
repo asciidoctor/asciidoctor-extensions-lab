@@ -82,7 +82,7 @@ Refers images, tables, listings, sections by their numbers.
 BackToTopDocinfoProcessor, link:lib/back-to-top-docinfo-processor.rb[]::
 Adds a floating back to top button to the bottom right corner of the page.
 
-pass:m[<del>ChartBlockMacro, link:lib/chart-block-macro.rb[\]</del>]::
+pass:m[<del>ChartBlockMacro</del>]::
 Adds a chart block and block macro to AsciiDoc powered by c3js, chartist or chartjs.
 _Replaced by https://github.com/asciidoctor/asciidoctor-chart/[Asciidoctor Chart]._
 
