@@ -1,0 +1,6 @@
+extends: default
+admonition:
+  icon:
+    question:
+      name: fas-question
+      stroke-color: #00aa00
