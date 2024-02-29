@@ -12,7 +12,8 @@ class ActionAdmonitionTreeProcessor < Asciidoctor::Extensions::TreeProcessor
         lines[0] = line_1.slice 7, line_1.length
         para.context = :admonition
         para.set_attr 'name', 'action'
-        para.set_attr 'caption', 'Action'
+        para.set_attr 'textlabel', 'Action'
+        para.caption = para.attr 'textlabel' unless para.caption
       end
     end
     if found && (doc.basebackend? 'html') && doc.backend != 'pdf'

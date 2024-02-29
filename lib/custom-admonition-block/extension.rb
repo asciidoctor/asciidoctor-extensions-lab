@@ -23,9 +23,10 @@ class CustomAdmonitionBlock < Extensions::BlockProcessor
   on_contexts :example, :paragraph
 
   def process parent, reader, attrs
-    attrs['name'] = 'question'
-    attrs['caption'] = 'Question'
-    create_block parent, :admonition, reader.lines, attrs, content_model: :compound
+    attrs.update 'name' => 'question', 'textlabel' => 'Question'
+    node = create_block parent, :admonition, reader.lines, attrs, content_model: :compound
+    node.caption = attrs['textlabel'] unless node.caption
+    node
   end
 end
 
